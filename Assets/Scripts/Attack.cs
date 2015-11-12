@@ -12,7 +12,7 @@ public class Attack : MonoBehaviour {
 
 	private PlayerInfo pi;
 	private PlayerInfo otherPlayer;
-	private Vector3 attackVec;
+	private Vector3 attackVec, counterVec;
 	private float lastAttackTime;
 
 
@@ -50,12 +50,11 @@ public class Attack : MonoBehaviour {
 			}
 		}
 
-		if (Input.GetKey("joystick "+pi.playerNumber+" button 1"))
-		{
-			CounterAttack();
+		if (Input.GetKey("joystick " + pi.playerNumber + " button 1")) {
+			CounterAttack ();
 
 		}
-		//isShielded = false;
+			pi.isBlocking = false;
 			
 	}
 
@@ -109,7 +108,10 @@ public class Attack : MonoBehaviour {
 	void CounterAttack()
 	{
 		pi.isBlocking = true;
-		ApplyForce (new attackParams(counterPower, Vector3.Normalize(attackVec)));
+		counterVec = attackRange.transform.position - rayOrigin.transform.position;
+		counterVec = rayOrigin.transform.position + new Vector3 ((-pi.GetDirection() * counterVec.x), counterVec.y, counterVec.z);
+		Debug.DrawLine (rayOrigin.transform.position, rayOrigin.transform.position + Vector3.Normalize (counterVec), Color.magenta);
+		ApplyForce (new attackParams (counterPower, Vector3.Normalize (counterVec * count)));
 
 	}
 	
