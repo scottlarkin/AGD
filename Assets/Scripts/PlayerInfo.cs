@@ -17,6 +17,7 @@ public class PlayerInfo : MonoBehaviour {
 	public float jumpHeight = 10.0f;
 	public int numberOfJumps = 2;
 	public float terminalVelocity = 20.0f;
+	public bool isBlocking = false;
 	[HideInInspector]public DIRECTION direction;
 
 	private float health;

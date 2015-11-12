@@ -7,10 +7,11 @@ public class Attack : MonoBehaviour {
 	public float range = 0.5f;
 	public float coolDown = 5.0f;
 	public Transform rayOrigin, attackRange;
-	public bool applyAttack = false;
 	public float pushPower = 5.0f;
+	public float counterPower = 7.50f;
 
 	private PlayerInfo pi;
+	private PlayerInfo otherPlayer;
 	private Vector3 attackVec;
 	private float lastAttackTime;
 
@@ -48,6 +49,13 @@ public class Attack : MonoBehaviour {
 				PushAttack();
 			}
 		}
+
+		if (Input.GetKey("joystick "+pi.playerNumber+" button 1"))
+		{
+			CounterAttack();
+
+		}
+		//isShielded = false;
 			
 	}
 
@@ -83,11 +91,25 @@ public class Attack : MonoBehaviour {
 			Debug.Log (objectHit.collider.name);
 			if(!objectHit.collider.gameObject.CompareTag(this.tag))
 			{
-
+				otherPlayer = objectHit.collider.gameObject.GetComponent<PlayerInfo>();
+				if (otherPlayer.isBlocking)
+				{
+					ApplyForce (new attackParams(counterPower, Vector3.Normalize(attackVec * -pi.GetDirection())));
+				}
+				else
+				{
 				objectHit.collider.SendMessage("ApplyForce", new attackParams(pushPower, Vector3.Normalize(attackVec)) , SendMessageOptions.DontRequireReceiver);
-			}
 			
+				}
+			}	
 		}
+
+	}
+
+	void CounterAttack()
+	{
+		pi.isBlocking = true;
+		ApplyForce (new attackParams(counterPower, Vector3.Normalize(attackVec)));
 
 	}
 	
@@ -95,7 +117,7 @@ public class Attack : MonoBehaviour {
 	{
 
 		//this.rigidbody.AddForce (new Vector3 (50, 10, 0) * amount);
-		//this.rigidbody.velocity = new Vector3 (10, liftVec, 0) * amount; 
+		//this.rigidbody.velocity = new Vector3 (10, liftVec, 0) * amount;
 		this.rigidbody.velocity = ap.direction * ap.force; 
 	}
 }
