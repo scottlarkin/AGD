@@ -18,13 +18,16 @@ public class PlayerController : MonoBehaviour {
 	private float jumpHeight;
 	private int numberOfJumps;
 	private float terminalVelocity;
+	Vector3 velocity;
 
-	Rigidbody rb;
+	CharacterController cc;
+	Animator animator;
 
 	float directionIntensity;
 	int jumpCount = 0;
 	Vector3 gravityDirection;
 	float rayLength;
+	float defaultYPos;
 
 	void Start () {
 
@@ -38,8 +41,9 @@ public class PlayerController : MonoBehaviour {
 		numberOfJumps = pi.numberOfJumps;
 		terminalVelocity = pi.terminalVelocity;
 
-		rb = GetComponent<Rigidbody>();
-		rb.velocity = new Vector3(0,0,0);
+		cc = GetComponent<CharacterController>();
+
+		velocity = new Vector3(0,0,0);
 
 		gravityDirection = Vector3.Normalize(accelerationGravity);
 		rayLength = 0.9f;
@@ -47,17 +51,24 @@ public class PlayerController : MonoBehaviour {
 		//stop acceleration rate from being more than max speed
 		accelerationRate = accelerationRate > maxSpeed ? maxSpeed : accelerationRate;
 
+		animator = GetComponent<Animator>();
+
+		float defaultYPos;
 	}
 
 	// Update is called once per frame
 	void Update () {
 
+		defaultYPos = transform.Find ("Bip001").transform.position.y;
+
 		float thumbstickDeadZone = 0.55f;
 		float dt = Time.deltaTime;
-		float absXVel = Mathf.Abs(rb.velocity.x);
+		float absXVel = Mathf.Abs(velocity.x);
 
-		if (Physics.Raycast(transform.position, gravityDirection, rayLength)) {
+
+		if (cc.isGrounded) {
 			jumpCount = 0;
+			animator.SetBool("jumping", false);
 		}
 
 		directionIntensity = Input.GetAxis ("P_" + pi.playerNumber + " LH"); //float between -1 and 1...how far the thumb stick is pushed
@@ -70,13 +81,14 @@ public class PlayerController : MonoBehaviour {
 		//set the boolean direction; true for right, false for left
 		if (directionIntensity != 0) {
 			pi.SetDirection (Mathf.Sign (directionIntensity));
+			transform.rotation = Quaternion.Euler(0, 90 * Mathf.Sign (directionIntensity), 0);
 		}
-		
+
 		//horiztal movement
 		if(absXVel < maxSpeed){
 			float acc = accelerationRate * directionIntensity * dt;
 
-			if((acc == 0 || Mathf.Sign (rb.velocity.x) !=  Mathf.Sign(acc) ) && absXVel >= 1){ //should we accelerate or deccelerate?
+			if((acc == 0 || Mathf.Sign (velocity.x) !=  Mathf.Sign(acc) ) && absXVel >= 1){ //should we accelerate or deccelerate?
 				//deccerate
 				float deccel = decelerationRate * dt;
 
@@ -84,27 +96,40 @@ public class PlayerController : MonoBehaviour {
 				deccel = deccel > absXVel ? absXVel : deccel;
 
 				//apply deceleration
-				rb.velocity += new Vector3(-Mathf.Sign(rb.velocity.x) * deccel, 0,0);
+				velocity += new Vector3(-Mathf.Sign(velocity.x) * deccel, 0,0);
 			}else{
 				//accelerate
-				rb.velocity += new Vector3(acc, 0, 0);
+				velocity += new Vector3(acc, 0, 0);
 			}
 		}
 		
 		//jumping
 		if (Input.GetKeyDown("joystick "+pi.playerNumber+" button 0") && jumpCount < numberOfJumps){//jump pressed
 			//reset y velocity before jump, otherwise -y velocity built up from gravity will negate 2nd jump, or +y vel from prev jump will make next jump huge
-			rb.velocity = new Vector3(rb.velocity.x, 0 ,rb.velocity.y);
-			rb.velocity += new Vector3(0,jumpHeight,0);
+			velocity = new Vector3(velocity.x, 0 ,velocity.z);
+			velocity += new Vector3(0,jumpHeight,0);
 			jumpCount++;
+			animator.SetBool("jumping", true);
 		}
 
-		rb.velocity += accelerationGravity * dt;
+		velocity += accelerationGravity * dt;
 
-		if(rb.velocity.y < -terminalVelocity){
-			rb.velocity = new Vector3(rb.velocity.x, -terminalVelocity, 0);
+		if(velocity.y < -terminalVelocity){
+			velocity = new Vector3(velocity.x, -terminalVelocity, 0);
 		}
-	
+
+		animator.SetFloat("speed", Mathf.Abs(velocity.x));
+
+		float posDiff = transform.Find ("Bip001").transform.position.y - defaultYPos;
+
+
+
+		cc.Move (velocity * dt);
+
+		transform.position += new Vector3 (0,posDiff,0);
+
+
+
 		//visualise direction since im just using a box
 		Debug.DrawLine (transform.position, transform.position + new Vector3(pi.GetDirection(),0,0)  * 3, Color.red);
 	}
