@@ -4,19 +4,18 @@ using System.Collections;
 public class Attack : MonoBehaviour {
 
 
-	public float range = 0.5f;
-	public float coolDown = 5.0f;
-	public Transform rayOrigin, attackRange;
-	public float pushPower = 5.0f;
-	public float counterPower = 7.50f;
+	public float coolDown = 5.0f; //This is the cooldown for the attack/push
+	public Transform rayOrigin, attackRange; //These transforms allow you to edit where the attack takes effect.
+	public float pushPower = 5.0f; //This modifies how strong the attack/push is.
+	public float counterPower = 7.50f;// This modifies how strong the counter push is.
 
 	private PlayerInfo pi, otherPlayer;
 	private CharacterController cc;
-	private Vector3 attackVec, counterVec;
+	private Vector3 attackVec, counterVec; //These vectors will hold the information based on the transform rayOrigin and attackRange.
 	private float lastAttackTime;
 
 
-	private struct attackParams
+	private struct attackParams //private struct which holds the information for the direction and how powerfully to push a player.
 	{
 		public attackParams(float f, Vector3 d){force = f; direction = d;}
 		public float force;
@@ -28,13 +27,10 @@ public class Attack : MonoBehaviour {
 	void Start () 
 	{
 
-		pi = gameObject.GetComponent<PlayerInfo>();
-		cc = gameObject.GetComponent<CharacterController>();
-
-		GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-
-
-		lastAttackTime = -coolDown;
+		pi = gameObject.GetComponent<PlayerInfo>(); //Gets this players PlayerInfo script information.
+		cc = gameObject.GetComponent<CharacterController>(); //Gets this players CharacterController information
+			
+		lastAttackTime = -coolDown; //Initially allows you attack straight from the start of the game
 
 	
 	}
@@ -43,31 +39,34 @@ public class Attack : MonoBehaviour {
 	void Update () 
 	{
 
-		Debug.Log (pi.GetDirection ());
+		//Debug.Log (pi.GetDirection ());
 
-		if (Input.GetKey("joystick "+pi.playerNumber+" button 2"))
+		if (Input.GetKey("joystick "+pi.playerNumber+" button 2")) //Checks whether 'X' has been pressed on the players controller.
 		{
-			if (CanAttack())
+			if (CanAttack()) //Checks whether the attack is on cooldown or not.
 			{
-				PushAttack();
+				PushAttack(); //if not on cooldown then attack!
 			}
 		}
 
-		if (Input.GetKey("joystick " + pi.playerNumber + " button 1")) {
-			CounterAttack ();
+		if (Input.GetKey ("joystick " + pi.playerNumber + " button 1")) // Checks whether 'B' has been pressed on the players controller.
+		{
+			pi.isBlocking = true; //Sets the boolean in the playerinfo script to true.
 
+		} else 
+		{
+			pi.isBlocking = false;//If B isn't being pressed then they are not blocking.
 		}
-			pi.isBlocking = false;
-			
+		//Debug.Log (pi.isBlocking);
 	}
 
-	bool CanAttack ()
+	bool CanAttack () //This is the function which implements the cooldown for the attack and returns whether the player should be able to attack or not.
 	{
 		float timer;
 
-		timer = Time.time;
+		timer = Time.time; //get the time.
 
-		if  (lastAttackTime + coolDown <= timer) 
+		if  (lastAttackTime + coolDown <= timer) //If the last attack time + the cooldown is less than the current time, then the cooldown has finished and you can attack.
 		{
 			return true;
 		}
@@ -75,29 +74,34 @@ public class Attack : MonoBehaviour {
 		return false;
 
 	}
-	void PushAttack()
+	void PushAttack() //The main attack
 	{
-		attackVec = attackRange.transform.position - rayOrigin.transform.position;
-		attackVec = new Vector3 ((pi.GetDirection() * attackVec.x), attackVec.y, attackVec.z);
-		lastAttackTime = Time.time;
-		//Debug.Log ("You are attacking");
+		attackVec = attackRange.transform.position - rayOrigin.transform.position; //sets the positions of the attack transform objects to a Vector we can use.
+		attackVec = new Vector3 ((pi.GetDirection() * attackVec.x), attackVec.y, attackVec.z); //modifies the vectore depending on which way you are facing.
 		Debug.DrawLine (rayOrigin.transform.position,rayOrigin.transform.position + attackVec, Color.green);
+
+		lastAttackTime = Time.time; //sets the last attack time to the current time.
+		//Debug.Log ("You are attacking");
+
 	
-		RaycastHit objectHit;
+		RaycastHit objectHit; //This will be the object the player's attack hits.
 
-
+		//creates a linecast from the position of the rayOrigin to the AttackVector, and returns information to the objectHit/
+		//I used linecast instead of raycast, as linecast allows for easy drawing of lines between 'a' and 'b' whilst raycast 
+		// is more for setting a direction and then the vector carries on continuouslly from that point.
 		if (Physics.Linecast (rayOrigin.transform.position, rayOrigin.transform.position + attackVec, out objectHit))
 		{
-			Debug.Log (objectHit.collider.name);
-			if(!objectHit.collider.gameObject.CompareTag(this.tag))
+			//Debug.Log (objectHit.collider.name);
+			if(!objectHit.collider.gameObject.CompareTag(this.tag)) //Make sure that the objectHit isn't the own player's collider.
 			{
-				otherPlayer = objectHit.collider.gameObject.GetComponent<PlayerInfo>();
-				if (otherPlayer.isBlocking)
+				otherPlayer = objectHit.collider.gameObject.GetComponent<PlayerInfo>(); //Get's the PlayerInfo script of the player who's collider was hit.
+				if (otherPlayer.isBlocking) //checks whether the other player was blocking or not.
 				{
-					ApplyForce (new attackParams(counterPower, Vector3.Normalize(attackVec * -pi.GetDirection())));
+					CounterAttack ();
 				}
 				else
 				{
+					//Sends a message to that player to use their ApplyForce function using the parameters we give it.
 				objectHit.collider.SendMessage("ApplyForce", new attackParams(pushPower, Vector3.Normalize(attackVec)) , SendMessageOptions.DontRequireReceiver);
 			
 				}
@@ -106,21 +110,21 @@ public class Attack : MonoBehaviour {
 
 	}
 
-	void CounterAttack()
+	void CounterAttack() //The counter/block move
 	{
-		pi.isBlocking = true;
-		counterVec = attackRange.transform.position - rayOrigin.transform.position;
-		counterVec = new Vector3 ((-pi.GetDirection() * counterVec.x), counterVec.y, counterVec.z);
-		Debug.DrawLine (rayOrigin.transform.position, rayOrigin.transform.position + Vector3.Normalize (counterVec), Color.magenta);
-		ApplyForce (new attackParams (counterPower, Vector3.Normalize (counterVec * counterPower)));
+		counterVec = attackRange.transform.position - rayOrigin.transform.position;// Gets the attackVec information
+		counterVec = new Vector3 ((-pi.GetDirection() * counterVec.x), counterVec.y, counterVec.z); //Modifies the vector to aim in the opposite direction to the player so you're always hit backwards.
+
+		//Debug.DrawLine (rayOrigin.transform.position, rayOrigin.transform.position + Vector3.Normalize (counterVec), Color.magenta);
+
+		ApplyForce (new attackParams (counterPower, Vector3.Normalize (counterVec))); //Has this player knocked backwards.
 
 	}
 	
-	void ApplyForce(attackParams ap)
-	{
-
-		//this.rigidbody.AddForce (new Vector3 (50, 10, 0) * amount);
-		//this.rigidbody.velocity = new Vector3 (10, liftVec, 0) * amount;
+	void ApplyForce(attackParams ap) // This is called to apply a force to this player's character controller.
+	{	
+		//moves the charactercontroller in a certain direction by a certain amount of force.
 		cc.Move((ap.direction * ap.force) * Time.deltaTime); 
+
 	}
 }
