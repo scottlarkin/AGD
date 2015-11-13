@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour {
 	private float jumpHeight;
 	private int numberOfJumps;
 	private float terminalVelocity;
+	private Transform mesh;
 	Vector3 velocity;
 
 	CharacterController cc;
@@ -51,7 +52,9 @@ public class PlayerController : MonoBehaviour {
 		//stop acceleration rate from being more than max speed
 		accelerationRate = accelerationRate > maxSpeed ? maxSpeed : accelerationRate;
 
-		animator = GetComponent<Animator>();
+		animator = transform.Find("Character_Mesh_Rigged").GetComponent<Animator>();
+
+		mesh = transform.Find ("Character_Mesh_Rigged").transform;
 
 		float defaultYPos;
 	}
@@ -59,7 +62,7 @@ public class PlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		defaultYPos = transform.Find ("Bip001").transform.position.y;
+
 
 		float thumbstickDeadZone = 0.55f;
 		float dt = Time.deltaTime;
@@ -81,7 +84,7 @@ public class PlayerController : MonoBehaviour {
 		//set the boolean direction; true for right, false for left
 		if (directionIntensity != 0) {
 			pi.SetDirection (Mathf.Sign (directionIntensity));
-			transform.rotation = Quaternion.Euler(0, 90 * Mathf.Sign (directionIntensity), 0);
+			mesh.rotation = Quaternion.Euler(0, 90 * Mathf.Sign (directionIntensity), 0);
 		}
 
 		//horiztal movement
@@ -120,15 +123,11 @@ public class PlayerController : MonoBehaviour {
 
 		animator.SetFloat("speed", Mathf.Abs(velocity.x));
 
-		float posDiff = transform.Find ("Bip001").transform.position.y - defaultYPos;
-
 
 
 		cc.Move (velocity * dt);
-
-		transform.position += new Vector3 (0,posDiff,0);
-
-
+		
+	
 
 		//visualise direction since im just using a box
 		Debug.DrawLine (transform.position, transform.position + new Vector3(pi.GetDirection(),0,0)  * 3, Color.red);

@@ -10,8 +10,8 @@ public class Attack : MonoBehaviour {
 	public float pushPower = 5.0f;
 	public float counterPower = 7.50f;
 
-	private PlayerInfo pi;
-	private PlayerInfo otherPlayer;
+	private PlayerInfo pi, otherPlayer;
+	private CharacterController cc;
 	private Vector3 attackVec, counterVec;
 	private float lastAttackTime;
 
@@ -29,8 +29,10 @@ public class Attack : MonoBehaviour {
 	{
 
 		pi = gameObject.GetComponent<PlayerInfo>();
+		cc = gameObject.GetComponent<CharacterController>();
 
 		GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+
 
 		lastAttackTime = -coolDown;
 
@@ -41,6 +43,7 @@ public class Attack : MonoBehaviour {
 	void Update () 
 	{
 
+		Debug.Log (pi.GetDirection ());
 
 		if (Input.GetKey("joystick "+pi.playerNumber+" button 2"))
 		{
@@ -79,9 +82,7 @@ public class Attack : MonoBehaviour {
 		lastAttackTime = Time.time;
 		//Debug.Log ("You are attacking");
 		Debug.DrawLine (rayOrigin.transform.position,rayOrigin.transform.position + attackVec, Color.green);
-
 	
-		int mask = LayerMask.NameToLayer("Player");
 		RaycastHit objectHit;
 
 
@@ -109,9 +110,9 @@ public class Attack : MonoBehaviour {
 	{
 		pi.isBlocking = true;
 		counterVec = attackRange.transform.position - rayOrigin.transform.position;
-		counterVec = rayOrigin.transform.position + new Vector3 ((-pi.GetDirection() * counterVec.x), counterVec.y, counterVec.z);
+		counterVec = new Vector3 ((-pi.GetDirection() * counterVec.x), counterVec.y, counterVec.z);
 		Debug.DrawLine (rayOrigin.transform.position, rayOrigin.transform.position + Vector3.Normalize (counterVec), Color.magenta);
-		ApplyForce (new attackParams (counterPower, Vector3.Normalize (counterVec * count)));
+		ApplyForce (new attackParams (counterPower, Vector3.Normalize (counterVec * counterPower)));
 
 	}
 	
@@ -120,6 +121,6 @@ public class Attack : MonoBehaviour {
 
 		//this.rigidbody.AddForce (new Vector3 (50, 10, 0) * amount);
 		//this.rigidbody.velocity = new Vector3 (10, liftVec, 0) * amount;
-		this.rigidbody.velocity = ap.direction * ap.force; 
+		cc.Move((ap.direction * ap.force) * Time.deltaTime); 
 	}
 }
