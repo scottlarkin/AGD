@@ -4,15 +4,17 @@ using System.Collections;
 public class Attack : MonoBehaviour {
 
 
-	public float coolDown = 5.0f; //This is the cooldown for the attack/push
+	public float attackCoolDown = 5.0f; //This is the cooldown for the attack/push
 	public Transform rayOrigin, attackRange; //These transforms allow you to edit where the attack takes effect.
 	public float pushPower = 5.0f; //This modifies how strong the attack/push is.
 	public float counterPower = 7.50f;// This modifies how strong the counter push is.
+	public float blockTime = 3.0f; //How long the player can hold their block for.
+	public float blockCoolDown = 5.0f; //How long after the release of block until they block again.
 
 	private PlayerInfo pi, otherPlayer;
 	private CharacterController cc;
 	private Vector3 attackVec, counterVec; //These vectors will hold the information based on the transform rayOrigin and attackRange.
-	private float lastAttackTime;
+	private float lastAttackTime, lastBlockTime;
 
 
 	private struct attackParams //private struct which holds the information for the direction and how powerfully to push a player.
@@ -30,8 +32,8 @@ public class Attack : MonoBehaviour {
 		pi = gameObject.GetComponent<PlayerInfo>(); //Gets this players PlayerInfo script information.
 		cc = gameObject.GetComponent<CharacterController>(); //Gets this players CharacterController information
 			
-		lastAttackTime = -coolDown; //Initially allows you attack straight from the start of the game
-
+		lastAttackTime = -attackCoolDown; //Initially allows you attack straight from the start of the game
+		lastBlockTime = -blockCoolDown; //Initially allows you block without waiting for the cooldown.
 	
 	}
 	
@@ -51,8 +53,12 @@ public class Attack : MonoBehaviour {
 
 		if (Input.GetKey ("joystick " + pi.playerNumber + " button 1")) // Checks whether 'B' has been pressed on the players controller.
 		{
-			pi.isBlocking = true; //Sets the boolean in the playerinfo script to true.
+			if (CanBlock ())
+			{
+				//gameObject.transform.Translate(new Vector3(-1,0,0));
+				pi.isBlocking = true; //Sets the boolean in the playerinfo script to true.
 
+			}
 		} else 
 		{
 			pi.isBlocking = false;//If B isn't being pressed then they are not blocking.
@@ -66,7 +72,7 @@ public class Attack : MonoBehaviour {
 
 		timer = Time.time; //get the time.
 
-		if  (lastAttackTime + coolDown <= timer) //If the last attack time + the cooldown is less than the current time, then the cooldown has finished and you can attack.
+		if  (lastAttackTime + attackCoolDown <= timer) //If the last attack time + the cooldown is less than the current time, then the cooldown has finished and you can attack.
 		{
 			return true;
 		}
@@ -108,6 +114,21 @@ public class Attack : MonoBehaviour {
 			}	
 		}
 
+	}
+
+	bool CanBlock () //This is the function which implements the cooldown for the block and returns whether the player should be able to block or not.
+	{
+		float timer;
+		
+		timer = Time.time; //get the time.
+		
+		if  (lastBlockTime + blockCoolDown <= timer) //If the last block time + the cooldown is less than the current time, then the cooldown has finished and you can block.
+		{
+			return true;
+		}
+		
+		return false;
+		
 	}
 
 	void CounterAttack() //The counter/block move
