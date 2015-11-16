@@ -72,7 +72,10 @@ public class PlayerController : MonoBehaviour {
 		if (cc.isGrounded) {
 			jumpCount = 0;
 			animator.SetBool("jumping", false);
+			animator.SetBool("landed", true);
 		}
+
+
 
 		directionIntensity = Input.GetAxis ("P_" + pi.playerNumber + " LH"); //float between -1 and 1...how far the thumb stick is pushed
 
@@ -113,6 +116,7 @@ public class PlayerController : MonoBehaviour {
 			velocity += new Vector3(0,jumpHeight,0);
 			jumpCount++;
 			animator.SetBool("jumping", true);
+			animator.SetBool("landed", false);
 		}
 
 		velocity += accelerationGravity * dt;

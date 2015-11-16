@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerInfo : MonoBehaviour {
+
 
 	[HideInInspector]public enum DIRECTION
 	{
@@ -40,6 +42,23 @@ public class PlayerInfo : MonoBehaviour {
 		playerNumber = gameObject.tag.Split('_')[1];
 
 		health = maxHealth;
+
+		GameObject o = null;
+		for (int i = 1; i < 5; i++) {
+
+			try{
+				o = GameObject.FindGameObjectWithTag("P_" + i.ToString());
+				if(o == gameObject)
+					o = null;
+			}
+			catch(UnityException e){
+
+			}
+
+			if(o != null)
+				Physics.IgnoreCollision(o.GetComponent<Collider>(), GetComponent<Collider>());
+		}
+
 	}
 	
 	// Update is called once per frame
