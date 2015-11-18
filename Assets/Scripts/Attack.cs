@@ -15,7 +15,8 @@ public class Attack : MonoBehaviour {
 	private CharacterController cc;
 	private Vector3 attackVec, counterVec; //These vectors will hold the information based on the transform rayOrigin and attackRange.
 	private float lastAttackTime, lastBlockTime;
-	
+	private Animator animator;
+	private bool attacked; 
 	
 	private struct attackParams //private struct which holds the information for the direction and how powerfully to push a player.
 	{
@@ -31,7 +32,7 @@ public class Attack : MonoBehaviour {
 		
 		pi = gameObject.GetComponent<PlayerInfo>(); //Gets this players PlayerInfo script information.
 		cc = gameObject.GetComponent<CharacterController>(); //Gets this players CharacterController information
-		
+		animator = transform.Find("Character_Mesh_Rigged").GetComponent<Animator>();
 		lastAttackTime = -attackCoolDown; //Initially allows you attack straight from the start of the game
 		lastBlockTime = -blockCoolDown; //Initially allows you block without waiting for the cooldown.
 		
@@ -40,13 +41,21 @@ public class Attack : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		
+		if (attacked == true)
+		{
+			attacked = false;
+			animator.SetBool ("attack", false);
+		}
 		//Debug.Log (pi.GetDirection ());
 		
 		if (Input.GetKey("joystick "+pi.playerNumber+" button 2")) //Checks whether 'X' has been pressed on the players controller.
 		{
 			if (CanAttack()) //Checks whether the attack is on cooldown or not.
 			{
+
+				animator.SetBool ("attack", true);
+				attacked = true;
+
 				PushAttack(); //if not on cooldown then attack!
 			}
 		}
@@ -63,6 +72,8 @@ public class Attack : MonoBehaviour {
 		{
 			pi.isBlocking = false;//If B isn't being pressed then they are not blocking.
 		}
+
+
 		//Debug.Log (pi.isBlocking);
 	}
 	
