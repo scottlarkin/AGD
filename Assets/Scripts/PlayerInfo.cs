@@ -56,7 +56,7 @@ public class PlayerInfo : MonoBehaviour {
 			}
 
 			if(o != null)
-				Physics.IgnoreCollision(o.GetComponent<Collider>(), GetComponent<Collider>());
+				Physics.IgnoreCollision(o.GetComponent<CharacterController >(), GetComponent<CharacterController >());
 		}
 
 	}

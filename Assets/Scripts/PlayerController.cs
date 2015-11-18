@@ -73,6 +73,7 @@ public class PlayerController : MonoBehaviour {
 			jumpCount = 0;
 			animator.SetBool("jumping", false);
 			animator.SetBool("landed", true);
+			Debug.Log ("I've landed");
 		}
 
 

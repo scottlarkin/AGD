@@ -119,7 +119,7 @@ public class Attack : MonoBehaviour {
 				else
 				{
 					//Sends a message to that player to use their ApplyForce function using the parameters we give it.
-					objectHit.collider.SendMessage("ApplyForce", new attackParams(pushPower, Vector3.Normalize(attackVec)) , SendMessageOptions.DontRequireReceiver);
+					objectHit.collider.SendMessage("ApplyForce", new attackParams(pushPower, attackVec.normalized) , SendMessageOptions.DontRequireReceiver);
 					
 				}
 			}	
@@ -149,7 +149,7 @@ public class Attack : MonoBehaviour {
 		
 		//Debug.DrawLine (rayOrigin.transform.position, rayOrigin.transform.position + Vector3.Normalize (counterVec), Color.magenta);
 		
-		ApplyForce (new attackParams (counterPower, Vector3.Normalize (counterVec))); //Has this player knocked backwards.
+		ApplyForce (new attackParams (counterPower, counterVec.normalized)); //Has this player knocked backwards.
 		
 	}
 	
