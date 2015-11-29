@@ -1,10 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\PlayerInfo.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\DamageReceiver.cs">
     <Files>
-      <File FileName="Assets\Scripts\PlayerController.cs" Line="76" Column="30" />
-      <File FileName="Assets\Scripts\PlayerInfo.cs" Line="52" Column="15" />
-      <File FileName="Assets\Scripts\Attack.cs" Line="150" Column="67" />
+      <File FileName="Assets\Scripts\Attack.cs" Line="52" Column="49" />
+      <File FileName="Assets\Scripts\DamageReceiver.cs" Line="38" Column="16" />
+      <File FileName="Assets\Scripts\PlayerInfo.cs" Line="60" Column="100" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

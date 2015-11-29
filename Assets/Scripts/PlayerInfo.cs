@@ -20,6 +20,7 @@ public class PlayerInfo : MonoBehaviour {
 	public int numberOfJumps = 2;
 	public float terminalVelocity = 20.0f;
 	public bool isBlocking = false;
+	public float mass;
 	[HideInInspector]public DIRECTION direction;
 
 	private float health;
@@ -56,7 +57,7 @@ public class PlayerInfo : MonoBehaviour {
 			}
 
 			if(o != null)
-				Physics.IgnoreCollision(o.GetComponent<CharacterController >(), GetComponent<CharacterController >());
+				Physics.IgnoreCollision(o.GetComponent<CharacterController>(), GetComponent<CharacterController>());
 		}
 
 	}

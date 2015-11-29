@@ -24,6 +24,7 @@ public class Attack : MonoBehaviour {
 		public float force;
 		public Vector3 direction;
 	}
+	private ArrayList attackArr = new ArrayList();
 	
 	
 	// Use this for initialization
@@ -39,7 +40,7 @@ public class Attack : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () 
+	void FixedUpdate () 
 	{
 		if (attacked == true)
 		{
@@ -48,7 +49,7 @@ public class Attack : MonoBehaviour {
 		}
 		//Debug.Log (pi.GetDirection ());
 		
-		if (Input.GetKey("joystick "+pi.playerNumber+" button 2")) //Checks whether 'X' has been pressed on the players controller.
+		if (Input.GetKey("joystick "+ pi.playerNumber +" button 2")) //Checks whether 'X' has been pressed on the players controller.
 		{
 			if (CanAttack()) //Checks whether the attack is on cooldown or not.
 			{
@@ -57,6 +58,7 @@ public class Attack : MonoBehaviour {
 				attacked = true;
 
 				PushAttack(); //if not on cooldown then attack!
+
 			}
 		}
 		
@@ -114,13 +116,17 @@ public class Attack : MonoBehaviour {
 				otherPlayer = objectHit.collider.gameObject.GetComponent<PlayerInfo>(); //Get's the PlayerInfo script of the player who's collider was hit.
 				if (otherPlayer.isBlocking) //checks whether the other player was blocking or not.
 				{
-					CounterAttack ();
+					getCountered ();
 				}
 				else
 				{
+					attackArr.Add (pushPower);
+					attackArr.Add (attackVec.normalized);
+
 					//Sends a message to that player to use their ApplyForce function using the parameters we give it.
-					objectHit.collider.SendMessage("ApplyForce", new attackParams(pushPower, attackVec.normalized) , SendMessageOptions.DontRequireReceiver);
-					
+					objectHit.collider.SendMessage("ApplyForce", attackArr, SendMessageOptions.DontRequireReceiver);
+
+					attackArr.Clear();
 				}
 			}	
 		}
@@ -142,21 +148,16 @@ public class Attack : MonoBehaviour {
 		
 	}
 	
-	void CounterAttack() //The counter/block move
+	void getCountered() //The counter/block move
 	{
 		counterVec = attackRange.transform.position - rayOrigin.transform.position;// Gets the attackVec information
 		counterVec = new Vector3 ((-pi.GetDirection() * counterVec.x), counterVec.y, counterVec.z); //Modifies the vector to aim in the opposite direction to the player so you're always hit backwards.
 		
 		//Debug.DrawLine (rayOrigin.transform.position, rayOrigin.transform.position + Vector3.Normalize (counterVec), Color.magenta);
-		
-		ApplyForce (new attackParams (counterPower, counterVec.normalized)); //Has this player knocked backwards.
-		
-	}
-	
-	void ApplyForce(attackParams ap) // This is called to apply a force to this player's character controller.
-	{	
-		//moves the charactercontroller in a certain direction by a certain amount of force.
-		cc.Move((ap.direction * ap.force) * Time.deltaTime); 
+		attackArr.Add (counterPower);
+		attackArr.Add (counterVec.normalized);
+		this.SendMessage ("ApplyForce", attackArr, SendMessageOptions.DontRequireReceiver); //Has this player knocked backwards.
 		
 	}
+
 }
