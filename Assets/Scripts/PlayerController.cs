@@ -92,7 +92,7 @@ public class PlayerController : MonoBehaviour {
 		}
 
 		//horiztal movement
-		if(absXVel < maxSpeed){
+		if(absXVel < maxSpeed && pi.isBlocking == false){
 			float acc = accelerationRate * directionIntensity * dt;
 
 			if((acc == 0 || Mathf.Sign (velocity.x) !=  Mathf.Sign(acc) ) && absXVel >= 1){ //should we accelerate or deccelerate?
@@ -111,7 +111,7 @@ public class PlayerController : MonoBehaviour {
 		}
 		
 		//jumping
-		if (Input.GetKeyDown("joystick "+pi.playerNumber+" button 0") && jumpCount < numberOfJumps){//jump pressed
+		if (Input.GetKeyDown("joystick "+pi.playerNumber+" button 0") && jumpCount < numberOfJumps && pi.isBlocking == false){//jump pressed
 			//reset y velocity before jump, otherwise -y velocity built up from gravity will negate 2nd jump, or +y vel from prev jump will make next jump huge
 			velocity = new Vector3(velocity.x, 0 ,velocity.z);
 			velocity += new Vector3(0,jumpHeight,0);
@@ -129,8 +129,7 @@ public class PlayerController : MonoBehaviour {
 		animator.SetFloat("speed", Mathf.Abs(velocity.x));
 
 
-
-		cc.Move (velocity * dt);
+			cc.Move (velocity * dt);
 		
 	
 
