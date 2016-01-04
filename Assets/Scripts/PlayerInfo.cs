@@ -37,6 +37,10 @@ public class PlayerInfo : MonoBehaviour {
 	}
 
 
+	public bool isAlive()
+	{
+		return health > 0;
+	}
 
 	// Use this for initialization
 	void Start () {
