@@ -10,6 +10,8 @@ public class CameraController : MonoBehaviour {
 
 	private List<GameObject> players;
 
+	private int playerCount = 0;
+
 	// Use this for initialization
 	void Start () {
 		players = new List<GameObject>();
@@ -18,7 +20,7 @@ public class CameraController : MonoBehaviour {
 			
 			try{
 				players.Add(GameObject.FindGameObjectWithTag("P_" + i.ToString()));
-
+				playerCount++;
 			}
 			catch(UnityException e){}
 
@@ -42,7 +44,7 @@ public class CameraController : MonoBehaviour {
 
 		}
 		
-		midPoint /= 4;
+		midPoint /= playerCount;
 				
 		Vector3 Direction = midPoint - transform.position;
 		transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (Direction), Time.deltaTime * rotationSpeed);
