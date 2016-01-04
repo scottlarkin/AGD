@@ -79,8 +79,6 @@ public class Attack : MonoBehaviour {
 
 				pi.isBlocking = true; //Sets the boolean in the playerinfo script to true.
 				animator.SetBool ("block", true);
-
-
 			}
 
 		} else 
