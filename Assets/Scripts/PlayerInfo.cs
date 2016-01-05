@@ -22,6 +22,7 @@ public class PlayerInfo : MonoBehaviour {
 	public bool isBlocking = false;
 	public float mass;
 	[HideInInspector]public DIRECTION direction;
+	[HideInInspector]public bool alive = true;
 
 	private float health;
 	public string playerNumber;
@@ -35,13 +36,7 @@ public class PlayerInfo : MonoBehaviour {
 	{
 		direction = d == -1.0f ? DIRECTION.LEFT : DIRECTION.RIGHT;
 	}
-
-
-	public bool isAlive()
-	{
-		return health > 0;
-	}
-
+	
 	// Use this for initialization
 	void Start () {
 		playerNumber = gameObject.tag.Split('_')[1];
