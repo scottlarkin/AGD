@@ -63,7 +63,7 @@ public class PlayerInfo : MonoBehaviour {
 		return stunned > 0;
 	}
 
-	void stunPlayer(float duration){
+	public void stunPlayer(float duration){
 		stunned += duration;
 	}
 

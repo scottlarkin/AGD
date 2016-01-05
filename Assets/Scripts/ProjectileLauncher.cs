@@ -13,6 +13,7 @@ public class ProjectileLauncher : MonoBehaviour {
 
 
 	public GameObject projectile;
+	public float range = 50;
 
 	private CooldownTimer cd;
 
@@ -25,9 +26,9 @@ public class ProjectileLauncher : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		GameObject target;
 		float minDist = float.PositiveInfinity;
 		float dist;
+		Vector3 vecToTarget = new Vector3();
 
 		foreach(GameObject p in PlayerManager.getPlayers()){
 
@@ -35,18 +36,23 @@ public class ProjectileLauncher : MonoBehaviour {
 
 			if(dist < minDist){
 				minDist = dist;
-				target = p;
+				vecToTarget = p.transform.position - this.transform.position;
 			}
 		}
 
-		if(cd.checkCooldownOver()){
-			fireProjectile();
+		//fire projectile if in range and cooldown has elapsed
+		if(range <= minDist && cd.checkCooldownOver()){
+			fireProjectile(vecToTarget.normalized);
 		}
 	}
 
-	void fireProjectile(){
+	void fireProjectile(Vector3 direction){
 
-		//GameObject.Instantiate(projectile, this.transform.position, this.transform.rotation);
+		GameObject o = (GameObject)GameObject.Instantiate(projectile, this.transform.position, this.transform.rotation);
+
+		o.GetComponent<LinearProjectile>().setDir(direction);
+		o.GetComponent<LinearProjectile>().setRange(range);
+
 		cd.startCooldown();
 	}
 }

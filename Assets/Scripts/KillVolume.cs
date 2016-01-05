@@ -11,17 +11,13 @@ public class KillVolume : MonoBehaviour {
 
 	void OnTriggerEnter(Collider hit)
 	{
-		try
-		{
-			hit.gameObject.GetComponent<PlayerInfo>().alive = false;
+
+		PlayerInfo pi = hit.gameObject.GetComponent<PlayerInfo>();
+		
+		if(pi != null){
+			pi.alive = false;
 			GameObject.Destroy(hit.gameObject);
+		}
 
-		}
-		catch(UnityException e)
-		{
-		}
 	}
-
-
-
 }
