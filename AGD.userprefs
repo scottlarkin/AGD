@@ -1,12 +1,13 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ProjectileLauncher.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\PlayerInfo.cs">
     <Files>
-      <File FileName="Assets\Scripts\KillVolume.cs" Line="20" Column="23" />
-      <File FileName="Assets\Scripts\PlayerInfo.cs" Line="22" Column="40" />
+      <File FileName="Assets\Scripts\KillVolume.cs" Line="10" Column="42" />
+      <File FileName="Assets\Scripts\PlayerInfo.cs" Line="15" Column="3" />
       <File FileName="Assets\Scripts\CameraController.cs" Line="70" Column="8" />
-      <File FileName="Assets\Scripts\ProjectileLauncher.cs" Line="35" Column="3" />
+      <File FileName="Assets\Scripts\ProjectileLauncher.cs" Line="32" Column="55" />
       <File FileName="Assets\Scripts\PlayerManager.cs" Line="30" Column="4" />
+      <File FileName="Assets\Scripts\CooldownTimer.cs" Line="33" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

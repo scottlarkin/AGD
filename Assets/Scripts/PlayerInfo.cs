@@ -27,6 +27,8 @@ public class PlayerInfo : MonoBehaviour {
 	public float terminalVelocity = 20.0f;
 	public bool isBlocking = false;
 	public float mass;
+
+	private float stunned  = 0;
 	[HideInInspector]public DIRECTION direction;
 	[HideInInspector]public bool alive = true;
 
@@ -56,9 +58,18 @@ public class PlayerInfo : MonoBehaviour {
 			}
 		}
 	}
-	
+
+	public bool isStunned(){
+		return stunned > 0;
+	}
+
+	void stunPlayer(float duration){
+		stunned += duration;
+	}
+
 	// Update is called once per frame
 	void Update () {
-	
+		if(stunned > 0)
+			stunned -= Time.deltaTime;
 	}
 }

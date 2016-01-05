@@ -77,8 +77,8 @@ public class PlayerController : MonoBehaviour {
 		
 		directionIntensity = Input.GetAxis ("P_" + pi.playerNumber + " LH"); //float between -1 and 1...how far the thumb stick is pushed
 
-		//set direction of thunmbstick to 0 if its near the middle
-		if (Mathf.Abs (directionIntensity) <= thumbstickDeadZone) { 
+		//set direction of thunmbstick to 0 if its near the middle or player is stunned
+		if (Mathf.Abs (directionIntensity) <= thumbstickDeadZone || pi.isStunned()) { 
 			directionIntensity = 0;
 		}
 
@@ -108,7 +108,7 @@ public class PlayerController : MonoBehaviour {
 		}
 		
 		//jumping
-		if (Input.GetKeyDown ("joystick " + pi.playerNumber + " button 0") && jumpCount < numberOfJumps && pi.isBlocking == false) {//jump pressed
+		if (Input.GetKeyDown ("joystick " + pi.playerNumber + " button 0") && jumpCount < numberOfJumps && !pi.isBlocking && !pi.isStunned()) {//jump pressed
 			//reset y velocity before jump, otherwise -y velocity built up from gravity will negate 2nd jump, or +y vel from prev jump will make next jump huge
 			velocity = new Vector3 (velocity.x, 0, velocity.z);
 			velocity += new Vector3 (0, jumpHeight, 0);
