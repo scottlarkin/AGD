@@ -4,8 +4,6 @@
 
 //Authors: Scott Larkin / Greg Needham
 
-
-
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -47,26 +45,16 @@ public class PlayerInfo : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		playerNumber = gameObject.tag.Split('_')[1];
 
+		playerNumber = gameObject.tag.Split('_')[1];
 		health = maxHealth;
 
-		GameObject o = null;
-		for (int i = 1; i < 5; i++) {
+		foreach(GameObject p in PlayerManager.getPlayers()){
 
-			try{
-				o = GameObject.FindGameObjectWithTag("P_" + i.ToString());
-				if(o == gameObject)
-					o = null;
+			if(p != gameObject){
+				Physics.IgnoreCollision(p.GetComponent<CharacterController>(), GetComponent<CharacterController>());
 			}
-			catch(UnityException e){
-
-			}
-
-			if(o != null)
-				Physics.IgnoreCollision(o.GetComponent<CharacterController>(), GetComponent<CharacterController>());
 		}
-
 	}
 	
 	// Update is called once per frame

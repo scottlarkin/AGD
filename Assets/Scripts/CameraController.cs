@@ -18,7 +18,7 @@ public class CameraController : MonoBehaviour {
 
 	private Vector3 midPoint;
 	private float maxDistance;
-	private List<GameObject> players;
+
 	private int playerCount = 0;
 	private Camera cam;
 
@@ -26,17 +26,7 @@ public class CameraController : MonoBehaviour {
 	void Start () {
 		cam = gameObject.GetComponent<Camera>();
 
-		players = new List<GameObject>();
-
-		for (int i = 1; i < 5; i++) {
-			
-			try{
-				players.Add(GameObject.FindGameObjectWithTag("P_" + i.ToString()));
-				playerCount++;
-			}
-			catch(UnityException e){}
-
-		}
+		PlayerManager.Init();
 	}
 
 	// Update is called once per frame
@@ -66,6 +56,7 @@ public class CameraController : MonoBehaviour {
 		midPoint = new Vector3 (0, 0, 0);
 		maxDistance = float.NegativeInfinity;
 		float dist;
+		List<GameObject> players = PlayerManager.getPlayers();
 
 		foreach (GameObject p in players) {
 			try{
@@ -90,9 +81,9 @@ public class CameraController : MonoBehaviour {
 			}
 			//handle a player being deleted
 			catch(MissingReferenceException e){
-				playerCount--;
+
 				//remove player from list
-				players.Remove(p);
+				PlayerManager.removePlayer(p);
 				//go back to start of the function, since the collection has changed so the loop is now unreliable
 				moveCamera();
 				//end execution of this instance of the function
@@ -100,7 +91,7 @@ public class CameraController : MonoBehaviour {
 			}
 		}
 
-		midPoint /= playerCount;
+		midPoint /= players.Count;
 			
 		//rotate camera
 		transform.rotation = getNewCameraRotation(midPoint);

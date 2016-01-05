@@ -48,11 +48,15 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Attack.cs" />
      <Compile Include="Assets\Scripts\CameraController.cs" />
+     <Compile Include="Assets\Scripts\CooldownTimer.cs" />
      <Compile Include="Assets\Scripts\DamageReceiver.cs" />
      <Compile Include="Assets\Scripts\KillVolume.cs" />
+     <Compile Include="Assets\Scripts\LinearProjectile.cs" />
      <Compile Include="Assets\Scripts\Menu.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\PlayerInfo.cs" />
+     <Compile Include="Assets\Scripts\PlayerManager.cs" />
+     <Compile Include="Assets\Scripts\ProjectileLauncher.cs" />
      <None Include="Assets\README.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>E:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.4/UnityEngine.UI.dll</HintPath>
