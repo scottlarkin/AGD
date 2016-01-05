@@ -13,13 +13,13 @@ public class ProjectileLauncher : MonoBehaviour {
 
 
 	public GameObject projectile;
-	public float range = 50;
-
+	public float range = 500;
+	public float cooldown = 15;
 	private CooldownTimer cd;
 
 	// Use this for initialization
 	void Start () {
-		cd = new CooldownTimer(1, false);
+		cd = new CooldownTimer(cooldown, false);
 
 	}
 	
@@ -41,7 +41,7 @@ public class ProjectileLauncher : MonoBehaviour {
 		}
 
 		//fire projectile if in range and cooldown has elapsed
-		if(range <= minDist && cd.checkCooldownOver()){
+		if(minDist <= range && cd.checkCooldownOver()){
 			fireProjectile(vecToTarget.normalized);
 		}
 	}
