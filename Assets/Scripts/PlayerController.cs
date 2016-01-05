@@ -63,39 +63,36 @@ public class PlayerController : MonoBehaviour {
 	void Update () {
 
 
-
 		float thumbstickDeadZone = 0.55f;
 		float dt = Time.deltaTime;
-		float absXVel = Mathf.Abs(velocity.x);
+		float absXVel = Mathf.Abs (velocity.x);
 
 
 		if (cc.isGrounded) {
 			jumpCount = 0;
-			animator.SetBool("jumping", false);
-			animator.SetBool("landed", true);
+			animator.SetBool ("jumping", false);
+			animator.SetBool ("landed", true);
 			//Debug.Log ("I've landed");
 		}
-
-
-
+		
 		directionIntensity = Input.GetAxis ("P_" + pi.playerNumber + " LH"); //float between -1 and 1...how far the thumb stick is pushed
 
 		//set direction of thunmbstick to 0 if its near the middle
-		if(Mathf.Abs(directionIntensity) <= thumbstickDeadZone){ 
+		if (Mathf.Abs (directionIntensity) <= thumbstickDeadZone) { 
 			directionIntensity = 0;
 		}
 
 		//set the boolean direction; true for right, false for left
 		if (directionIntensity != 0) {
 			pi.SetDirection (Mathf.Sign (directionIntensity));
-			mesh.rotation = Quaternion.Euler(0, 90 * Mathf.Sign (directionIntensity), 0);
+			mesh.rotation = Quaternion.Euler (0, 90 * Mathf.Sign (directionIntensity), 0);
 		}
 
 		//horiztal movement
-		if(absXVel < maxSpeed && pi.isBlocking == false){
+		if (absXVel < maxSpeed) {
 			float acc = accelerationRate * directionIntensity * dt;
 
-			if((acc == 0 || Mathf.Sign (velocity.x) !=  Mathf.Sign(acc) ) && absXVel >= 1){ //should we accelerate or deccelerate?
+			if ((acc == 0 || Mathf.Sign (velocity.x) != Mathf.Sign (acc)) && absXVel >= 1) { //should we accelerate or deccelerate?
 				//deccerate
 				float deccel = decelerationRate * dt;
 
@@ -103,35 +100,36 @@ public class PlayerController : MonoBehaviour {
 				deccel = deccel > absXVel ? absXVel : deccel;
 
 				//apply deceleration
-				velocity += new Vector3(-Mathf.Sign(velocity.x) * deccel, 0,0);
-			}else{
+				velocity += new Vector3 (-Mathf.Sign (velocity.x) * deccel, 0, 0);
+			} else {
 				//accelerate
-				velocity += new Vector3(acc, 0, 0);
+				velocity += new Vector3 (acc, 0, 0);
 			}
 		}
 		
 		//jumping
-		if (Input.GetKeyDown("joystick "+pi.playerNumber+" button 0") && jumpCount < numberOfJumps && pi.isBlocking == false){//jump pressed
+		if (Input.GetKeyDown ("joystick " + pi.playerNumber + " button 0") && jumpCount < numberOfJumps && pi.isBlocking == false) {//jump pressed
 			//reset y velocity before jump, otherwise -y velocity built up from gravity will negate 2nd jump, or +y vel from prev jump will make next jump huge
-			velocity = new Vector3(velocity.x, 0 ,velocity.z);
-			velocity += new Vector3(0,jumpHeight,0);
+			velocity = new Vector3 (velocity.x, 0, velocity.z);
+			velocity += new Vector3 (0, jumpHeight, 0);
 			jumpCount++;
-			animator.SetBool("jumping", true);
-			animator.SetBool("landed", false);
+			animator.SetBool ("jumping", true);
+			animator.SetBool ("landed", false);
 		}
 
 		velocity += accelerationGravity * dt;
 
-		if(velocity.y < -terminalVelocity){
-			velocity = new Vector3(velocity.x, -terminalVelocity, 0);
+		if (velocity.y < -terminalVelocity) {
+			velocity = new Vector3 (velocity.x, -terminalVelocity, 0);
 		}
 
-		animator.SetFloat("speed", Mathf.Abs(velocity.x));
+		animator.SetFloat ("speed", Mathf.Abs (velocity.x));
 
+		if (pi.isBlocking && cc.isGrounded) {
+			velocity = new Vector3(0, velocity.y, 0);
+		}
 
-			cc.Move (velocity * dt);
-		
-	
+		cc.Move (velocity * dt);
 
 		//visualise direction since im just using a box
 		Debug.DrawLine (transform.position, transform.position + new Vector3(pi.GetDirection(),0,0)  * 3, Color.red);
