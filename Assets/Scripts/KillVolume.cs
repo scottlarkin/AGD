@@ -1,4 +1,10 @@
-﻿using UnityEngine;
+﻿//Kill volume
+//if an object containing a playerInfo component collides with this object, it will be killed and destroyed.
+
+//Author: Scott Larkin
+//Date:   Jan 2016
+
+using UnityEngine;
 using System.Collections;
 
 public class KillVolume : MonoBehaviour {

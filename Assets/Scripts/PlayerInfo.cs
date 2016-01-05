@@ -1,4 +1,12 @@
-﻿using UnityEngine;
+﻿//Player Info
+//Script for storing generic player information
+//variables are public so they can be easily altered in the inspector to make balancing the game easier
+
+//Authors: Scott Larkin / Greg Needham
+
+
+
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
