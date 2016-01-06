@@ -22,12 +22,13 @@ public class CooldownTimer {
  
 	public CooldownTimer(float cd, bool startImmediately = true){
 		cooldown = cd;
-		startTime = float.NegativeInfinity;
+		startTime = startImmediately ? float.NegativeInfinity : float.PositiveInfinity;
 
 		if(startImmediately) startCooldown();
 	}
 	
 	public void startCooldown(){
+
 		startTime = Time.time;
 	}
 
@@ -36,5 +37,9 @@ public class CooldownTimer {
 		if(startTime + cooldown <= Time.time) return true;
 
 		return false;
+	}
+	
+	public void stop(){
+		startTime = float.PositiveInfinity;
 	}
 }

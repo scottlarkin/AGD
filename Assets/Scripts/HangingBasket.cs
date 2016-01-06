@@ -8,19 +8,22 @@ using System.Collections;
 public class HangingBasket : MonoBehaviour {
 
 	public float delayTime = 3;
-	public float respawnTime = 15;
+	public float respawnTime = 5;
 	public float stunDuration = 2;
 	public float range = 5;
+	public float dropSpeed = 20.0f;
 
+	Vector3 startPosition;
 	CooldownTimer dropDelay;
 	CooldownTimer respawnTimer;
 	RaycastHit hitInfo;
 	bool dropDelayStarted = false;
-	bool active = true;
+	bool active = false;
 
 	// Use this for initialization
 	void Start () {
 	
+		startPosition = transform.position;
 		dropDelay = new CooldownTimer(delayTime, false);
 		respawnTimer = new CooldownTimer(respawnTime, false);
 		hitInfo = new RaycastHit();
@@ -30,35 +33,37 @@ public class HangingBasket : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if(dropDelay.checkCooldownOver()){
-			dropBasket();
+		if(dropDelay.checkCooldownOver() && !active){
+			dropDelay.stop ();
 			dropDelayStarted = false;
 			respawnTimer.startCooldown();
-			active = false;
-			this.renderer.enabled = active;
+			active = true;
 		}
 
 		if(respawnTimer.checkCooldownOver()){
-			active = true;
-			this.renderer.enabled = active;
+			respawnTimer.stop ();
+			active = false;
+			transform.position = startPosition;
 		}
 
-		if(active){
+		if(!active && !dropDelayStarted){
 			detectPlayer();
 		}
+		else{
+			if(active){
+				transform.position = transform.position + new Vector3(0, -Time.deltaTime * dropSpeed, 0);
+			}
+		}
 
-
-		transform.Rotate( new Vector3(0,0,Mathf.Sin(Time.deltaTime) * 500));
+		if(dropDelayStarted){
+			transform.Rotate( new Vector3(0,0,Mathf.PingPong(Time.time, 0.5f)-0.25f));
+		}
 
 		//visualise the drop trigger in debug mode
 		Debug.DrawLine(transform.position, transform.position + new Vector3(0,-range, 0));
 
 	}
-
-	void dropBasket(){
-
-	}
-
+	
 	void detectPlayer(){
 
 		if(Physics.Raycast(transform.position, new Vector3(0,-1,0), out hitInfo, range)){
@@ -71,5 +76,17 @@ public class HangingBasket : MonoBehaviour {
 			}
 		}
 	}
+
+	void OnTriggerEnter(Collider hit)
+	{
+		
+		PlayerInfo pi = hit.gameObject.GetComponent<PlayerInfo>();
+		
+		if(pi != null){
+			pi.stunPlayer(stunDuration);
+		}
+		
+	}
+
 }
 
