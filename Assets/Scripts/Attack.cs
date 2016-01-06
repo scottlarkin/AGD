@@ -10,6 +10,8 @@ public class Attack : MonoBehaviour {
 	public float counterPower = 7.50f;// This modifies how strong the counter push is.
 	public float blockDuration = 3.0f; //How long the player can hold their block for.
 	public float blockCoolDown = 5.0f; //How long after the release of block until they block again.
+	public int attackDamage = 5; //How much damage is applied on attack.
+	public int counterDamage = 10; //How much damage is applied on counter.
 	
 	private PlayerInfo pi, otherPlayer;
 	private CharacterController cc;
@@ -157,7 +159,7 @@ public class Attack : MonoBehaviour {
 
 					//Sends a message to that player to use their ApplyForce function using the parameters we give it.
 					objectHit.collider.SendMessage("ApplyForce", attackArr, SendMessageOptions.DontRequireReceiver);
-
+					objectHit.collider.SendMessage("ApplyDamage", attackDamage, SendMessageOptions.DontRequireReceiver);
 					attackArr.Clear();
 				}
 				}
@@ -172,7 +174,7 @@ public class Attack : MonoBehaviour {
 		
 	}
 	
-	void GetCountered() //The block's coutner move.
+	void GetCountered() //The block's counter move.
 	{
 		counterVec = attackRange.transform.position - rayOrigin.transform.position;// Gets the attackVec information
 		counterVec = new Vector3 ((-pi.GetDirection() * counterVec.x), counterVec.y, counterVec.z); //Modifies the vector to aim in the opposite direction to the player so you're always hit backwards.
@@ -181,6 +183,6 @@ public class Attack : MonoBehaviour {
 		attackArr.Add (counterPower);
 		attackArr.Add (counterVec.normalized);
 		this.SendMessage ("ApplyForce", attackArr, SendMessageOptions.DontRequireReceiver); //Has this player knocked backwards.
-		
+		this.SendMessage ("ApplyDamage", counterDamage, SendMessageOptions.DontRequireReceiver);
 	}
 }
