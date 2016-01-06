@@ -38,6 +38,14 @@ public class DamageReceiver : MonoBehaviour {
 		dir.y = 0.5f;
 		dir.Normalize();
 
+		force = force * (pi.damageReceived / 3);
+
 		push += (dir.normalized * (force / mass));
+	}
+
+	// call this function to add an impact force:
+	public void ApplyDamage(int DamageAmount)
+	{
+		pi.damageReceived += DamageAmount;
 	}
 }
