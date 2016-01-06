@@ -29,10 +29,6 @@ public static class PlayerManager{
 	}
 
 	private static void findPlayers(){
-		Debug.Log ("finding players");
-		foreach(GameObject o in GameObject.FindGameObjectsWithTag("P_1")){
-			Debug.Log(o.name);
-		}
 
 		for (int i = 1; i < maxPlayerCount + 1; i++) {
 			
