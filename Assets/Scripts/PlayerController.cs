@@ -52,11 +52,9 @@ public class PlayerController : MonoBehaviour {
 		//stop acceleration rate from being more than max speed
 		accelerationRate = accelerationRate > maxSpeed ? maxSpeed : accelerationRate;
 
-		animator = transform.Find("Character_Mesh_Rigged").GetComponent<Animator>();
+		animator = gameObject.transform.FindChild("character").GetComponent<Animator>();
+		mesh = transform;
 
-		mesh = transform.Find ("Character_Mesh_Rigged").transform;
-
-		float defaultYPos;
 	}
 
 	// Update is called once per frame
@@ -72,7 +70,11 @@ public class PlayerController : MonoBehaviour {
 			jumpCount = 0;
 			animator.SetBool ("jumping", false);
 			animator.SetBool ("landed", true);
+			animator.SetBool ("falling", false);
 			//Debug.Log ("I've landed");
+		}
+		else{
+			animator.SetBool ("falling", true);
 		}
 		
 		directionIntensity = Input.GetAxis ("P_" + pi.playerNumber + " LH"); //float between -1 and 1...how far the thumb stick is pushed
@@ -85,7 +87,7 @@ public class PlayerController : MonoBehaviour {
 		//set the boolean direction; true for right, false for left
 		if (directionIntensity != 0) {
 			pi.SetDirection (Mathf.Sign (directionIntensity));
-			mesh.rotation = Quaternion.Euler (0, 90 * Mathf.Sign (directionIntensity), 0);
+			mesh.rotation = Quaternion.Euler (0, 180 * (Mathf.Sign(directionIntensity) == 1 ? 0 : 1) , 0);
 		}
 
 		//horiztal movement
@@ -108,7 +110,11 @@ public class PlayerController : MonoBehaviour {
 		}
 		
 		//jumping
-		if (Input.GetKeyDown ("joystick " + pi.playerNumber + " button 0") && jumpCount < numberOfJumps && !pi.isBlocking && !pi.isStunned()) {//jump pressed
+		if (Input.GetKeyDown ("joystick " + pi.playerNumber + " button 0")
+		    && jumpCount < numberOfJumps 
+		    && !pi.isBlocking
+		    && !pi.isStunned()
+		    && ((jumpCount == 0 && cc.isGrounded) || jumpCount > 0)) {//jump pressed
 			//reset y velocity before jump, otherwise -y velocity built up from gravity will negate 2nd jump, or +y vel from prev jump will make next jump huge
 			velocity = new Vector3 (velocity.x, 0, velocity.z);
 			velocity += new Vector3 (0, jumpHeight, 0);
@@ -123,11 +129,13 @@ public class PlayerController : MonoBehaviour {
 			velocity = new Vector3 (velocity.x, -terminalVelocity, 0);
 		}
 
-		animator.SetFloat ("speed", Mathf.Abs (velocity.x));
-
+		//prevent movement while blocking
 		if (pi.isBlocking && cc.isGrounded) {
 			velocity = new Vector3(0, velocity.y, 0);
 		}
+
+		//TODO: make this the speed in the direction of the surface, instead of just x, otherwise it will not produce correct results on a slope.
+		animator.SetFloat ("speed", Mathf.Abs (velocity.x));
 
 		cc.Move (velocity * dt);
 

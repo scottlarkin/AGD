@@ -25,7 +25,7 @@ public class Attack : MonoBehaviour {
 		
 		pi = gameObject.GetComponent<PlayerInfo>(); //Gets this players PlayerInfo script information.
 		cc = gameObject.GetComponent<CharacterController>(); //Gets this players CharacterController information
-		animator = transform.Find("Character_Mesh_Rigged").GetComponent<Animator>();
+		animator = transform.Find("character").GetComponent<Animator>();
 		lastAttackTime = -attackCoolDown; //Initially allows you attack straight from the start of the game
 		lastBlockTime = -blockCoolDown; //Initially allows you block without waiting for the cooldown.
 
@@ -85,7 +85,7 @@ public class Attack : MonoBehaviour {
 		{
 
 			pi.isBlocking = false;//If B isn't being pressed then they are not blocking.
-			animator.SetBool ("block", false);
+			animator.SetBool("block", false);
 		}
 
 

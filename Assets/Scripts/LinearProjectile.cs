@@ -8,7 +8,7 @@ using System.Collections;
 
 public class LinearProjectile : MonoBehaviour {
 
-	public float stunDuration = 15;
+	public float stunDuration = 3;
 	public float speed = 5;
 	private Vector3 direction;
 	private float range = 0;

@@ -17,6 +17,9 @@ public static class PlayerManager{
 	
 	public static void Init(){
 
+		if(initialised)
+			return;
+
 		players = new List<GameObject>();
 
 		findPlayers();
@@ -26,13 +29,20 @@ public static class PlayerManager{
 	}
 
 	private static void findPlayers(){
+		Debug.Log ("finding players");
+		foreach(GameObject o in GameObject.FindGameObjectsWithTag("P_1")){
+			Debug.Log(o.name);
+		}
+
 		for (int i = 1; i < maxPlayerCount + 1; i++) {
 			
-			try{
-				players.Add(GameObject.FindGameObjectWithTag("P_" + i.ToString()));
+			GameObject o = GameObject.FindGameObjectWithTag("P_" + i.ToString());
+
+			if(o != null){
+				Debug.Log(o.name + "   " + i);
+				players.Add(o);
 			}
-			catch(UnityException e){}
-			
+
 		}
 	}
 
