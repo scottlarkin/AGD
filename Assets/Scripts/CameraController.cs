@@ -39,7 +39,7 @@ public class CameraController : MonoBehaviour {
 		Vector3 pos = new Vector3(0,0, transform.position.z);
 		
 		pos.x = Mathf.Lerp(transform.position.x, midPoint.x, Time.deltaTime * moveSpeed);
-		pos.y = Mathf.Lerp(transform.position.y, midPoint.y, Time.deltaTime * moveSpeed);
+		pos.y = Mathf.Lerp(transform.position.y, midPoint.y, Time.deltaTime * moveSpeed) + 0.15f;
 
 		return pos;
 	}
@@ -58,6 +58,7 @@ public class CameraController : MonoBehaviour {
 		float dist;
 		List<GameObject> players = PlayerManager.getPlayers();
 
+
 		foreach (GameObject p in players) {
 			try{
 				if (p.GetComponent<PlayerInfo>().alive) {
@@ -69,7 +70,7 @@ public class CameraController : MonoBehaviour {
 						if (p2.GetComponent<PlayerInfo>().alive) {
 
 							if(p != p2){
-								dist = (p.transform.FindChild("Center").transform.position - p.transform.FindChild("Center").transform.position).magnitude;
+								dist = (p.transform.FindChild("Center").transform.position - p2.transform.FindChild("Center").transform.position).magnitude;
 
 								if(dist > maxDistance){
 									maxDistance = dist;
@@ -91,6 +92,9 @@ public class CameraController : MonoBehaviour {
 			}
 		}
 
+
+
+
 		midPoint /= players.Count;
 			
 		//rotate camera
@@ -103,7 +107,8 @@ public class CameraController : MonoBehaviour {
 		maxDistance = Mathf.Clamp(maxDistance, 5, 15);
 
 		//"zoom" camera by changine the orthographic size
-		cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, maxDistance, Time.deltaTime * zoomSpeed);
+		//cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, maxDistance, Time.deltaTime * zoomSpeed);
+		cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, maxDistance * 2.0f, Time.deltaTime * zoomSpeed);
 		
 	}
 } 
