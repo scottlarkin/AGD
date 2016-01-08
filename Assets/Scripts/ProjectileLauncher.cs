@@ -32,11 +32,11 @@ public class ProjectileLauncher : MonoBehaviour {
 
 		foreach(GameObject p in PlayerManager.getPlayers()){
 
-			dist = (p.transform.position - this.transform.position).magnitude;
+			dist = (p.transform.FindChild("Center").transform.position - this.transform.position).magnitude;
 
 			if(dist < minDist){
 				minDist = dist;
-				vecToTarget = p.transform.position - this.transform.position;
+				vecToTarget = p.transform.FindChild("Center").transform.position - this.transform.position;
 			}
 		}
 

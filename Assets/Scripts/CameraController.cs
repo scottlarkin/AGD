@@ -62,14 +62,14 @@ public class CameraController : MonoBehaviour {
 			try{
 				if (p.GetComponent<PlayerInfo>().alive) {
 
-					midPoint += p.transform.position;
+					midPoint += p.transform.FindChild("Center").transform.position;
 
 					foreach (GameObject p2 in players) {
-						
+
 						if (p2.GetComponent<PlayerInfo>().alive) {
 
 							if(p != p2){
-								dist = (p.transform.position - p2.transform.position).magnitude;
+								dist = (p.transform.FindChild("Center").transform.position - p.transform.FindChild("Center").transform.position).magnitude;
 
 								if(dist > maxDistance){
 									maxDistance = dist;
