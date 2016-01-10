@@ -19,7 +19,7 @@ public class ProjectileLauncher : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		cd = new CooldownTimer(cooldown, false);
+		cd = new CooldownTimer(cooldown, true);
 
 	}
 	
@@ -39,7 +39,7 @@ public class ProjectileLauncher : MonoBehaviour {
 				vecToTarget = p.transform.FindChild("Center").transform.position - this.transform.position;
 			}
 		}
-
+	
 		//fire projectile if in range and cooldown has elapsed
 		if(minDist <= range && cd.checkCooldownOver()){
 			fireProjectile(vecToTarget.normalized);

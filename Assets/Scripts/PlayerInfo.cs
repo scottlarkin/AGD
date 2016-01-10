@@ -33,6 +33,7 @@ public class PlayerInfo : MonoBehaviour {
 	[HideInInspector]public DIRECTION direction;
 	[HideInInspector]public bool alive = true;
 
+	private Animator animator;
 	private float health;
 	public string playerNumber;
 
@@ -48,6 +49,8 @@ public class PlayerInfo : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
+
+		animator = gameObject.transform.FindChild("character").GetComponent<Animator>();
 
 		playerNumber = gameObject.tag.Split('_')[1];
 		health = maxHealth;
@@ -70,7 +73,9 @@ public class PlayerInfo : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if(stunned > 0)
+		if(stunned > 0){
 			stunned -= Time.deltaTime;
+			animator.SetFloat("stunned", stunned);
+		}
 	}
 }

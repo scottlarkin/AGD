@@ -81,8 +81,9 @@ public class HangingBasket : MonoBehaviour {
 	{
 		
 		PlayerInfo pi = hit.gameObject.GetComponent<PlayerInfo>();
-		
+
 		if(pi != null){
+
 			pi.stunPlayer(stunDuration);
 		}
 		
