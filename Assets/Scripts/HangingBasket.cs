@@ -1,6 +1,6 @@
-﻿//Hanging Basket
+﻿//Hanging Basket / Falling Object
 //Environmental hazard
-//When a player walks underneath this hazard it will drop after a short delay, stunning any player hit.
+//When a player walks underneath or above this hazard it will drop after a short delay, stunning any player hit.
 
 using UnityEngine;
 using System.Collections;
@@ -12,6 +12,7 @@ public class HangingBasket : MonoBehaviour {
 	public float stunDuration = 2;
 	public float range = 5;
 	public float dropSpeed = 20.0f;
+	public bool detectDown = false;
 
 	Vector3 startPosition;
 	CooldownTimer dropDelay;
@@ -19,6 +20,9 @@ public class HangingBasket : MonoBehaviour {
 	RaycastHit hitInfo;
 	bool dropDelayStarted = false;
 	bool active = false;
+	Vector3 objPos;
+	Vector3 objWidth;
+	int lookDown;
 
 	// Use this for initialization
 	void Start () {
@@ -27,11 +31,23 @@ public class HangingBasket : MonoBehaviour {
 		dropDelay = new CooldownTimer(delayTime, false);
 		respawnTimer = new CooldownTimer(respawnTime, false);
 		hitInfo = new RaycastHit();
+		objWidth = renderer.bounds.size;
+
+		//Simple method of deciding whether to detect up or down. Could be enum, but prob overkill.
+		if (detectDown)
+		{
+			lookDown = -1;
+		}
+		else
+		{
+			lookDown = 1;
+		}
 
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		objPos = transform.position;
 
 		if(dropDelay.checkCooldownOver() && !active){
 			dropDelay.stop ();
@@ -60,13 +76,20 @@ public class HangingBasket : MonoBehaviour {
 		}
 
 		//visualise the drop trigger in debug mode
-		Debug.DrawLine(transform.position, transform.position + new Vector3(0,-range, 0));
-
+		//Debug.DrawLine(transform.position, transform.position + new Vector3(0,-range, 0));
+		Debug.DrawLine (objPos - (objWidth/ 2),objPos + new Vector3 (0, (lookDown * range), 0));
+		Debug.DrawLine (objPos, objPos + new Vector3 (0, (lookDown * range), 0));
+		Debug.DrawLine (objPos + (objWidth/ 2), objPos + new Vector3 (0, (lookDown * range), 0));
 	}
 	
 	void detectPlayer(){
 
-		if(Physics.Raycast(transform.position, new Vector3(0,-1,0), out hitInfo, range)){
+		Vector3 detectRange = new Vector3 (0, (lookDown * range), 0);
+
+		if((Physics.Linecast(objPos - (objWidth/ 2), objPos + detectRange, out hitInfo, LayerMask.NameToLayer("players"))
+		    || Physics.Linecast(objPos, objPos + detectRange, out hitInfo, LayerMask.NameToLayer("players"))
+		    || Physics.Linecast(objPos + (objWidth/ 2), objPos + detectRange, out hitInfo, LayerMask.NameToLayer("players"))))
+		   {
 
 			PlayerInfo pi = hitInfo.transform.gameObject.GetComponent<PlayerInfo>();
 			
@@ -79,15 +102,12 @@ public class HangingBasket : MonoBehaviour {
 
 	void OnTriggerEnter(Collider hit)
 	{
-		
-		PlayerInfo pi = hit.gameObject.GetComponent<PlayerInfo>();
+			PlayerInfo pi = hit.gameObject.GetComponent<PlayerInfo> ();
 
-		if(pi != null){
+			if (pi != null) {
 
-			pi.stunPlayer(stunDuration);
+				pi.stunPlayer (stunDuration);
+			}
 		}
-		
-	}
-
 }
 

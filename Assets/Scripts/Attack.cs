@@ -8,8 +8,8 @@ public class Attack : MonoBehaviour {
 	public Transform rayOrigin, attackRange; //These transforms allow you to edit where the attack takes effect.
 	public float pushPower = 5.0f; //This modifies how strong the attack/push is.
 	public float counterPower = 7.50f;// This modifies how strong the counter push is.
-	public float blockDuration = 3.0f; //How long the player can hold their block for.
-	public float blockCoolDown = 5.0f; //How long after the release of block until they block again.
+	public float counterDuration = 3.0f; //How long the player can hold their block for.
+	public float counterCoolDown = 5.0f; //How long after the release of block until they block again.
 	public int attackDamage = 5; //How much damage is applied on attack.
 	public int counterDamage = 10; //How much damage is applied on counter.
 	
@@ -20,6 +20,9 @@ public class Attack : MonoBehaviour {
 	private Animator animator;
 	private bool attacked; 
 	private ArrayList attackArr = new ArrayList();
+	private CooldownTimer attackCD;
+	private CooldownTimer counterCD;
+
 	
 	// Use this for initialization
 	void Start () 
@@ -28,8 +31,8 @@ public class Attack : MonoBehaviour {
 		pi = gameObject.GetComponent<PlayerInfo>(); //Gets this players PlayerInfo script information.
 		cc = gameObject.GetComponent<CharacterController>(); //Gets this players CharacterController information
 		animator = transform.Find("character").GetComponent<Animator>();
-		lastAttackTime = -attackCoolDown; //Initially allows you attack straight from the start of the game
-		lastBlockTime = -blockCoolDown; //Initially allows you block without waiting for the cooldown.
+		attackCD = new CooldownTimer (attackCoolDown, true); //creates a cooldown for the attack.
+		counterCD = new CooldownTimer (counterCoolDown, true); //creates a cooldown for the counter 
 
 	}
 
@@ -45,8 +48,8 @@ public class Attack : MonoBehaviour {
 
 		//ATTACK
 		if (Input.GetKey ("joystick " + pi.playerNumber + " button 2") && pi.isBlocking == false) { //Checks whether 'X' has been pressed on the players controller.
-			if (CanAttack ()) { //Checks whether the attack is on cooldown or not.
-
+			if (attackCD.checkCooldownOver()) //Checks whether the attack is on cooldown or not.
+			{
 				animator.SetBool ("attack", true);
 				attacked = true;
 
@@ -76,62 +79,33 @@ public class Attack : MonoBehaviour {
 		if (Input.GetKey ("joystick " + pi.playerNumber + " button 1")) // Checks whether 'B' has been pressed on the players controller.
 		{
 
-			if (CanBlock ())
+			if (counterCD.checkCooldownOver())
 			{
-
 				pi.isBlocking = true; //Sets the boolean in the playerinfo script to true.
 				animator.SetBool ("block", true);
+				counterCD.startCooldown();
 			}
 
 		} else 
 		{
-
 			pi.isBlocking = false;//If B isn't being pressed then they are not blocking.
 			animator.SetBool("block", false);
+
 		}
 
 
 		//Debug.Log (pi.isBlocking);
 	}
 
-	bool CanAttack () //This is the function which implements the cooldown for the attack and returns whether the player should be able to attack or not.
-	{
-		float aTimer;
-		
-		aTimer = Time.time; //get the time.
-		
-		if  (lastAttackTime + attackCoolDown <= aTimer) //If the last attack time + the cooldown is less than the current time, then the cooldown has finished and you can attack.
-		{
-			return true;
-		}
-		
-		return false;
-		
-	}
-
-	bool CanBlock () //This is the function which implements the cooldown for the block and returns whether the player should be able to block or not.
-	{
-		float bTimer;
-
-		bTimer = Time.time; //get the time.
-
-
-		if  (lastBlockTime + blockCoolDown <= bTimer) //If the last block time + the cooldown is less than the current time, then the cooldown has finished and you can block.
-		{
-			return true;
-		}
-		
-		return false;
-		
-	}
-
 	void PushAttack() //The main attack
 	{
 		attackVec = attackRange.transform.position - rayOrigin.transform.position; //sets the positions of the attack transform objects to a Vector we can use.
-		attackVec = new Vector3 ((pi.GetDirection() * attackVec.x), attackVec.y, attackVec.z); //modifies the vectore depending on which way you are facing.
+		//SCOTT'S DONE SOMETHING SO THE BELOW ISN'T NEEDED BUT NOT TOLD ME WHAT!
+		//attackVec = new Vector3 ((1 * attackVec.x), attackVec.y, attackVec.z); //modifies the vectore depending on which way you are facing.
 		Debug.DrawLine (rayOrigin.transform.position,rayOrigin.transform.position + attackVec, Color.green);
-		
-		lastAttackTime = Time.time; //sets the last attack time to the current time.
+		Debug.Log (attackVec.x + " " + attackVec.y + " " + attackVec.z);
+
+		attackCD.startCooldown(); //Starts the attack cooldown
 		//Debug.Log ("You are attacking");
 		
 		
@@ -173,6 +147,7 @@ public class Attack : MonoBehaviour {
 		}
 		
 	}
+
 	
 	void GetCountered() //The block's counter move.
 	{

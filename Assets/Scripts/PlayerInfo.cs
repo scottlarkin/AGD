@@ -27,7 +27,7 @@ public class PlayerInfo : MonoBehaviour {
 	public float terminalVelocity = 20.0f;
 	public bool isBlocking = false;
 	public float mass;
-	public int damageReceived = 0;
+	public float damageReceived = 0;
 
 	private float stunned  = 0;
 	[HideInInspector]public DIRECTION direction;
@@ -77,5 +77,6 @@ public class PlayerInfo : MonoBehaviour {
 			stunned -= Time.deltaTime;
 			animator.SetFloat("stunned", stunned);
 		}
+		//Debug.Log (playerNumber + ": = " + GetDirection()); 
 	}
 }
