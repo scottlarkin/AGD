@@ -34,14 +34,7 @@ public class HangingBasket : MonoBehaviour {
 		objWidth = renderer.bounds.size;
 
 		//Simple method of deciding whether to detect up or down. Could be enum, but prob overkill.
-		if (detectDown)
-		{
-			lookDown = -1;
-		}
-		else
-		{
-			lookDown = 1;
-		}
+		lookDown = detectDown ? -1 : 1;
 
 	}
 	
