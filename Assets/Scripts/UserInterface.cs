@@ -72,14 +72,16 @@ public class UserInterface : MonoBehaviour {
 		for (int i = 0; i < players.Count; i++) //for all players
 		{
 			Text damageTaken = uiObjects[i].GetComponent<Text>(); //get the text component for each of the players
-			string playerDmg = playersInfo[i].damageReceived.ToString(); // conver the player's damage to string
-			damageTaken.text = (playerDmg + "%"); // add to the UI
-
-
+			
 			if (!playersInfo[i].alive)
 			{
 				damageTaken.text = ("K.O!");
+				continue;
 			}
+
+			string playerDmg = playersInfo[i].damageReceived.ToString(); // conver the player's damage to string
+			damageTaken.text = (playerDmg + "%"); // add to the UI
+
 		}
 
 	}
