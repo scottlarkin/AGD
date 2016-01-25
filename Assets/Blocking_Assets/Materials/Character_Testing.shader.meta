@@ -1,0 +1,6 @@
+fileFormatVersion: 2
+guid: 8955c94c8af0f2240979399d3af6bf87
+ShaderImporter:
+  defaultTextures:
+  - _Body_Diff: {fileID: 2800000, guid: 66759c02fa51f644dab0fe3587c72eb6, type: 3}
+  userData: 

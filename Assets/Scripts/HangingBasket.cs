@@ -9,6 +9,7 @@ public class HangingBasket : MonoBehaviour {
 
 	public float delayTime = 3;
 	public float respawnTime = 5;
+	public bool stun = true;
 	public float stunDuration = 2;
 	public float range = 5;
 	public float dropSpeed = 20.0f;
@@ -97,9 +98,13 @@ public class HangingBasket : MonoBehaviour {
 	{
 			PlayerInfo pi = hit.gameObject.GetComponent<PlayerInfo> ();
 
-			if (pi != null) {
-
-				pi.stunPlayer (stunDuration);
+			if (pi != null) 
+		{
+				
+				if (stun == true)
+				{	
+					pi.stunPlayer (stunDuration);
+				}
 			}
 		}
 }

@@ -17,7 +17,7 @@ public class UserInterface : MonoBehaviour {
 	private static List<GameObject> players;
 	private List<GameObject> uiObjects;
 	private List<PlayerInfo> playersInfo;
-
+	private int noOfPlayers;
 	// Use this for initialization
 	void Start () 
 	{
@@ -37,13 +37,14 @@ public class UserInterface : MonoBehaviour {
 		players = PlayerManager.getPlayers (); //get a list of players
 		uiObjects  = new List<GameObject>(); //create a new list of gameobjects
 		playersInfo  = new List<PlayerInfo>(); //create a new list of playerinfos
-		
+		noOfPlayers = players.Count;
+
 		float screenHalf = Screen.width / 2; // to be used for ui position offsets
-		float screenDiv = Screen.width / players.Count;
+		float screenDiv = Screen.width / noOfPlayers;
 		Debug.Log ("ScreenDiv = " + screenDiv);
 		Debug.Log ("ScreenHalf = " + screenHalf);
 		
-		for (int i = 1; i < players.Count + 1; i++) //for all players, starting at 1 as i = 1 = player 1.
+		for (int i = 1; i < noOfPlayers + 1; i++) //for all players, starting at 1 as i = 1 = player 1.
 		{
 			PlayerInfo pInfo = players[i - 1].GetComponent<PlayerInfo>();
 			playersInfo.Add(pInfo);
@@ -68,8 +69,9 @@ public class UserInterface : MonoBehaviour {
 
 	void UpdateUI()
 	{
+		
 
-		for (int i = 0; i < players.Count; i++) //for all players
+		for (int i = 0; i < noOfPlayers; i++) //for all players
 		{
 			Text damageTaken = uiObjects[i].GetComponent<Text>(); //get the text component for each of the players
 			
