@@ -38,7 +38,14 @@ public class DamageReceiver : MonoBehaviour {
 		dir.y = 0.5f;
 		dir.Normalize();
 
-		force = force * (pi.damageReceived / 3);
+		if (pi.damageReceived < 15)
+		{
+			force = force * 12;
+		}
+		else 
+		{
+			force = force * pi.damageReceived;
+		}
 
 		push += (dir.normalized * (force / mass));
 	}
