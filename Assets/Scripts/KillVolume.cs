@@ -16,7 +16,7 @@ public class KillVolume : MonoBehaviour {
 		
 		if(pi != null){
 			pi.alive = false;
-			GameObject.Destroy(hit.gameObject);
+			//GameObject.Destroy(hit.gameObject);
 		}
 
 	}
