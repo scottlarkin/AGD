@@ -16,7 +16,7 @@ public class PlayerSelect : MonoBehaviour {
 
 	public AudioSource SelectSound;
 
-	public PlayerCountContainer pcc;
+	public PersistantDataContainer pcc;
 
 	private int PlayerCount;
 	

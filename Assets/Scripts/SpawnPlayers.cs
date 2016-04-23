@@ -7,7 +7,7 @@ public class SpawnPlayers : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		int count = GameObject.Find("PlayerCountContainer").GetComponent<PlayerCountContainer>().PlayerCount;
+		int count = GameObject.Find("PersistantDataContainer").GetComponent<PersistantDataContainer>().PlayerCount;
 
 		var spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
 

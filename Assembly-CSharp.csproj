@@ -55,9 +55,9 @@
      <Compile Include="Assets\Scripts\LinearProjectile.cs" />
      <Compile Include="Assets\Scripts\LoadLevel.cs" />
      <Compile Include="Assets\Scripts\Menu.cs" />
+     <Compile Include="Assets\Scripts\PersistantDataContainer.cs" />
      <Compile Include="Assets\Scripts\PlatformCollision.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
-     <Compile Include="Assets\Scripts\PlayerCountContainer.cs" />
      <Compile Include="Assets\Scripts\PlayerInfo.cs" />
      <Compile Include="Assets\Scripts\PlayerManager.cs" />
      <Compile Include="Assets\Scripts\PlayerSelect.cs" />

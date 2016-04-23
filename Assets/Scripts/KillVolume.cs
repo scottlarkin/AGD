@@ -16,8 +16,6 @@ public class KillVolume : MonoBehaviour {
 		
 		if(pi != null){
 
-			//update player score here
-
 			pi.alive = false;
 			PlayerManager.removePlayer(hit.gameObject);
 			GameObject.Destroy(hit.gameObject);
@@ -25,13 +23,24 @@ public class KillVolume : MonoBehaviour {
 
 		if(PlayerManager.getPlayers().Count <= 1){
 
-			//1 player left.
-			//load new level
+			DontDestroyOnLoad(GameObject.Find("PersistantDataContainer"));
+
+			if(PlayerManager.getPlayers().Count != 0)
+				GameObject.Find("PersistantDataContainer").GetComponent<PersistantDataContainer>().scores[int.Parse(PlayerManager.getPlayers()[0].GetComponent<PlayerInfo>().playerNumber) - 1] += 1;
 
 			var ll = new LoadLevel();
+
+			foreach(var score in GameObject.Find("PersistantDataContainer").GetComponent<PersistantDataContainer>().scores){
+
+				if(score == 5){
+					Application.LoadLevel("Podiums_Set_02");
+					return;
+				}
+
+			}
+
 			Application.LoadLevel(ll.GetRandomLevel());
 		
 		}
-
 	}
 }
