@@ -7,6 +7,7 @@ using System.Collections.Generic;
 
 
 public class UserInterface : MonoBehaviour {
+	
 
 	public Canvas UI;
 	public GameObject DamageCounter;
@@ -57,7 +58,7 @@ public class UserInterface : MonoBehaviour {
 			uiPos.sizeDelta.Set(Screen.width, Screen.height);
 			uiPos.anchorMin = new Vector2(0, 0); //set the anchors in which the the position is related to. This is currently bottom left
 			uiPos.anchorMax = new Vector2(0, 0);
-			uiPos.anchoredPosition = new Vector2((i * (screenDiv + uiPos.rect.width -250)), dmgYPos); //-250 offset to be reviewed. For which resolution to be used.
+			uiPos.anchoredPosition = new Vector2((i * (screenDiv + uiPos.rect.width)), dmgYPos);
 
 			uiText.color = colors[i - 1];
 			Debug.Log ("P" + i + ": =" + ((i * (screenDiv))));
@@ -68,6 +69,8 @@ public class UserInterface : MonoBehaviour {
 
 	void UpdateUI()
 	{
+		
+
 		for (int i = 0; i < noOfPlayers; i++) //for all players
 		{
 			Text damageTaken = uiObjects[i].GetComponent<Text>(); //get the text component for each of the players

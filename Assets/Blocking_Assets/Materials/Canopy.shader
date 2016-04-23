@@ -1,7 +1,7 @@
 // Shader created with Shader Forge v1.04 
 // Shader Forge (c) Neat Corporation / Joachim Holmer - http://www.acegikmo.com/shaderforge/
 // Note: Manually altering this data may prevent you from opening it in Shader Forge
-/*SF_DATA;ver:1.04;sub:START;pass:START;ps:flbk:,lico:1,lgpr:1,nrmq:1,limd:2,uamb:True,mssp:True,lmpd:False,lprd:False,rprd:False,enco:False,frtr:True,vitr:True,dbil:True,rmgx:True,rpth:0,hqsc:True,hqlp:False,tesm:0,blpr:0,bsrc:0,bdst:1,culm:0,dpts:2,wrdp:False,dith:2,ufog:True,aust:True,igpj:True,qofs:0,qpre:3,rntp:2,fgom:False,fgoc:False,fgod:False,fgor:False,fgmd:0,fgcr:0.5,fgcg:0.5,fgcb:0.5,fgca:1,fgde:0.01,fgrn:0,fgrf:300,ofsf:0,ofsu:0,f2p0:False;n:type:ShaderForge.SFN_Final,id:3560,x:32719,y:32712,varname:node_3560,prsc:2|diff-2249-RGB,diffpow-8016-OUT,spec-6436-OUT,gloss-8016-OUT,alpha-2249-A,clip-2249-A;n:type:ShaderForge.SFN_Tex2d,id:2249,x:32362,y:32585,ptovrint:False,ptlb:node_2249,ptin:_node_2249,varname:node_2249,prsc:2,tex:af85eb49741ca9f48a848cef779a024f,ntxv:0,isnm:False;n:type:ShaderForge.SFN_Vector1,id:8016,x:32511,y:32755,varname:node_8016,prsc:2,v1:1;n:type:ShaderForge.SFN_Vector1,id:6436,x:32542,y:32993,varname:node_6436,prsc:2,v1:0;proporder:2249;pass:END;sub:END;*/
+/*SF_DATA;ver:1.04;sub:START;pass:START;ps:flbk:,lico:1,lgpr:1,nrmq:1,limd:2,uamb:True,mssp:True,lmpd:False,lprd:False,rprd:False,enco:False,frtr:True,vitr:True,dbil:True,rmgx:True,rpth:0,hqsc:True,hqlp:False,tesm:0,blpr:0,bsrc:0,bdst:1,culm:2,dpts:2,wrdp:False,dith:2,ufog:True,aust:True,igpj:True,qofs:0,qpre:3,rntp:2,fgom:False,fgoc:False,fgod:False,fgor:False,fgmd:0,fgcr:0.5,fgcg:0.5,fgcb:0.5,fgca:1,fgde:0.01,fgrn:0,fgrf:300,ofsf:0,ofsu:0,f2p0:False;n:type:ShaderForge.SFN_Final,id:3560,x:32719,y:32712,varname:node_3560,prsc:2|diff-2249-RGB,diffpow-8016-OUT,spec-6436-OUT,gloss-8016-OUT,alpha-2249-A,clip-2249-A;n:type:ShaderForge.SFN_Tex2d,id:2249,x:32203,y:32723,ptovrint:False,ptlb:node_2249,ptin:_node_2249,varname:node_2249,prsc:2,tex:af85eb49741ca9f48a848cef779a024f,ntxv:0,isnm:False;n:type:ShaderForge.SFN_Vector1,id:8016,x:32511,y:32755,varname:node_8016,prsc:2,v1:1;n:type:ShaderForge.SFN_Vector1,id:6436,x:32488,y:32834,varname:node_6436,prsc:2,v1:0;proporder:2249;pass:END;sub:END;*/
 
 Shader "Shader Forge/Canopy" {
     Properties {
@@ -19,6 +19,7 @@ Shader "Shader Forge/Canopy" {
             Tags {
                 "LightMode"="ForwardBase"
             }
+            Cull Off
             ZWrite Off
             
             CGPROGRAM
@@ -82,6 +83,11 @@ Shader "Shader Forge/Canopy" {
 /////// Vectors:
                 float3 viewDirection = normalize(_WorldSpaceCameraPos.xyz - i.posWorld.xyz);
                 float3 normalDirection = i.normalDir;
+                
+                float nSign = sign( dot( viewDirection, i.normalDir ) ); // Reverse normal if this is a backface
+                i.normalDir *= nSign;
+                normalDirection *= nSign;
+                
                 float4 _node_2249_var = tex2D(_node_2249,TRANSFORM_TEX(i.uv0, _node_2249));
                 clip( BinaryDither3x3(_node_2249_var.a - 1.5, sceneUVs) );
                 float3 lightDirection = normalize(_WorldSpaceLightPos0.xyz);
@@ -117,6 +123,7 @@ Shader "Shader Forge/Canopy" {
                 "LightMode"="ForwardAdd"
             }
             Blend One One
+            Cull Off
             ZWrite Off
             
             Fog { Color (0,0,0,0) }
@@ -184,6 +191,11 @@ Shader "Shader Forge/Canopy" {
 /////// Vectors:
                 float3 viewDirection = normalize(_WorldSpaceCameraPos.xyz - i.posWorld.xyz);
                 float3 normalDirection = i.normalDir;
+                
+                float nSign = sign( dot( viewDirection, i.normalDir ) ); // Reverse normal if this is a backface
+                i.normalDir *= nSign;
+                normalDirection *= nSign;
+                
                 float4 _node_2249_var = tex2D(_node_2249,TRANSFORM_TEX(i.uv0, _node_2249));
                 clip( BinaryDither3x3(_node_2249_var.a - 1.5, sceneUVs) );
                 float3 lightDirection = normalize(lerp(_WorldSpaceLightPos0.xyz, _WorldSpaceLightPos0.xyz - i.posWorld.xyz,_WorldSpaceLightPos0.w));
@@ -216,6 +228,7 @@ Shader "Shader Forge/Canopy" {
             Tags {
                 "LightMode"="ShadowCollector"
             }
+            Cull Off
             
             Fog {Mode Off}
             CGPROGRAM

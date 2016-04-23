@@ -10,7 +10,6 @@ public class LinearProjectile : MonoBehaviour {
 
 	public float stunDuration = 3;
 	public float speed = 5;
-	public float damage = 10;
 	private Vector3 direction;
 	private float range = 0;
 	private Vector3 startPos;
@@ -47,7 +46,6 @@ public class LinearProjectile : MonoBehaviour {
 
 			//if hits a player, stun, and destroy object
 			hit.gameObject.GetComponent<PlayerInfo>().stunPlayer(stunDuration);		
-			hit.collider.SendMessage("ApplyDamage", damage, SendMessageOptions.DontRequireReceiver);
 			GameObject.Destroy(gameObject);
 		}
 		

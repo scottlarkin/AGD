@@ -26,26 +26,6 @@ public static class PlayerManager{
 
 		initialised = true;
 
-		SpawnPlayers ();
-
-	}
-
-	public static void SpawnPlayers(){
-
-		int i = 1;
-		foreach (GameObject o in GameObject.FindGameObjectsWithTag("SpawnPoint")) {
-
-			GameObject p = GameObject.FindGameObjectWithTag("P_" + i.ToString());
-
-			if(p != null){
-				p.transform.position = o.transform.position;
-				p.GetComponent<PlayerInfo>().alive = true;
-				p.GetComponent<PlayerInfo>().damageReceived = 0;
-			}
-
-			i++;
-		}
-
 	}
 
 	private static void findPlayers(){

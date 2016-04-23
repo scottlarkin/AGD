@@ -9,6 +9,7 @@ public class HangingBasket : MonoBehaviour {
 
 	public float delayTime = 3;
 	public float respawnTime = 5;
+	public bool stun = true;
 	public float stunDuration = 2;
 	public float range = 5;
 	public float dropSpeed = 20.0f;
@@ -23,7 +24,6 @@ public class HangingBasket : MonoBehaviour {
 	Vector3 objPos;
 	Vector3 objWidth;
 	int lookDown;
-
 
 	// Use this for initialization
 	void Start () {
@@ -96,15 +96,16 @@ public class HangingBasket : MonoBehaviour {
 
 	void OnTriggerEnter(Collider hit)
 	{
-		PlayerInfo pi = hit.gameObject.GetComponent<PlayerInfo> ();
+			PlayerInfo pi = hit.gameObject.GetComponent<PlayerInfo> ();
 
-		if (pi != null) 
+			if (pi != null) 
 		{
-			if (detectDown && active)
-			{	
-				pi.stunPlayer (stunDuration);
+				
+				if (stun == true)
+				{	
+					pi.stunPlayer (stunDuration);
+				}
 			}
 		}
-	}
 }
 

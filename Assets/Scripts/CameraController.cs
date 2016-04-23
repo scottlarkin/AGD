@@ -57,14 +57,11 @@ public class CameraController : MonoBehaviour {
 		maxDistance = float.NegativeInfinity;
 		float dist;
 		List<GameObject> players = PlayerManager.getPlayers();
-		int alivePlayers = 0;
+
 
 		foreach (GameObject p in players) {
-
 			try{
 				if (p.GetComponent<PlayerInfo>().alive) {
-
-					alivePlayers++;
 
 					midPoint += p.transform.FindChild("Center").transform.position;
 
@@ -95,10 +92,10 @@ public class CameraController : MonoBehaviour {
 			}
 		}
 
-		if (alivePlayers == 0)
-			PlayerManager.SpawnPlayers ();
 
-		midPoint /= alivePlayers;
+
+
+		midPoint /= players.Count;
 			
 		//rotate camera
 		transform.rotation = getNewCameraRotation(midPoint);

@@ -1,7 +1,7 @@
 // Shader created with Shader Forge v1.04 
 // Shader Forge (c) Neat Corporation / Joachim Holmer - http://www.acegikmo.com/shaderforge/
 // Note: Manually altering this data may prevent you from opening it in Shader Forge
-/*SF_DATA;ver:1.04;sub:START;pass:START;ps:flbk:,lico:1,lgpr:1,nrmq:1,limd:2,uamb:True,mssp:True,lmpd:False,lprd:False,rprd:False,enco:False,frtr:True,vitr:True,dbil:True,rmgx:True,rpth:0,hqsc:True,hqlp:False,tesm:0,blpr:0,bsrc:0,bdst:1,culm:0,dpts:2,wrdp:True,dith:2,ufog:True,aust:True,igpj:False,qofs:0,qpre:1,rntp:1,fgom:False,fgoc:False,fgod:False,fgor:False,fgmd:0,fgcr:0.5,fgcg:0.5,fgcb:0.5,fgca:1,fgde:0.01,fgrn:0,fgrf:300,ofsf:0,ofsu:0,f2p0:False;n:type:ShaderForge.SFN_Final,id:2287,x:32719,y:32712,varname:node_2287,prsc:2|diff-2365-OUT;n:type:ShaderForge.SFN_Tex2d,id:8220,x:32467,y:32620,ptovrint:False,ptlb:node_8220,ptin:_node_8220,varname:node_8220,prsc:2,tex:d0b234dd9ae06d84c8d55b4ea9daf2d3,ntxv:0,isnm:False;n:type:ShaderForge.SFN_Multiply,id:2365,x:32471,y:32825,varname:node_2365,prsc:2|A-8220-RGB,B-58-OUT;n:type:ShaderForge.SFN_Vector1,id:58,x:32330,y:32896,varname:node_58,prsc:2,v1:1.2;proporder:8220;pass:END;sub:END;*/
+/*SF_DATA;ver:1.04;sub:START;pass:START;ps:flbk:,lico:1,lgpr:1,nrmq:1,limd:2,uamb:True,mssp:True,lmpd:False,lprd:False,rprd:False,enco:False,frtr:True,vitr:True,dbil:True,rmgx:True,rpth:0,hqsc:True,hqlp:False,tesm:0,blpr:0,bsrc:0,bdst:1,culm:2,dpts:2,wrdp:True,dith:2,ufog:True,aust:True,igpj:False,qofs:0,qpre:1,rntp:1,fgom:False,fgoc:False,fgod:False,fgor:False,fgmd:0,fgcr:0.5,fgcg:0.5,fgcb:0.5,fgca:1,fgde:0.01,fgrn:0,fgrf:300,ofsf:0,ofsu:0,f2p0:False;n:type:ShaderForge.SFN_Final,id:2287,x:32719,y:32712,varname:node_2287,prsc:2|diff-2365-OUT;n:type:ShaderForge.SFN_Tex2d,id:8220,x:32305,y:32590,ptovrint:False,ptlb:node_8220,ptin:_node_8220,varname:node_8220,prsc:2,tex:d0b234dd9ae06d84c8d55b4ea9daf2d3,ntxv:0,isnm:False;n:type:ShaderForge.SFN_Multiply,id:2365,x:32482,y:32784,varname:node_2365,prsc:2|A-8220-RGB,B-58-OUT;n:type:ShaderForge.SFN_Vector1,id:58,x:32273,y:32818,varname:node_58,prsc:2,v1:1.2;proporder:8220;pass:END;sub:END;*/
 
 Shader "Shader Forge/Roofing" {
     Properties {
@@ -16,6 +16,7 @@ Shader "Shader Forge/Roofing" {
             Tags {
                 "LightMode"="ForwardBase"
             }
+            Cull Off
             
             
             CGPROGRAM
@@ -54,7 +55,13 @@ Shader "Shader Forge/Roofing" {
             fixed4 frag(VertexOutput i) : COLOR {
                 i.normalDir = normalize(i.normalDir);
 /////// Vectors:
+                float3 viewDirection = normalize(_WorldSpaceCameraPos.xyz - i.posWorld.xyz);
                 float3 normalDirection = i.normalDir;
+                
+                float nSign = sign( dot( viewDirection, i.normalDir ) ); // Reverse normal if this is a backface
+                i.normalDir *= nSign;
+                normalDirection *= nSign;
+                
                 float3 lightDirection = normalize(_WorldSpaceLightPos0.xyz);
                 float3 lightColor = _LightColor0.rgb;
 ////// Lighting:
@@ -79,6 +86,7 @@ Shader "Shader Forge/Roofing" {
                 "LightMode"="ForwardAdd"
             }
             Blend One One
+            Cull Off
             
             
             Fog { Color (0,0,0,0) }
@@ -118,7 +126,13 @@ Shader "Shader Forge/Roofing" {
             fixed4 frag(VertexOutput i) : COLOR {
                 i.normalDir = normalize(i.normalDir);
 /////// Vectors:
+                float3 viewDirection = normalize(_WorldSpaceCameraPos.xyz - i.posWorld.xyz);
                 float3 normalDirection = i.normalDir;
+                
+                float nSign = sign( dot( viewDirection, i.normalDir ) ); // Reverse normal if this is a backface
+                i.normalDir *= nSign;
+                normalDirection *= nSign;
+                
                 float3 lightDirection = normalize(lerp(_WorldSpaceLightPos0.xyz, _WorldSpaceLightPos0.xyz - i.posWorld.xyz,_WorldSpaceLightPos0.w));
                 float3 lightColor = _LightColor0.rgb;
 ////// Lighting:

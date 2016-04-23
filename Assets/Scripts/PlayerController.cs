@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour {
 	void Update () {
 
 
-		float thumbstickDeadZone = 0.85f;
+		float thumbstickDeadZone = 0.55f;
 		float dt = Time.deltaTime;
 		float absXVel = Mathf.Abs (velocity.x);
 

@@ -1,0 +1,408 @@
+fileFormatVersion: 2
+guid: f7807485a5b5a754a899c05afa849cb1
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: Bin
+    100002: Bone040
+    100004: Bone041
+    100006: Bone042
+    100008: Bone043
+    100010: Bone044
+    100012: Bone045
+    100014: Character 4 Ctrl16
+    100016: Character 4 Ctrl17
+    100018: Character 4 Ctrl43
+    100020: Character 4 Ctrl44
+    100022: Character 4 Ctrl54
+    100024: Character_4th_Place
+    100026: Chest_Bone
+    100028: connectBone001
+    100030: connectBone002
+    100032: Head_Bone
+    100034: Jaw_Bone
+    100036: L_Arm_SBone01
+    100038: L_Arm_SBone02
+    100040: L_Arm_SBone03
+    100042: L_Arm_SBone04
+    100044: L_Arm_SBone05
+    100046: L_Arm_SBone06
+    100048: L_Collar_Bone(mirrored)(mirrored)
+    100050: L_Eye_Bone
+    100052: L_Foot_Bone
+    100054: L_Hand_Bone
+    100056: L_Hip_Bone
+    100058: L_Leg_Bone
+    100060: L_Leg_Nub
+    100062: Neck_Bone01
+    100064: Neck_Bone02
+    100066: Point001
+    100068: R_Arm_SBone01
+    100070: R_Arm_SBone02
+    100072: R_Arm_SBone03
+    100074: R_Arm_SBone05
+    100076: R_Arm_SBone05 1
+    100078: R_Arm_SBone06
+    100080: R_Collar_Bone
+    100082: R_Eye_Bone
+    100084: R_Foot_Bone
+    100086: R_Hand_Bone
+    100088: R_Hip_Bone
+    100090: R_Leg_Bone
+    100092: R_Leg_Nub
+    100094: Root_Bone
+    100096: //RootNode
+    100098: Spike1_Bone1
+    100100: Spike1_Bone2
+    100102: Spike1_Bone_End
+    100104: Spike2_Bone1
+    100106: Spike2_Bone2
+    100108: Spike2_Bone3
+    100110: Spike2_Bone_End
+    100112: Spike3_Bone1
+    100114: Spike3_Bone2
+    100116: Spike3_Bone3
+    100118: Spike3_Bone_End
+    100120: Spine_Bone01
+    100122: Spine_Bone02
+    100124: Tail_Base_Bone
+    100126: Tail_Bone01
+    100128: Tail_Bone010
+    100130: Tail_Bone011
+    100132: Tail_Bone02
+    100134: Tail_Bone03
+    100136: Tail_Bone04
+    100138: Tail_Bone05
+    100140: Tail_Bone06
+    100142: Tail_Bone07
+    100144: Tail_Bone08
+    100146: Tail_Bone09
+    100148: Tongue_Base_Bone
+    100150: Tongue_Bone01
+    100152: Tongue_Bone02
+    100154: Tongue_Bone03
+    100156: Tongue_Bone05
+    400000: Bin
+    400002: Bone040
+    400004: Bone041
+    400006: Bone042
+    400008: Bone043
+    400010: Bone044
+    400012: Bone045
+    400014: Character 4 Ctrl16
+    400016: Character 4 Ctrl17
+    400018: Character 4 Ctrl43
+    400020: Character 4 Ctrl44
+    400022: Character 4 Ctrl54
+    400024: Character_4th_Place
+    400026: Chest_Bone
+    400028: connectBone001
+    400030: connectBone002
+    400032: Head_Bone
+    400034: Jaw_Bone
+    400036: L_Arm_SBone01
+    400038: L_Arm_SBone02
+    400040: L_Arm_SBone03
+    400042: L_Arm_SBone04
+    400044: L_Arm_SBone05
+    400046: L_Arm_SBone06
+    400048: L_Collar_Bone(mirrored)(mirrored)
+    400050: L_Eye_Bone
+    400052: L_Foot_Bone
+    400054: L_Hand_Bone
+    400056: L_Hip_Bone
+    400058: L_Leg_Bone
+    400060: L_Leg_Nub
+    400062: Neck_Bone01
+    400064: Neck_Bone02
+    400066: Point001
+    400068: R_Arm_SBone01
+    400070: R_Arm_SBone02
+    400072: R_Arm_SBone03
+    400074: R_Arm_SBone05
+    400076: R_Arm_SBone05 1
+    400078: R_Arm_SBone06
+    400080: R_Collar_Bone
+    400082: R_Eye_Bone
+    400084: R_Foot_Bone
+    400086: R_Hand_Bone
+    400088: R_Hip_Bone
+    400090: R_Leg_Bone
+    400092: R_Leg_Nub
+    400094: Root_Bone
+    400096: //RootNode
+    400098: Spike1_Bone1
+    400100: Spike1_Bone2
+    400102: Spike1_Bone_End
+    400104: Spike2_Bone1
+    400106: Spike2_Bone2
+    400108: Spike2_Bone3
+    400110: Spike2_Bone_End
+    400112: Spike3_Bone1
+    400114: Spike3_Bone2
+    400116: Spike3_Bone3
+    400118: Spike3_Bone_End
+    400120: Spine_Bone01
+    400122: Spine_Bone02
+    400124: Tail_Base_Bone
+    400126: Tail_Bone01
+    400128: Tail_Bone010
+    400130: Tail_Bone011
+    400132: Tail_Bone02
+    400134: Tail_Bone03
+    400136: Tail_Bone04
+    400138: Tail_Bone05
+    400140: Tail_Bone06
+    400142: Tail_Bone07
+    400144: Tail_Bone08
+    400146: Tail_Bone09
+    400148: Tongue_Base_Bone
+    400150: Tongue_Bone01
+    400152: Tongue_Bone02
+    400154: Tongue_Bone03
+    400156: Tongue_Bone05
+    2300000: Bin
+    3300000: Bin
+    4300000: Character_4th_Place
+    4300002: Bin
+    7400000: Set_01_Fourth_Place
+    9500000: //RootNode
+    13700000: Character_4th_Place
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Set_01_Fourth_Place
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 300
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Character 4 Ctrl54
+        weight: 1
+      - path: Character 4 Ctrl54/Character 4 Ctrl16
+        weight: 1
+      - path: Character 4 Ctrl54/Character 4 Ctrl16/Character 4 Ctrl17
+        weight: 1
+      - path: Character 4 Ctrl54/Character 4 Ctrl16/Character 4 Ctrl17/connectBone002
+        weight: 1
+      - path: Character 4 Ctrl54/Character 4 Ctrl16/Character 4 Ctrl17/connectBone002/L_Foot_Bone
+        weight: 1
+      - path: Character 4 Ctrl54/Character 4 Ctrl16/Character 4 Ctrl17/connectBone002/L_Foot_Bone/L_Leg_Bone
+        weight: 1
+      - path: Character 4 Ctrl54/Character 4 Ctrl16/Character 4 Ctrl17/connectBone002/L_Foot_Bone/L_Leg_Bone/L_Leg_Nub
+        weight: 1
+      - path: Character 4 Ctrl54/Character 4 Ctrl43
+        weight: 1
+      - path: Character 4 Ctrl54/Character 4 Ctrl43/Character 4 Ctrl44
+        weight: 1
+      - path: Character 4 Ctrl54/Character 4 Ctrl43/Character 4 Ctrl44/connectBone001
+        weight: 1
+      - path: Character 4 Ctrl54/Character 4 Ctrl43/Character 4 Ctrl44/connectBone001/R_Foot_Bone
+        weight: 1
+      - path: Character 4 Ctrl54/Character 4 Ctrl43/Character 4 Ctrl44/connectBone001/R_Foot_Bone/R_Leg_Bone
+        weight: 1
+      - path: Character 4 Ctrl54/Character 4 Ctrl43/Character 4 Ctrl44/connectBone001/R_Foot_Bone/R_Leg_Bone/R_Leg_Nub
+        weight: 1
+      - path: Character_4th_Place
+        weight: 1
+      - path: L_Arm_SBone01
+        weight: 1
+      - path: L_Arm_SBone02
+        weight: 1
+      - path: L_Arm_SBone03
+        weight: 1
+      - path: L_Arm_SBone04
+        weight: 1
+      - path: L_Arm_SBone05
+        weight: 1
+      - path: L_Arm_SBone06
+        weight: 1
+      - path: L_Hand_Bone
+        weight: 1
+      - path: Point001
+        weight: 1
+      - path: Point001/Bin
+        weight: 1
+      - path: R_Arm_SBone01
+        weight: 1
+      - path: R_Arm_SBone02
+        weight: 1
+      - path: R_Arm_SBone03
+        weight: 1
+      - path: R_Arm_SBone05
+        weight: 1
+      - path: R_Arm_SBone05 1
+        weight: 1
+      - path: R_Arm_SBone06
+        weight: 1
+      - path: R_Hand_Bone
+        weight: 1
+      - path: Root_Bone
+        weight: 1
+      - path: Root_Bone/L_Hip_Bone
+        weight: 1
+      - path: Root_Bone/L_Hip_Bone/Bone043
+        weight: 1
+      - path: Root_Bone/L_Hip_Bone/Bone043/Bone044
+        weight: 1
+      - path: Root_Bone/L_Hip_Bone/Bone043/Bone044/Bone045
+        weight: 1
+      - path: Root_Bone/R_Hip_Bone
+        weight: 1
+      - path: Root_Bone/R_Hip_Bone/Bone040
+        weight: 1
+      - path: Root_Bone/R_Hip_Bone/Bone040/Bone041
+        weight: 1
+      - path: Root_Bone/R_Hip_Bone/Bone040/Bone041/Bone042
+        weight: 1
+      - path: Root_Bone/Spine_Bone01
+        weight: 1
+      - path: Root_Bone/Spine_Bone01/Spine_Bone02
+        weight: 1
+      - path: Root_Bone/Spine_Bone01/Spine_Bone02/Chest_Bone
+        weight: 1
+      - path: Root_Bone/Spine_Bone01/Spine_Bone02/Chest_Bone/L_Collar_Bone(mirrored)(mirrored)
+        weight: 1
+      - path: Root_Bone/Spine_Bone01/Spine_Bone02/Chest_Bone/Neck_Bone01
+        weight: 1
+      - path: Root_Bone/Spine_Bone01/Spine_Bone02/Chest_Bone/Neck_Bone01/Neck_Bone02
+        weight: 1
+      - path: Root_Bone/Spine_Bone01/Spine_Bone02/Chest_Bone/Neck_Bone01/Neck_Bone02/Head_Bone
+        weight: 1
+      - path: Root_Bone/Spine_Bone01/Spine_Bone02/Chest_Bone/Neck_Bone01/Neck_Bone02/Head_Bone/Jaw_Bone
+        weight: 1
+      - path: Root_Bone/Spine_Bone01/Spine_Bone02/Chest_Bone/Neck_Bone01/Neck_Bone02/Head_Bone/L_Eye_Bone
+        weight: 1
+      - path: Root_Bone/Spine_Bone01/Spine_Bone02/Chest_Bone/Neck_Bone01/Neck_Bone02/Head_Bone/R_Eye_Bone
+        weight: 1
+      - path: Root_Bone/Spine_Bone01/Spine_Bone02/Chest_Bone/Neck_Bone01/Neck_Bone02/Head_Bone/Spike1_Bone1
+        weight: 1
+      - path: Root_Bone/Spine_Bone01/Spine_Bone02/Chest_Bone/Neck_Bone01/Neck_Bone02/Head_Bone/Spike1_Bone1/Spike1_Bone2
+        weight: 1
+      - path: Root_Bone/Spine_Bone01/Spine_Bone02/Chest_Bone/Neck_Bone01/Neck_Bone02/Head_Bone/Spike1_Bone1/Spike1_Bone2/Spike1_Bone_End
+        weight: 1
+      - path: Root_Bone/Spine_Bone01/Spine_Bone02/Chest_Bone/Neck_Bone01/Neck_Bone02/Head_Bone/Spike2_Bone1
+        weight: 1
+      - path: Root_Bone/Spine_Bone01/Spine_Bone02/Chest_Bone/Neck_Bone01/Neck_Bone02/Head_Bone/Spike2_Bone1/Spike2_Bone2
+        weight: 1
+      - path: Root_Bone/Spine_Bone01/Spine_Bone02/Chest_Bone/Neck_Bone01/Neck_Bone02/Head_Bone/Spike2_Bone1/Spike2_Bone2/Spike2_Bone3
+        weight: 1
+      - path: Root_Bone/Spine_Bone01/Spine_Bone02/Chest_Bone/Neck_Bone01/Neck_Bone02/Head_Bone/Spike2_Bone1/Spike2_Bone2/Spike2_Bone3/Spike2_Bone_End
+        weight: 1
+      - path: Root_Bone/Spine_Bone01/Spine_Bone02/Chest_Bone/Neck_Bone01/Neck_Bone02/Head_Bone/Spike3_Bone1
+        weight: 1
+      - path: Root_Bone/Spine_Bone01/Spine_Bone02/Chest_Bone/Neck_Bone01/Neck_Bone02/Head_Bone/Spike3_Bone1/Spike3_Bone2
+        weight: 1
+      - path: Root_Bone/Spine_Bone01/Spine_Bone02/Chest_Bone/Neck_Bone01/Neck_Bone02/Head_Bone/Spike3_Bone1/Spike3_Bone2/Spike3_Bone3
+        weight: 1
+      - path: Root_Bone/Spine_Bone01/Spine_Bone02/Chest_Bone/Neck_Bone01/Neck_Bone02/Head_Bone/Spike3_Bone1/Spike3_Bone2/Spike3_Bone3/Spike3_Bone_End
+        weight: 1
+      - path: Root_Bone/Spine_Bone01/Spine_Bone02/Chest_Bone/Neck_Bone01/Neck_Bone02/Head_Bone/Tongue_Base_Bone
+        weight: 1
+      - path: Root_Bone/Spine_Bone01/Spine_Bone02/Chest_Bone/Neck_Bone01/Neck_Bone02/Head_Bone/Tongue_Base_Bone/Tongue_Bone01
+        weight: 1
+      - path: Root_Bone/Spine_Bone01/Spine_Bone02/Chest_Bone/Neck_Bone01/Neck_Bone02/Head_Bone/Tongue_Base_Bone/Tongue_Bone01/Tongue_Bone02
+        weight: 1
+      - path: Root_Bone/Spine_Bone01/Spine_Bone02/Chest_Bone/Neck_Bone01/Neck_Bone02/Head_Bone/Tongue_Base_Bone/Tongue_Bone01/Tongue_Bone02/Tongue_Bone03
+        weight: 1
+      - path: Root_Bone/Spine_Bone01/Spine_Bone02/Chest_Bone/Neck_Bone01/Neck_Bone02/Head_Bone/Tongue_Base_Bone/Tongue_Bone01/Tongue_Bone02/Tongue_Bone03/Tongue_Bone05
+        weight: 1
+      - path: Root_Bone/Spine_Bone01/Spine_Bone02/Chest_Bone/R_Collar_Bone
+        weight: 1
+      - path: Root_Bone/Tail_Base_Bone
+        weight: 1
+      - path: Root_Bone/Tail_Base_Bone/Tail_Bone01
+        weight: 1
+      - path: Root_Bone/Tail_Base_Bone/Tail_Bone01/Tail_Bone02
+        weight: 1
+      - path: Root_Bone/Tail_Base_Bone/Tail_Bone01/Tail_Bone02/Tail_Bone03
+        weight: 1
+      - path: Root_Bone/Tail_Base_Bone/Tail_Bone01/Tail_Bone02/Tail_Bone03/Tail_Bone04
+        weight: 1
+      - path: Root_Bone/Tail_Base_Bone/Tail_Bone01/Tail_Bone02/Tail_Bone03/Tail_Bone04/Tail_Bone05
+        weight: 1
+      - path: Root_Bone/Tail_Base_Bone/Tail_Bone01/Tail_Bone02/Tail_Bone03/Tail_Bone04/Tail_Bone05/Tail_Bone06
+        weight: 1
+      - path: Root_Bone/Tail_Base_Bone/Tail_Bone01/Tail_Bone02/Tail_Bone03/Tail_Bone04/Tail_Bone05/Tail_Bone06/Tail_Bone07
+        weight: 1
+      - path: Root_Bone/Tail_Base_Bone/Tail_Bone01/Tail_Bone02/Tail_Bone03/Tail_Bone04/Tail_Bone05/Tail_Bone06/Tail_Bone07/Tail_Bone08
+        weight: 1
+      - path: Root_Bone/Tail_Base_Bone/Tail_Bone01/Tail_Bone02/Tail_Bone03/Tail_Bone04/Tail_Bone05/Tail_Bone06/Tail_Bone07/Tail_Bone08/Tail_Bone09
+        weight: 1
+      - path: Root_Bone/Tail_Base_Bone/Tail_Bone01/Tail_Bone02/Tail_Bone03/Tail_Bone04/Tail_Bone05/Tail_Bone06/Tail_Bone07/Tail_Bone08/Tail_Bone09/Tail_Bone010
+        weight: 1
+      - path: Root_Bone/Tail_Base_Bone/Tail_Bone01/Tail_Bone02/Tail_Bone03/Tail_Bone04/Tail_Bone05/Tail_Bone06/Tail_Bone07/Tail_Bone08/Tail_Bone09/Tail_Bone010/Tail_Bone011
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
