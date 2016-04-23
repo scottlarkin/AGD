@@ -28,18 +28,21 @@ public static class PlayerManager{
 
 	}
 
-	private static void findPlayers(){
+	public static void findPlayers(){
 
-		for (int i = 1; i < maxPlayerCount + 1; i++) {
-			
-			GameObject o = GameObject.FindGameObjectWithTag("P_" + i.ToString());
+	
+		//players.Clear();
 
-			if(o != null){
-				Debug.Log(o.name + "   " + i);
-				players.Add(o);
-			}
-
-		}
+		//for (int i = 1; i < maxPlayerCount + 1; i++) {
+		//	
+		//	GameObject o = GameObject.FindGameObjectWithTag("P_" + i.ToString());
+		//
+		//	if(o != null){
+		//		Debug.Log(o.name + "   " + i);
+		//		players.Add(o);
+		//	}
+		//
+		//}
 	}
 
 	private static void checkInit(){

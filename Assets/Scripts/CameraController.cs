@@ -91,21 +91,18 @@ public class CameraController : MonoBehaviour {
 				return;
 			}
 		}
-
-
-
-
+		
 		midPoint /= players.Count;
 			
 		//rotate camera
 		transform.rotation = getNewCameraRotation(midPoint);
-
+	
 		//move camera x and y pos
 		transform.position = getNewCameraPosition(midPoint);
-
+	
 		//clamp range to resonable values
 		maxDistance = Mathf.Clamp(maxDistance, 10, 25);
-
+	
 		//"zoom" camera by changine the orthographic size
 		//cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, maxDistance, Time.deltaTime * zoomSpeed);
 		cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, maxDistance * 2.0f, Time.deltaTime * zoomSpeed);
