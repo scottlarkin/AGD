@@ -32,6 +32,7 @@ public class PlayerInfo : MonoBehaviour {
 	private float stunned  = 0;
 	[HideInInspector]public DIRECTION direction;
 	[HideInInspector]public bool alive = true;
+	[HideInInspector]public int score = 0;
 
 	private Animator animator;
 	private float health;

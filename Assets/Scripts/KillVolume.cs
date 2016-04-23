@@ -15,9 +15,22 @@ public class KillVolume : MonoBehaviour {
 		PlayerInfo pi = hit.gameObject.GetComponent<PlayerInfo>();
 		
 		if(pi != null){
+
+			//update player score here
+
 			pi.alive = false;
 			PlayerManager.removePlayer(hit.gameObject);
 			GameObject.Destroy(hit.gameObject);
+		}
+
+		if(PlayerManager.getPlayers().Count <= 1){
+
+			//1 player left.
+			//load new level
+
+			var ll = new LoadLevel();
+			Application.LoadLevel(ll.GetRandomLevel());
+		
 		}
 
 	}

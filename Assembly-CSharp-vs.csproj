@@ -53,6 +53,7 @@
      <Compile Include="Assets\Scripts\HangingBasket.cs" />
      <Compile Include="Assets\Scripts\KillVolume.cs" />
      <Compile Include="Assets\Scripts\LinearProjectile.cs" />
+     <Compile Include="Assets\Scripts\LoadLevel.cs" />
      <Compile Include="Assets\Scripts\Menu.cs" />
      <Compile Include="Assets\Scripts\PlatformCollision.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />

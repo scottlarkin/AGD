@@ -98,7 +98,8 @@ public class PlayerSelect : MonoBehaviour {
 
 					DontDestroyOnLoad(pcc);
 
-					Application.LoadLevel("Toms_Map");
+					var ll = new LoadLevel();
+					Application.LoadLevel(ll.GetRandomLevel());
 
 				}
 			}

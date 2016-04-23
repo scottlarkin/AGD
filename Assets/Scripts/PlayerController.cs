@@ -30,6 +30,10 @@ public class PlayerController : MonoBehaviour {
 	float rayLength;
 	float defaultYPos;
 
+	public AudioClip jumpSound;
+	public AudioClip moveSound;
+	
+
 	void Start () {
 
 		pi = gameObject.GetComponent<PlayerInfo>();
@@ -55,16 +59,18 @@ public class PlayerController : MonoBehaviour {
 		animator = gameObject.transform.FindChild("character").GetComponent<Animator>();
 		mesh = transform;
 
+		gameObject.GetComponent<AudioSource>().Pause();
+		gameObject.GetComponent<AudioSource>().loop = false;
+		gameObject.GetComponent<AudioSource>().volume = 1000.0f;
+
 	}
 
 	// Update is called once per frame
 	void Update () {
 
-
 		float thumbstickDeadZone = 0.55f;
 		float dt = Time.deltaTime;
 		float absXVel = Mathf.Abs (velocity.x);
-
 
 		if (cc.isGrounded) {
 			jumpCount = 0;
@@ -121,6 +127,11 @@ public class PlayerController : MonoBehaviour {
 			jumpCount++;
 			animator.SetBool ("jumping", true);
 			animator.SetBool ("landed", false);
+
+
+			gameObject.GetComponent<AudioSource>().clip = jumpSound;
+			gameObject.GetComponent<AudioSource>().Play();
+
 		}
 
 		velocity += accelerationGravity * dt;
@@ -136,6 +147,19 @@ public class PlayerController : MonoBehaviour {
 
 		//TODO: make this the speed in the direction of the surface, instead of just x, otherwise it will not produce correct results on a slope.
 		animator.SetFloat ("speed", Mathf.Abs (velocity.x));
+
+		if(Mathf.Abs(velocity.x) > 0.5f && cc.isGrounded){
+			gameObject.GetComponent<AudioSource>().clip = moveSound;
+
+			if(!gameObject.GetComponent<AudioSource>().isPlaying)
+				gameObject.GetComponent<AudioSource>().Play();
+		
+		}
+		else{
+			if(!animator.GetBool("jumping"))
+				gameObject.GetComponent<AudioSource>().Pause();
+		}
+
 
 		cc.Move (velocity * dt);
 
