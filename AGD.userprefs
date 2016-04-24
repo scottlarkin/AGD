@@ -1,16 +1,19 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Scoreboard.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\UserInterface.cs">
     <Files>
-      <File FileName="Assets\Scripts\PlayerManager.cs" Line="49" Column="35" />
-      <File FileName="Assets\Scripts\Scoreboard.cs" Line="32" Column="25" />
-      <File FileName="Assets\Scripts\PlayerSelect.cs" Line="40" Column="34" />
-      <File FileName="Assets\Scripts\PersistantDataContainer.cs" Line="21" Column="2" />
-      <File FileName="Assets\Scripts\UserInterface.cs" Line="45" Column="1" />
+      <File FileName="Assets\Scripts\PlayerSelect.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\PlayerManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Scoreboard.cs" Line="79" Column="50" />
+      <File FileName="Assets\Scripts\PersistantDataContainer.cs" Line="24" Column="1" />
+      <File FileName="Assets\Scripts\UserInterface.cs" Line="49" Column="65" />
+      <File FileName="Assets\Scripts\Attack.cs" Line="162" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="C:\Users\Greg\Documents\AGD\Assets\Scripts\PersistantDataContainer.cs" line="24" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

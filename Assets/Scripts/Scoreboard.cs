@@ -4,7 +4,8 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 
 public class Scoreboard : MonoBehaviour {
-	
+
+	public AudioSource SelectSound;
 
 	private int playerCount;
 	private List<Score> orderedScores;
@@ -45,6 +46,7 @@ public class Scoreboard : MonoBehaviour {
 	void Update () {
 
 		if(Input.GetKey("joystick 1 button 7")){
+			SelectSound.Play();
 			nextLevel();
 		}
 		
@@ -70,7 +72,7 @@ public class Scoreboard : MonoBehaviour {
 
 			GameObject scorePanel = GameObject.Instantiate(Resources.Load ("Score P" + orderedScores[i].playerNumber.ToString())) as GameObject;
 
-			Vector2 panelPos = new Vector2(950, -(((i + 1) * 280) - (i * 60))); //Magic numbers everywhere
+			Vector2 panelPos = new Vector2(950, -(280 + 220 * i)); //Magic numbers set via manual testing
 			scorePanel.transform.SetParent(this.gameObject.transform, false);
 			scorePanel.GetComponent<RectTransform>().anchorMin = new Vector2(0,1); //Sets the anchors for the UI
 			scorePanel.GetComponent<RectTransform>().anchorMax = new Vector2(0,1);

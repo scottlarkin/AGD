@@ -100,7 +100,7 @@ public class Attack : MonoBehaviour {
 	{
 		attackVec = attackRange.transform.position - rayOrigin.transform.position; //sets the positions of the attack transform objects to a Vector we can use.
 		//SCOTT'S DONE SOMETHING SO THE BELOW ISN'T NEEDED BUT NOT TOLD ME WHAT!
-		//attackVec = new Vector3 ((1 * attackVec.x), attackVec.y, attackVec.z); //modifies the vectore depending on which way you are facing.
+		attackVec = new Vector3 ((1 * attackVec.x), attackVec.y, attackVec.z); //modifies the vectore depending on which way you are facing.
 		Debug.DrawLine (rayOrigin.transform.position,rayOrigin.transform.position + attackVec, Color.green);
 		Debug.Log (attackVec.x + " " + attackVec.y + " " + attackVec.z);
 
