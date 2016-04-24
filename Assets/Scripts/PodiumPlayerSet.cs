@@ -21,6 +21,7 @@ public class PodiumPlayerSet : MonoBehaviour {
 			materials.Add(m);
 		}
 
+		//load the materials
 		materials[0].Add(Resources.Load ("Orange_Head", typeof(Material)) as Material);
 		materials[0].Add(Resources.Load ("Orange_Body", typeof(Material)) as Material);
 
@@ -33,7 +34,9 @@ public class PodiumPlayerSet : MonoBehaviour {
 		materials[3].Add(Resources.Load ("Pink_Head", typeof(Material)) as Material);
 		materials[3].Add(Resources.Load ("Pink_Body", typeof(Material)) as Material);
 
-		Debug.Log (dc.PlayerCount);
+		//Debug.Log (dc.PlayerCount);
+
+		//hide players if less than 4 playing
 		if(dc.PlayerCount < 3){
 			GameObject.Find("Character_3rd_Place").renderer.enabled = false;
 
@@ -42,6 +45,8 @@ public class PodiumPlayerSet : MonoBehaviour {
 			}
 		}
 
+
+		//colour the players sccording to scores.
 		GameObject.Find("Character_1st_Place").renderer.materials = materials[dc.scores[0].playerNumber - 1].ToArray();
 		GameObject.Find("Character_2nd_Place").renderer.materials = materials[dc.scores[1].playerNumber - 1].ToArray();
 		GameObject.Find("Character_3rd_Place").renderer.materials = materials[dc.scores[2].playerNumber - 1].ToArray();

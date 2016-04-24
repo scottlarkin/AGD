@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿//Scott Larkin
+//Script for the player select interface and starting the game.
+
+using UnityEngine;
 using System.Collections;
 
 public class PlayerSelect : MonoBehaviour {
@@ -23,6 +26,14 @@ public class PlayerSelect : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 	
+
+		PersistantDataContainer dc = GameObject.Find("PersistantDataContainer").GetComponent<PersistantDataContainer>();
+		AudioSource music = GameObject.Find("Menu music").GetComponent<AudioSource>();
+
+		music.time = dc.menuMusicTime;
+
+		music.Play();
+
 		P1_OK.renderer.enabled = false;
 		P2_OK.renderer.enabled = false;
 		P3_OK.renderer.enabled = false;

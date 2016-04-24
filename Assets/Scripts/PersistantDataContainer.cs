@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿//Scott Larkin
+//Store player and score data which needs to be kept between scene changes. 
+//Theis script is attachejd to a game object of the same name.
+
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -6,6 +10,7 @@ public class PersistantDataContainer : MonoBehaviour {
 	
 	public int PlayerCount;
 	public List<Score> scores;
+	public float menuMusicTime;
 
 	public PersistantDataContainer(){
 

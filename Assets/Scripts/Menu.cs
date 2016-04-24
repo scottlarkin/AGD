@@ -11,11 +11,17 @@ public class Menu : MonoBehaviour {
 	public GameObject yesButton;
 	public GameObject noButton;
 	public AudioSource titleMusic;
-	public AudioSource selectSound;
-	public AudioSource highlightSound;
+	public GameObject selectSound;
+	public GameObject highlightSound;
 
 	private Button playClick;
 	private Button exitClick;
+
+
+	private AudioSource sss;
+	private AudioSource hss;
+
+	private GameObject selected;
 
 	// Use this for initialization
 	void Start () 
@@ -25,10 +31,10 @@ public class Menu : MonoBehaviour {
 		playClick = playButton.GetComponent<Button> ();
 		exitClick = exitButton.GetComponent<Button> ();
 		titleMusic = titleMusic.GetComponent<AudioSource>();
-		selectSound = selectSound.GetComponent<AudioSource>();
-		highlightSound = highlightSound.GetComponent<AudioSource>();
+		sss = selectSound.GetComponent<AudioSource>();
+		hss = highlightSound.GetComponent<AudioSource>();
 
-		titleMusic.Play();
+		//titleMusic.Play();
 		quitMenu.enabled = false;
 		yesButton.SetActive(false);
 		noButton.SetActive(false);
@@ -37,14 +43,19 @@ public class Menu : MonoBehaviour {
 
 	public void PlayClick()
 	{
-		selectSound.Play ();
-		Application.LoadLevel (1);
+
+		GameObject.Find("PersistantDataContainer").GetComponent<PersistantDataContainer>().menuMusicTime = titleMusic.time;
+		
+		DontDestroyOnLoad(GameObject.Find("PersistantDataContainer").GetComponent<PersistantDataContainer>());
+
+		sss.Play ();
+		Application.LoadLevel ("Player Select");
 		
 	}
 
 	public void ExitClick()
 	{
-		selectSound.Play ();
+		sss.Play ();
 		quitMenu.enabled = true;
 		playClick.enabled = false;
 		exitClick.enabled = false;
@@ -56,14 +67,15 @@ public class Menu : MonoBehaviour {
 
 	public void YesClick()
 	{
-		selectSound.Play ();
+		sss.Play ();
+
 		Application.Quit ();
 		
 	}
 
 	public void NoClick()
 	{
-		selectSound.Play ();
+		sss.Play ();
 		quitMenu.enabled = false;
 		playClick.enabled = true;
 		exitClick.enabled = true;
@@ -79,8 +91,13 @@ public class Menu : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		if(selected != EventSystem.current.currentSelectedGameObject){
 
-		GameObject selected = EventSystem.current.currentSelectedGameObject;
+			hss.Play();
+
+			selected = EventSystem.current.currentSelectedGameObject;
+
+		}
 	
 		if (EventSystem.current.currentSelectedGameObject == selected)
 		{

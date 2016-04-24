@@ -30,8 +30,9 @@ public class KillVolume : MonoBehaviour {
 
 				foreach(Score s in dc.scores){
 
+					//increase score of the last player standing
 					if(s.playerNumber == int.Parse(PlayerManager.getPlayers()[0].GetComponent<PlayerInfo>().playerNumber)){
-						s.score += 5;
+						s.score += 1;
 						break;
 					}
 				}
@@ -43,7 +44,9 @@ public class KillVolume : MonoBehaviour {
 			var ll = new LoadLevel();
 
 			foreach(var score in dc.scores){
-				Debug.Log ("player:  " + score.playerNumber + "   score:  " + score.score);
+
+				//Debug.Log ("player:  " + score.playerNumber + "   score:  " + score.score);
+
 				if(score.score == 5){
 					Application.LoadLevel("Podiums_Set_02");
 					return;

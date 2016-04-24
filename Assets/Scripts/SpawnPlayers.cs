@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿//Scott Larkin
+//spawn players in the level absed on number of players selected in player select
+
+using UnityEngine;
 using System.Collections;
 
 public class SpawnPlayers : MonoBehaviour {
