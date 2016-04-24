@@ -18,8 +18,10 @@ public class PersistantDataContainer : MonoBehaviour {
 	
 	}
 
-	public void OrderScores(){
+	public List<Score> OrderScores(){
 		scores.Sort((x,y)=>y.score.CompareTo(x.score));
+
+		return scores;
 	}
 
 	public void AddPlayer(){

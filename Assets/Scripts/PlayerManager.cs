@@ -22,27 +22,8 @@ public static class PlayerManager{
 
 		players = new List<GameObject>();
 
-		findPlayers();
-
 		initialised = true;
 
-	}
-
-	public static void findPlayers(){
-
-	
-		//players.Clear();
-
-		//for (int i = 1; i < maxPlayerCount + 1; i++) {
-		//	
-		//	GameObject o = GameObject.FindGameObjectWithTag("P_" + i.ToString());
-		//
-		//	if(o != null){
-		//		Debug.Log(o.name + "   " + i);
-		//		players.Add(o);
-		//	}
-		//
-		//}
 	}
 
 	private static void checkInit(){
@@ -77,23 +58,24 @@ public static class PlayerManager{
 				}
 			}
 			
-			dc.OrderScores();
-			
-			var ll = new LoadLevel();
-			
-			foreach(var score in dc.scores){
-				
-				//Debug.Log ("player:  " + score.playerNumber + "   score:  " + score.score);
-				
-				if(score.score == 5){
-					Application.LoadLevel("Podiums_Set_02");
-					return;
-				}
-				
-			}
-			
-			Application.LoadLevel(ll.GetRandomLevel());
-			
+			//dc.OrderScores();
+			GameObject scorePanel = GameObject.Instantiate(Resources.Load ("Scoreboard")) as GameObject;
+
+					var ll = new LoadLevel();
+					
+					foreach(var score in dc.scores){
+						
+						//Debug.Log ("player:  " + score.playerNumber + "   score:  " + score.score);
+						
+						if(score.score == 5){
+							Application.LoadLevel("Podiums_Set_02");
+							return;
+						}
+						
+					}
+					
+					Application.LoadLevel(ll.GetRandomLevel());
+
 		}
 	}
 
