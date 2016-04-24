@@ -9,21 +9,59 @@ public class Scoreboard : MonoBehaviour {
 	private int playerCount;
 	private List<Score> orderedScores;
 
+	PersistantDataContainer pdc;
 
 	// Use this for initialization
 	void Start () {
-		PersistantDataContainer pdc = GameObject.Find("PersistantDataContainer").GetComponent<PersistantDataContainer>();
 
-		orderedScores = pdc.OrderScores ();
+		pdc = GameObject.Find("PersistantDataContainer").GetComponent<PersistantDataContainer>();
+
+		orderedScores = pdc.OrderScores();
 
 		orderScoreboard ();
 
 	
 	}
-	
+
+	private void nextLevel(){
+
+		var ll = new LoadLevel();
+		
+		foreach(var score in pdc.scores){
+			
+			if(score.score == 5){
+				Application.LoadLevel("Podiums_Set_02");
+				return;
+			}
+			
+		}
+		
+		Application.LoadLevel(ll.GetRandomLevel());
+
+
+	}
+
 	// Update is called once per frame
 	void Update () {
 
+
+
+
+		if(Input.GetKey("joystick 1 button 7")){
+			nextLevel();
+		}
+		
+		if(Input.GetKey("joystick 2 button 7")){
+			nextLevel();
+		}
+		
+		if(Input.GetKey("joystick 3 button 7")){
+			nextLevel();
+		}
+		
+		if(Input.GetKey("joystick 4 button 7")){
+			nextLevel();
+		}
 
 	
 	}
@@ -34,7 +72,6 @@ public class Scoreboard : MonoBehaviour {
 		{
 
 			GameObject scorePanel = GameObject.Instantiate(Resources.Load ("Score P" + orderedScores[i].playerNumber.ToString())) as GameObject;
-
 
 			Vector2 panelPos = new Vector2(950, -(((i + 1) * 280) - (i * 60))); //Magic numbers everywhere
 			scorePanel.transform.SetParent(this.gameObject.transform, false);

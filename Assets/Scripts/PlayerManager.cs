@@ -57,24 +57,8 @@ public static class PlayerManager{
 					}
 				}
 			}
-			
-			//dc.OrderScores();
-			GameObject scorePanel = GameObject.Instantiate(Resources.Load ("Scoreboard")) as GameObject;
 
-					var ll = new LoadLevel();
-					
-					foreach(var score in dc.scores){
-						
-						//Debug.Log ("player:  " + score.playerNumber + "   score:  " + score.score);
-						
-						if(score.score == 5){
-							Application.LoadLevel("Podiums_Set_02");
-							return;
-						}
-						
-					}
-					
-					Application.LoadLevel(ll.GetRandomLevel());
+			GameObject scorePanel = GameObject.Instantiate(Resources.Load ("Scoreboard")) as GameObject;
 
 		}
 	}
