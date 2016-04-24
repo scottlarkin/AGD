@@ -27,10 +27,10 @@ public class PlayerSelect : MonoBehaviour {
 	void Start () {
 	
 
-		PersistantDataContainer dc = GameObject.Find("PersistantDataContainer").GetComponent<PersistantDataContainer>();
+		pcc = GameObject.Find("PersistantDataContainer").GetComponent<PersistantDataContainer>();
 		AudioSource music = GameObject.Find("Menu music").GetComponent<AudioSource>();
 
-		music.time = dc.menuMusicTime;
+		music.time = pcc.menuMusicTime;
 
 		music.Play();
 

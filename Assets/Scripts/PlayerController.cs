@@ -160,8 +160,9 @@ public class PlayerController : MonoBehaviour {
 				gameObject.GetComponent<AudioSource>().Pause();
 		}
 
-
 		cc.Move (velocity * dt);
+
+		cc.transform.position = new Vector3(cc.transform.position.x, cc.transform.position.y, -1.5f);
 
 		//visualise direction since im just using a box
 		Debug.DrawLine (transform.position, transform.position + new Vector3(pi.GetDirection(),0,0)  * 3, Color.red);
