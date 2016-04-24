@@ -1,13 +1,14 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\PlayerSelect.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\CameraController.cs">
     <Files>
-      <File FileName="AGD.sln" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\CameraController.cs" Line="101" Column="1" />
-      <File FileName="Assets\Scripts\SpawnPlayers.cs" Line="11" Column="3" />
+      <File FileName="Assets\Scripts\CameraController.cs" Line="93" Column="4" />
+      <File FileName="Assets\Scripts\SpawnPlayers.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Attack.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\KillVolume.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\PlayerSelect.cs" Line="19" Column="29" />
+      <File FileName="Assets\Scripts\PlayerSelect.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\PersistantDataContainer.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\PlayerInfo.cs" Line="39" Column="28" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

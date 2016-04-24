@@ -61,6 +61,7 @@
      <Compile Include="Assets\Scripts\PlayerInfo.cs" />
      <Compile Include="Assets\Scripts\PlayerManager.cs" />
      <Compile Include="Assets\Scripts\PlayerSelect.cs" />
+     <Compile Include="Assets\Scripts\PodiumPlayerSet.cs" />
      <Compile Include="Assets\Scripts\ProjectileLauncher.cs" />
      <Compile Include="Assets\Scripts\SpawnPlayers.cs" />
      <Compile Include="Assets\Scripts\UserInterface.cs" />

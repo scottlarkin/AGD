@@ -91,9 +91,13 @@ public class CameraController : MonoBehaviour {
 				return;
 			}
 		}
-		
+
+		if(players.Count == 0){
+			return;
+		}
+
 		midPoint /= players.Count;
-			
+
 		//rotate camera
 		transform.rotation = getNewCameraRotation(midPoint);
 	

@@ -94,7 +94,10 @@ public class PlayerSelect : MonoBehaviour {
 				if(PlayerCount >= 1){
 
 					//start game
-					pcc.PlayerCount = PlayerCount;
+					PlayerCount = 2; //debugging only
+
+					for(int n = 0; n < PlayerCount; n++)
+						pcc.AddPlayer();
 
 					DontDestroyOnLoad(pcc);
 

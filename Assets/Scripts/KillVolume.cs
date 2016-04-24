@@ -13,7 +13,8 @@ public class KillVolume : MonoBehaviour {
 	{
 
 		PlayerInfo pi = hit.gameObject.GetComponent<PlayerInfo>();
-		
+		PersistantDataContainer dc = GameObject.Find("PersistantDataContainer").GetComponent<PersistantDataContainer>();
+
 		if(pi != null){
 
 			pi.alive = false;
@@ -21,18 +22,29 @@ public class KillVolume : MonoBehaviour {
 			GameObject.Destroy(hit.gameObject);
 		}
 
-		if(PlayerManager.getPlayers().Count <= 1){
+		if(PlayerManager.getPlayers().Count == 1){
 
-			DontDestroyOnLoad(GameObject.Find("PersistantDataContainer"));
+			DontDestroyOnLoad(dc);
 
-			if(PlayerManager.getPlayers().Count != 0)
-				GameObject.Find("PersistantDataContainer").GetComponent<PersistantDataContainer>().scores[int.Parse(PlayerManager.getPlayers()[0].GetComponent<PlayerInfo>().playerNumber) - 1] += 1;
+			if(PlayerManager.getPlayers().Count != 0){
+
+				foreach(Score s in dc.scores){
+
+					if(s.playerNumber == int.Parse(PlayerManager.getPlayers()[0].GetComponent<PlayerInfo>().playerNumber)){
+						s.score += 5;
+						break;
+					}
+				}
+
+			}
+
+			dc.OrderScores();
 
 			var ll = new LoadLevel();
 
-			foreach(var score in GameObject.Find("PersistantDataContainer").GetComponent<PersistantDataContainer>().scores){
-
-				if(score == 5){
+			foreach(var score in dc.scores){
+				Debug.Log ("player:  " + score.playerNumber + "   score:  " + score.score);
+				if(score.score == 5){
 					Application.LoadLevel("Podiums_Set_02");
 					return;
 				}
