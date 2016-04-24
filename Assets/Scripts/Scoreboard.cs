@@ -44,9 +44,6 @@ public class Scoreboard : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-
-
-
 		if(Input.GetKey("joystick 1 button 7")){
 			nextLevel();
 		}

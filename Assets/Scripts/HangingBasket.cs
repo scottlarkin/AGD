@@ -80,14 +80,15 @@ public class HangingBasket : MonoBehaviour {
 
 		Vector3 detectRange = new Vector3 (0, (lookDown * range), 0);
 
-		if((Physics.Linecast(objPos - (objWidth/ 2), objPos + detectRange, out hitInfo, LayerMask.NameToLayer("players"))
-		    || Physics.Linecast(objPos, objPos + detectRange, out hitInfo, LayerMask.NameToLayer("players"))
-		    || Physics.Linecast(objPos + (objWidth/ 2), objPos + detectRange, out hitInfo, LayerMask.NameToLayer("players"))))
-		   {
+		if((Physics.Linecast(objPos - (objWidth/ 2), objPos + detectRange, out hitInfo)
+		    || Physics.Linecast(objPos, objPos + detectRange, out hitInfo)
+		    || Physics.Linecast(objPos + (objWidth/ 2), objPos + detectRange)))
+		{
 
 			PlayerInfo pi = hitInfo.transform.gameObject.GetComponent<PlayerInfo>();
 			
 			if(pi != null){
+
 				dropDelayStarted = true;
 				dropDelay.startCooldown();
 			}
@@ -99,9 +100,11 @@ public class HangingBasket : MonoBehaviour {
 			PlayerInfo pi = hit.gameObject.GetComponent<PlayerInfo> ();
 
 			if (pi != null) 
-		{
-				
-				if (stun == true)
+			{
+
+
+
+				if (stun && active)
 				{	
 					pi.stunPlayer (stunDuration);
 				}
