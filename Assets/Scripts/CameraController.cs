@@ -39,7 +39,7 @@ public class CameraController : MonoBehaviour {
 		Vector3 pos = new Vector3(0,0, transform.position.z);
 		
 		pos.x = Mathf.Lerp(transform.position.x, midPoint.x, Time.deltaTime * moveSpeed);
-		pos.y = Mathf.Lerp(transform.position.y, midPoint.y, Time.deltaTime * moveSpeed) + 0.15f;
+		pos.y = Mathf.Lerp(transform.position.y, midPoint.y, Time.deltaTime * moveSpeed) - 0.015f;
 
 		return pos;
 	}
