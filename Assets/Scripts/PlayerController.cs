@@ -32,9 +32,16 @@ public class PlayerController : MonoBehaviour {
 
 	public AudioClip jumpSound;
 	public AudioClip moveSound;
-	
+
+	ParticleSystem jumpVFX;
+
+	bool lastGrounded;
 
 	void Start () {
+
+
+		jumpVFX = transform.Find ("character/Dust_2").GetComponent<ParticleSystem>();
+		jumpVFX.Stop();
 
 		pi = gameObject.GetComponent<PlayerInfo>();
 
@@ -74,17 +81,26 @@ public class PlayerController : MonoBehaviour {
 		float dt = Time.deltaTime;
 		float absXVel = Mathf.Abs (velocity.x);
 
+
+		if(!lastGrounded && cc.isGrounded)
+			jumpVFX.Play();
+
 		if (cc.isGrounded) {
 			jumpCount = 0;
 			animator.SetBool ("jumping", false);
 			animator.SetBool ("landed", true);
 			animator.SetBool ("falling", false);
 			//Debug.Log ("I've landed");
+
+
+
 		}
 		else{
 			animator.SetBool ("falling", true);
 		}
-		
+
+		lastGrounded = cc.isGrounded;
+
 		directionIntensity = Input.GetAxis ("P_" + pi.playerNumber + " LH"); //float between -1 and 1...how far the thumb stick is pushed
 
 		//set direction of thunmbstick to 0 if its near the middle or player is stunned

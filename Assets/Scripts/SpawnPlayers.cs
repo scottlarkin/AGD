@@ -5,10 +5,11 @@ using UnityEngine;
 using System.Collections;
 
 public class SpawnPlayers : MonoBehaviour {
-
-
+	
 	// Use this for initialization
 	void Start () {
+
+		PlayerManager.getPlayers().Clear();
 
 		int count = GameObject.Find("PersistantDataContainer").GetComponent<PersistantDataContainer>().PlayerCount;
 

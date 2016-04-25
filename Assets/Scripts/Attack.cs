@@ -22,21 +22,31 @@ public class Attack : MonoBehaviour {
 	private ArrayList attackArr = new ArrayList();
 	private CooldownTimer attackCD;
 	private CooldownTimer counterCD;
+	private CooldownTimer counterDur;
 
-	
+
+	private ParticleSystem attackVFX;
+	private AudioSource attackSound;
+
 	// Use this for initialization
 	void Start () 
 	{
-		
+		attackSound = gameObject.transform.Find("rayOrigin").GetComponent<AudioSource>();
+		attackSound.volume = 1000;
+		attackVFX = gameObject.transform.Find("character/Attack_VFX").GetComponent<ParticleSystem>();
+		attackVFX.playOnAwake = false;
+
 		pi = gameObject.GetComponent<PlayerInfo>(); //Gets this players PlayerInfo script information.
 		cc = gameObject.GetComponent<CharacterController>(); //Gets this players CharacterController information
 		animator = transform.Find("character").GetComponent<Animator>();
 		attackCD = new CooldownTimer (attackCoolDown, true); //creates a cooldown for the attack.
 		counterCD = new CooldownTimer (counterCoolDown, true); //creates a cooldown for the counter 
+		counterDur = new CooldownTimer (3.0f, true);
 
 	}
 
 	// Update is called once per frame
+
 	void FixedUpdate () 
 	{
 		if (attacked == true) {
@@ -44,19 +54,22 @@ public class Attack : MonoBehaviour {
 			animator.SetBool ("attack", false);
 		}
 		//Debug.Log (pi.GetDirection ());
-
+		
 		//ATTACK
 		if (Input.GetKey ("joystick " + pi.playerNumber + " button 2") && pi.isBlocking == false) { //Checks whether 'X' has been pressed on the players controller.
 			if (attackCD.checkCooldownOver()) //Checks whether the attack is on cooldown or not.
 			{
 				animator.SetBool ("attack", true);
 				attacked = true;
-
+				
+				attackSound.Play();
+				attackVFX.Play();
+				
 				PushAttack (); //if not on cooldown then attack!
-
+				
 			}
 		}
-
+		
 		//BLOCK
 		//Need to get block duration working.
 		/*if (Input.GetKey ("joystick " + pi.playerNumber + " button 1")) {
@@ -75,27 +88,38 @@ public class Attack : MonoBehaviour {
 		{
 			lastBlockTime = Time.time;
 		}*/
-		if (Input.GetKey ("joystick " + pi.playerNumber + " button 1")) // Checks whether 'B' has been pressed on the players controller.
+		Debug.Log (counterDur.checkCooldownOver());
+		if (Input.GetKey ("joystick " + pi.playerNumber + " button 1") && counterCD.checkCooldownOver()) // Checks whether 'B' has been pressed on the players controller.
 		{
-
-			if (counterCD.checkCooldownOver())
+			
+			if (!counterDur.checkCooldownOver())
 			{
 				pi.isBlocking = true; //Sets the boolean in the playerinfo script to true.
 				animator.SetBool ("block", true);
 				counterCD.startCooldown();
+				
+				if(!counterDur.isTiming)
+					counterDur.startCooldown();
 			}
-
+			else
+			{
+				counterDur.stop ();
+				pi.isBlocking = false;//If B isn't being pressed then they are not blocking.
+				animator.SetBool("block", false);
+			}
+			
 		} else 
 		{
 			pi.isBlocking = false;//If B isn't being pressed then they are not blocking.
 			animator.SetBool("block", false);
-
+			counterDur.stop ();
+			
 		}
-
-
+		
+		
 		//Debug.Log (pi.isBlocking);
 	}
-
+	
 	void PushAttack() //The main attack
 	{
 		attackVec = attackRange.transform.position - rayOrigin.transform.position; //sets the positions of the attack transform objects to a Vector we can use.
@@ -103,7 +127,7 @@ public class Attack : MonoBehaviour {
 		attackVec = new Vector3 ((1 * attackVec.x), attackVec.y, attackVec.z); //modifies the vectore depending on which way you are facing.
 		Debug.DrawLine (rayOrigin.transform.position,rayOrigin.transform.position + attackVec, Color.green);
 		Debug.Log (attackVec.x + " " + attackVec.y + " " + attackVec.z);
-
+		
 		attackCD.startCooldown(); //Starts the attack cooldown
 		//Debug.Log ("You are attacking");
 		
@@ -121,20 +145,20 @@ public class Attack : MonoBehaviour {
 				otherPlayer = objectHit.collider.gameObject.GetComponent<PlayerInfo>(); //Get's the PlayerInfo script of the player who's collider was hit.
 				try
 				{
-				if (otherPlayer.isBlocking && otherPlayer.GetDirection() != pi.GetDirection()) //checks whether the other player was blocking and facing the attack.
-				{
-					GetCountered ();
-				}
-				else
-				{
-					attackArr.Add (pushPower);
-					attackArr.Add (attackVec.normalized);
-
-					//Sends a message to that player to use their ApplyForce function using the parameters we give it.
-					objectHit.collider.SendMessage("ApplyForce", attackArr, SendMessageOptions.DontRequireReceiver);
-					objectHit.collider.SendMessage("ApplyDamage", attackDamage, SendMessageOptions.DontRequireReceiver);
-					attackArr.Clear();
-				}
+					if (otherPlayer.isBlocking && otherPlayer.GetDirection() != pi.GetDirection()) //checks whether the other player was blocking and facing the attack.
+					{
+						GetCountered ();
+					}
+					else
+					{
+						attackArr.Add (pushPower);
+						attackArr.Add (attackVec.normalized);
+						
+						//Sends a message to that player to use their ApplyForce function using the parameters we give it.
+						objectHit.collider.SendMessage("ApplyForce", attackArr, SendMessageOptions.DontRequireReceiver);
+						objectHit.collider.SendMessage("ApplyDamage", attackDamage, SendMessageOptions.DontRequireReceiver);
+						attackArr.Clear();
+					}
 				}
 				catch
 				{
@@ -146,13 +170,12 @@ public class Attack : MonoBehaviour {
 		}
 		
 	}
-
+	
 	
 	void GetCountered() //The block's counter move.
 	{
 		counterVec = attackRange.transform.position - rayOrigin.transform.position;// Gets the attackVec information
 		counterVec = new Vector3 ((-pi.GetDirection() * counterVec.x), counterVec.y, counterVec.z); //Modifies the vector to aim in the opposite direction to the player so you're always hit backwards.
-		
 		//Debug.DrawLine (rayOrigin.transform.position, rayOrigin.transform.position + Vector3.Normalize (counterVec), Color.magenta);
 		attackArr.Add (counterPower);
 		attackArr.Add (counterVec.normalized);

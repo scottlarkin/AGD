@@ -38,6 +38,8 @@ public class PlayerInfo : MonoBehaviour {
 	private float health;
 	public string playerNumber;
 
+	AudioSource waterSplashSound;
+
 	public float GetDirection()
 	{
 		return direction == DIRECTION.LEFT ? -1.0f : 1.0f;
@@ -51,7 +53,12 @@ public class PlayerInfo : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+		waterSplashSound = gameObject.transform.Find("character").GetComponent<AudioSource>();
 		animator = gameObject.transform.FindChild("character").GetComponent<Animator>();
+
+
+		waterSplashSound.volume = 10000;
+		waterSplashSound.Stop();
 
 		playerNumber = gameObject.tag.Split('_')[1];
 		health = maxHealth;
@@ -62,6 +69,13 @@ public class PlayerInfo : MonoBehaviour {
 				Physics.IgnoreCollision(p.GetComponent<CharacterController>(), GetComponent<CharacterController>());
 			}
 		}
+	}
+
+	public AudioSource WaterSplash(){
+		waterSplashSound.Play();
+
+		return waterSplashSound;
+
 	}
 
 	public bool isStunned(){
@@ -78,6 +92,7 @@ public class PlayerInfo : MonoBehaviour {
 			stunned -= Time.deltaTime;
 			animator.SetFloat("stunned", stunned);
 		}
+
 		//Debug.Log (playerNumber + ": = " + GetDirection()); 
 	}
 }

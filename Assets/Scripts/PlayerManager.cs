@@ -43,9 +43,7 @@ public static class PlayerManager{
 		PersistantDataContainer dc = GameObject.Find("PersistantDataContainer").GetComponent<PersistantDataContainer>();
 
 		if(PlayerManager.getPlayers().Count == 1){
-			
-			//DontDestroyOnLoad(dc);
-			
+						
 			if(PlayerManager.getPlayers().Count != 0){
 				
 				foreach(Score s in dc.scores){

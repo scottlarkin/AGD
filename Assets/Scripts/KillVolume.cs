@@ -16,8 +16,12 @@ public class KillVolume : MonoBehaviour {
 
 		if(pi != null){
 			pi.alive = false;
+			AudioSource ws = pi.WaterSplash();
+
+		
+
 			PlayerManager.removePlayer(hit.gameObject);
-			GameObject.Destroy(hit.gameObject);
+			//GameObject.Destroy(hit.gameObject);
 		}
 
 	}
