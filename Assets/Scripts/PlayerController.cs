@@ -68,6 +68,8 @@ public class PlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+
+		
 		float thumbstickDeadZone = 0.55f;
 		float dt = Time.deltaTime;
 		float absXVel = Mathf.Abs (velocity.x);

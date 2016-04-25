@@ -42,9 +42,9 @@ public class PodiumPlayerSet : MonoBehaviour {
 
 			if(dc.PlayerCount < 4){
 				GameObject.Find("Character_4th_Place").renderer.enabled = false;
+				GameObject.Find("Bin").renderer.enabled = false;
 			}
 		}
-
 
 		//colour the players sccording to scores.
 		GameObject.Find("Character_1st_Place").renderer.materials = materials[dc.scores[0].playerNumber - 1].ToArray();
@@ -56,6 +56,12 @@ public class PodiumPlayerSet : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		if(Input.GetKey("joystick 1 button 7") ||
+		   Input.GetKey("joystick 2 button 7") ||
+		   Input.GetKey("joystick 3 button 7") || 
+		   Input.GetKey("joystick 4 button 7")){
+			
+			Application.LoadLevel("Main_Menu");
+		}
 	}
 }

@@ -1,13 +1,14 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\HangingBasket.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\CameraController.cs">
     <Files>
       <File FileName="Assets\Scripts\PlayerManager.cs" Line="49" Column="35" />
-      <File FileName="Assets\Scripts\Scoreboard.cs" Line="32" Column="25" />
+      <File FileName="Assets\Scripts\Scoreboard.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\PlayerSelect.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\PersistantDataContainer.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\UserInterface.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\HangingBasket.cs" Line="75" Column="40" />
+      <File FileName="Assets\Scripts\CameraController.cs" Line="42" Column="93" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
