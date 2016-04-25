@@ -43,6 +43,8 @@ public class PlayerController : MonoBehaviour {
 		jumpVFX = transform.Find ("character/Dust_2").GetComponent<ParticleSystem>();
 		jumpVFX.Stop();
 
+
+
 		pi = gameObject.GetComponent<PlayerInfo>();
 
 		accelerationRate = pi.accelerationRate;
@@ -141,11 +143,12 @@ public class PlayerController : MonoBehaviour {
 		}
 		
 		//jumping
-		if (Input.GetKeyDown ("joystick " + pi.playerNumber + " button 0" && PlayerManager.getPlayers().Count > 1)
+		if (Input.GetKeyDown ("joystick " + pi.playerNumber + " button 0" )
 		    && jumpCount < numberOfJumps 
 		    && !pi.isBlocking
 		    && !pi.isStunned()
-		    && ((jumpCount == 0 && cc.isGrounded) || jumpCount > 0)) {//jump pressed
+		    && ((jumpCount == 0 && cc.isGrounded) || jumpCount > 0)
+		    && PlayerManager.getPlayers().Count > 1) {//jump pressed
 			//reset y velocity before jump, otherwise -y velocity built up from gravity will negate 2nd jump, or +y vel from prev jump will make next jump huge
 			velocity = new Vector3 (velocity.x, 0, velocity.z);
 			velocity += new Vector3 (0, jumpHeight, 0);
@@ -153,7 +156,7 @@ public class PlayerController : MonoBehaviour {
 			animator.SetBool ("jumping", true);
 			animator.SetBool ("landed", false);
 
-
+			gameObject.GetComponent<AudioSource>().volume = 1.0f;
 			gameObject.GetComponent<AudioSource>().clip = jumpSound;
 			gameObject.GetComponent<AudioSource>().Play();
 
@@ -175,7 +178,7 @@ public class PlayerController : MonoBehaviour {
 
 		if(Mathf.Abs(velocity.x) > 0.5f && cc.isGrounded){
 			gameObject.GetComponent<AudioSource>().clip = moveSound;
-
+			gameObject.GetComponent<AudioSource>().volume = 0.25f;
 			if(!gameObject.GetComponent<AudioSource>().isPlaying)
 				gameObject.GetComponent<AudioSource>().Play();
 		
