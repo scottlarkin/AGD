@@ -49,6 +49,9 @@ public static class PlayerManager{
 				foreach(Score s in dc.scores){
 					
 					//increase score of the last player standing
+
+					PlayerInfo ss = PlayerManager.getPlayers()[0].GetComponent<PlayerInfo>();
+
 					if(s.playerNumber == int.Parse(PlayerManager.getPlayers()[0].GetComponent<PlayerInfo>().playerNumber)){
 						s.score += 1;
 						break;

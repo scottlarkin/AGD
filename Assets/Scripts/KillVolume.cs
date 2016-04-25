@@ -7,7 +7,12 @@
 using UnityEngine;
 using System.Collections;
 
+
+
 public class KillVolume : MonoBehaviour {
+
+	public bool water;
+
 
 	void OnTriggerEnter(Collider hit)
 	{
@@ -16,12 +21,20 @@ public class KillVolume : MonoBehaviour {
 
 		if(pi != null){
 			pi.alive = false;
-			AudioSource ws = pi.WaterSplash();
 
-		
+			if(water){
+
+				GameObject waterSplash = GameObject.Instantiate(Resources.Load("WaterSplash")) as GameObject;
+				AudioSource audio = waterSplash.GetComponent<AudioSource>();
+				audio.volume = 1000;
+				audio.Play();
+
+				waterSplash.transform.position = pi.transform.position;
+
+			}
 
 			PlayerManager.removePlayer(hit.gameObject);
-			//GameObject.Destroy(hit.gameObject);
+			GameObject.Destroy(hit.gameObject);
 		}
 
 	}

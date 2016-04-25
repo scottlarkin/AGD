@@ -49,8 +49,12 @@ public class PodiumPlayerSet : MonoBehaviour {
 		//colour the players sccording to scores.
 		GameObject.Find("Character_1st_Place").renderer.materials = materials[dc.scores[0].playerNumber - 1].ToArray();
 		GameObject.Find("Character_2nd_Place").renderer.materials = materials[dc.scores[1].playerNumber - 1].ToArray();
-		GameObject.Find("Character_3rd_Place").renderer.materials = materials[dc.scores[2].playerNumber - 1].ToArray();
-		GameObject.Find("Character_4th_Place").renderer.materials = materials[dc.scores[3].playerNumber - 1].ToArray();
+
+		if(dc.PlayerCount > 2)
+			GameObject.Find("Character_3rd_Place").renderer.materials = materials[dc.scores[2].playerNumber - 1].ToArray();
+
+		if(dc.PlayerCount > 3)
+			GameObject.Find("Character_4th_Place").renderer.materials = materials[dc.scores[3].playerNumber - 1].ToArray();
 
 	}
 	

@@ -88,7 +88,8 @@ public class Attack : MonoBehaviour {
 		{
 			lastBlockTime = Time.time;
 		}*/
-		Debug.Log (counterDur.checkCooldownOver());
+		//Debug.Log (counterDur.checkCooldownOver());
+
 		if (Input.GetKey ("joystick " + pi.playerNumber + " button 1") && counterCD.checkCooldownOver()) // Checks whether 'B' has been pressed on the players controller.
 		{
 			
