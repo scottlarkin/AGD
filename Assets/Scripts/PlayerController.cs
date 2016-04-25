@@ -141,7 +141,7 @@ public class PlayerController : MonoBehaviour {
 		}
 		
 		//jumping
-		if (Input.GetKeyDown ("joystick " + pi.playerNumber + " button 0")
+		if (Input.GetKeyDown ("joystick " + pi.playerNumber + " button 0" && PlayerManager.getPlayers().Count > 1)
 		    && jumpCount < numberOfJumps 
 		    && !pi.isBlocking
 		    && !pi.isStunned()
