@@ -19,7 +19,7 @@ public class KillVolume : MonoBehaviour {
 
 		PlayerInfo pi = hit.gameObject.GetComponent<PlayerInfo>();
 
-		if(pi != null){
+		if(pi != null && pi.playerNumber != ""){
 			pi.alive = false;
 
 			if(water){
