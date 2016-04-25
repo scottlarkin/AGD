@@ -105,7 +105,7 @@ public class CameraController : MonoBehaviour {
 		transform.position = getNewCameraPosition(midPoint);
 	
 		//clamp range to resonable values
-		maxDistance = Mathf.Clamp(maxDistance, 10, 25);
+		maxDistance = Mathf.Clamp(maxDistance, 10, 21);
 	
 		//"zoom" camera by changine the orthographic size
 		//cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, maxDistance, Time.deltaTime * zoomSpeed);

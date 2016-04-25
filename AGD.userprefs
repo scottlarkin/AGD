@@ -1,16 +1,17 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\KillVolume.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\CameraController.cs">
     <Files>
       <File FileName="Assets\Scripts\PodiumPlayerSet.cs" Line="56" Column="25" />
       <File FileName="Assets\Scripts\PlayerController.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\CooldownTimer.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\PlayerInfo.cs" Line="69" Column="1" />
-      <File FileName="Assets\Scripts\KillVolume.cs" Line="34" Column="5" />
-      <File FileName="Assets\Scripts\SpawnPlayers.cs" Line="20" Column="74" />
+      <File FileName="Assets\Scripts\PlayerInfo.cs" Line="59" Column="1" />
+      <File FileName="Assets\Scripts\KillVolume.cs" Line="23" Column="21" />
+      <File FileName="Assets\Scripts\SpawnPlayers.cs" Line="35" Column="1" />
       <File FileName="Assets\Scripts\HangingBasket.cs" Line="46" Column="1" />
       <File FileName="Assets\Scripts\Attack.cs" Line="86" Column="1" />
-      <File FileName="Assets\Scripts\PlayerManager.cs" Line="54" Column="6" />
+      <File FileName="Assets\Scripts\PlayerManager.cs" Line="55" Column="1" />
+      <File FileName="Assets\Scripts\CameraController.cs" Line="108" Column="48" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

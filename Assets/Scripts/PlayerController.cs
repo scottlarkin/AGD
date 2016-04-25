@@ -75,12 +75,22 @@ public class PlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-
+		//if(Input.GetKey("joystick 1 button 7") ||
+		//   Input.GetKey("joystick 2 button 7") ||
+		//   Input.GetKey("joystick 3 button 7") ||
+		//   Input.GetKey("joystick 4 button 7") ){
+		//
+		//	if(PlayerManager.getPlayers().Count > 1){
+		//		Time.timeScale = 0;
+		//		Debug.Log ("pause");
+		//		return;
+		//	}	
+		//
+		//}
 		
 		float thumbstickDeadZone = 0.55f;
 		float dt = Time.deltaTime;
 		float absXVel = Mathf.Abs (velocity.x);
-
 
 		if(!lastGrounded && cc.isGrounded)
 			jumpVFX.Play();
@@ -91,9 +101,6 @@ public class PlayerController : MonoBehaviour {
 			animator.SetBool ("landed", true);
 			animator.SetBool ("falling", false);
 			//Debug.Log ("I've landed");
-
-
-
 		}
 		else{
 			animator.SetBool ("falling", true);
@@ -178,11 +185,12 @@ public class PlayerController : MonoBehaviour {
 				gameObject.GetComponent<AudioSource>().Pause();
 		}
 
-		cc.Move (velocity * dt);
+		if(PlayerManager.getPlayers().Count > 1)
+			cc.Move (velocity * dt);
 
 		cc.transform.position = new Vector3(cc.transform.position.x, cc.transform.position.y, -1.5f);
 
 		//visualise direction since im just using a box
-		Debug.DrawLine (transform.position, transform.position + new Vector3(pi.GetDirection(),0,0)  * 3, Color.red);
+		//Debug.DrawLine (transform.position, transform.position + new Vector3(pi.GetDirection(),0,0)  * 3, Color.red);
 	}
 }
