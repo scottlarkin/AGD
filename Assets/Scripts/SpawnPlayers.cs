@@ -11,6 +11,8 @@ public class SpawnPlayers : MonoBehaviour {
 
 		PlayerManager.getPlayers().Clear();
 
+		GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>().time = GameObject.Find("PersistantDataContainer").GetComponent<PersistantDataContainer>().menuMusicTime;
+
 		int count = GameObject.Find("PersistantDataContainer").GetComponent<PersistantDataContainer>().PlayerCount;
 
 		var spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");

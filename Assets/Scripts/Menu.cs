@@ -74,7 +74,7 @@ public class Menu : MonoBehaviour {
 	public void ControlsClick()
 	{
 		controlsMenu.enabled = true;
-
+		sss.Play ();
 
 	}
 

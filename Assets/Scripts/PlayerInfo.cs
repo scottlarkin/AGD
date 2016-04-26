@@ -62,6 +62,7 @@ public class PlayerInfo : MonoBehaviour {
 			
 		stunSound = gameObject.transform.Find("Center").GetComponent<AudioSource>();
 		stunSound.Stop();
+		stunSound.volume = 0.2f;
 		animator = gameObject.transform.FindChild("character").GetComponent<Animator>();
 
 		//playerNumber = gameObject.tag.Split('_')[1];

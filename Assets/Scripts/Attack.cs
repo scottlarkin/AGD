@@ -33,7 +33,7 @@ public class Attack : MonoBehaviour {
 	void Start () 
 	{
 		attackSound = gameObject.transform.Find("rayOrigin").GetComponent<AudioSource>();
-		attackSound.volume = 1000;
+		attackSound.volume = 0.8f;
 		attackSound.Stop();
 		attackVFX = gameObject.transform.Find("character/Attack_VFX").GetComponent<ParticleSystem>();
 		attackVFX.playOnAwake = false;

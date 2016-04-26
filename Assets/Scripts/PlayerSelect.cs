@@ -103,7 +103,9 @@ public class PlayerSelect : MonoBehaviour {
 					DontDestroyOnLoad(pcc);
 
 					var ll = new LoadLevel();
+					pcc.menuMusicTime = 0;
 					Application.LoadLevel(ll.GetRandomLevel());
+
 
 				}
 			}

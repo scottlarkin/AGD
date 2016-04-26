@@ -26,6 +26,10 @@ public class Scoreboard : MonoBehaviour {
 
 	private void nextLevel(){
 
+		float t = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>().time;
+
+		pdc.menuMusicTime = t;
+
 		var ll = new LoadLevel();
 		
 		foreach(var score in pdc.scores){
@@ -38,8 +42,6 @@ public class Scoreboard : MonoBehaviour {
 		}
 		
 		Application.LoadLevel(ll.GetRandomLevel());
-
-
 	}
 
 	// Update is called once per frame
@@ -51,14 +53,17 @@ public class Scoreboard : MonoBehaviour {
 		}
 		
 		if(Input.GetKey("joystick 2 button 7")){
+			SelectSound.Play();
 			nextLevel();
 		}
 		
 		if(Input.GetKey("joystick 3 button 7")){
+			SelectSound.Play();
 			nextLevel();
 		}
 		
 		if(Input.GetKey("joystick 4 button 7")){
+			SelectSound.Play();
 			nextLevel();
 		}
 
