@@ -49,4 +49,9 @@ public class CooldownTimer {
 		startTime = float.PositiveInfinity;
 		isTiming = false;
 	}
+
+	public void forceCooldownOver() //Make the cooldown ready without having to wait.
+	{
+		startTime = float.NegativeInfinity;
+	}
 }

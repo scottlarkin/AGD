@@ -21,8 +21,6 @@ public class PlayerSelect : MonoBehaviour {
 
 	public PersistantDataContainer pcc;
 
-	private int PlayerCount;
-	
 	// Use this for initialization
 	void Start () {
 	
@@ -42,8 +40,6 @@ public class PlayerSelect : MonoBehaviour {
 		SelectSound.Pause();
 		SelectSound.loop = false;
 
-		PlayerCount = 0;
-
 	}
 	
 	// Update is called once per frame
@@ -52,8 +48,8 @@ public class PlayerSelect : MonoBehaviour {
 		if(Input.GetKey("joystick 1 button 0")){
 
 			if(P1_PressA.renderer.enabled == true){
+				pcc.AddPlayer("1");
 				SelectSound.Play();
-				PlayerCount++;
 			}
 
 			P1_OK.renderer.enabled = true;
@@ -65,8 +61,8 @@ public class PlayerSelect : MonoBehaviour {
 		if(Input.GetKey("joystick 2 button 0")){
 
 			if(P2_PressA.renderer.enabled == true){
+				pcc.AddPlayer("2");
 				SelectSound.Play();
-				PlayerCount++;
 			}
 
 			P2_OK.renderer.enabled = true;
@@ -77,8 +73,8 @@ public class PlayerSelect : MonoBehaviour {
 		if(Input.GetKey("joystick 3 button 0")){
 
 			if(P3_PressA.renderer.enabled == true){
+				pcc.AddPlayer("3");
 				SelectSound.Play();
-				PlayerCount++;
 			}
 
 			P3_OK.renderer.enabled = true;
@@ -89,8 +85,8 @@ public class PlayerSelect : MonoBehaviour {
 		if(Input.GetKey("joystick 4 button 0")){
 
 			if(P4_PressA.renderer.enabled == true){
+				pcc.AddPlayer("4");
 				SelectSound.Play();
-				PlayerCount++;
 			}
 
 			P4_OK.renderer.enabled = true;
@@ -102,14 +98,8 @@ public class PlayerSelect : MonoBehaviour {
 
 			if(Input.GetKey("joystick " + i.ToString() + " button 7")){
 
-				if(PlayerCount >= 1){
-
-					//start game
-					PlayerCount = 2; //debugging only
-
-					for(int n = 0; n < PlayerCount; n++)
-						pcc.AddPlayer();
-
+				if(pcc.PlayerCount > 1){
+			
 					DontDestroyOnLoad(pcc);
 
 					var ll = new LoadLevel();

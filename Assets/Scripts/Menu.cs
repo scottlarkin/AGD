@@ -6,7 +6,9 @@ using System.Collections.Generic;
 public class Menu : MonoBehaviour {
 
 	public Canvas quitMenu;
+	public Canvas controlsMenu;
 	public GameObject playButton;
+	public GameObject controlButton;
 	public GameObject exitButton;
 	public GameObject yesButton;
 	public GameObject noButton;
@@ -15,6 +17,7 @@ public class Menu : MonoBehaviour {
 	public GameObject highlightSound;
 
 	private Button playClick;
+	private Button controlsClick;
 	private Button exitClick;
 
 
@@ -29,6 +32,7 @@ public class Menu : MonoBehaviour {
 	
 		quitMenu = quitMenu.GetComponent<Canvas> ();
 		playClick = playButton.GetComponent<Button> ();
+		controlsClick = controlButton.GetComponent<Button> ();
 		exitClick = exitButton.GetComponent<Button> ();
 		titleMusic = titleMusic.GetComponent<AudioSource>();
 		sss = selectSound.GetComponent<AudioSource>();
@@ -36,6 +40,7 @@ public class Menu : MonoBehaviour {
 
 		//titleMusic.Play();
 		quitMenu.enabled = false;
+		controlsMenu.enabled = false;
 		yesButton.SetActive(false);
 		noButton.SetActive(false);
 
@@ -58,11 +63,19 @@ public class Menu : MonoBehaviour {
 		sss.Play ();
 		quitMenu.enabled = true;
 		playClick.enabled = false;
+		controlsClick.enabled = false;
 		exitClick.enabled = false;
 		yesButton.SetActive(true); //Needed so that the button becomes selectable now.
 		noButton.SetActive(true); //Needed so that the button becomes selectable now.
 		EventSystem.current.SetSelectedGameObject (noButton);
 	
+	}
+
+	public void ControlsClick()
+	{
+		controlsMenu.enabled = true;
+
+
 	}
 
 	public void YesClick()
@@ -78,6 +91,7 @@ public class Menu : MonoBehaviour {
 		sss.Play ();
 		quitMenu.enabled = false;
 		playClick.enabled = true;
+		controlsClick.enabled = true;
 		exitClick.enabled = true;
 		yesButton.SetActive(false); //Needed so that the button cannot be selected whilst on main menu.
 		noButton.SetActive(false); //Needed so that the button cannot be selected whilst on main menu.
@@ -101,8 +115,15 @@ public class Menu : MonoBehaviour {
 	
 		if (EventSystem.current.currentSelectedGameObject == selected)
 		{
+			if (selected != null)
 			selected.transform.Rotate( new Vector3(0,0,Mathf.PingPong(Time.time, 0.5f)-0.25f));
 		
+		}
+
+		if(Input.GetKey("joystick button 1") && controlsMenu.enabled == true)
+		{
+			NoClick ();
+			controlsMenu.enabled = false;
 		}
 
 

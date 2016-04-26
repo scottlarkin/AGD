@@ -12,9 +12,12 @@ public class PersistantDataContainer : MonoBehaviour {
 	public List<Score> scores;
 	public float menuMusicTime;
 
+	public List<string> players;
+
 	public PersistantDataContainer(){
 
 		scores = new List<Score>();
+		players = new List<string>();
 	
 	}
 
@@ -24,9 +27,18 @@ public class PersistantDataContainer : MonoBehaviour {
 		return scores;
 	}
 
-	public void AddPlayer(){
+	public void AddPlayer(string playerNumber){
 		PlayerCount++;
-		scores.Add(new Score(PlayerCount));
+		players.Add(playerNumber);
+		players.Sort((x,y)=> int.Parse(x).CompareTo(int.Parse(y))); //Sorted so that players always go in order. i.e. useful for looping through players
+		scores.Add(new Score(int.Parse (playerNumber)));
+	}
+
+	public void clearAll()
+	{
+		PlayerCount = 0;
+		players.Clear();
+		scores.Clear();
 	}
 
 }

@@ -1,7 +1,7 @@
 // Shader created with Shader Forge v1.04 
 // Shader Forge (c) Neat Corporation / Joachim Holmer - http://www.acegikmo.com/shaderforge/
 // Note: Manually altering this data may prevent you from opening it in Shader Forge
-/*SF_DATA;ver:1.04;sub:START;pass:START;ps:flbk:,lico:1,lgpr:1,nrmq:1,limd:2,uamb:False,mssp:True,lmpd:False,lprd:False,rprd:False,enco:False,frtr:True,vitr:True,dbil:True,rmgx:True,rpth:0,hqsc:True,hqlp:False,tesm:0,blpr:0,bsrc:0,bdst:1,culm:2,dpts:2,wrdp:True,dith:2,ufog:True,aust:True,igpj:False,qofs:0,qpre:2,rntp:3,fgom:False,fgoc:False,fgod:False,fgor:False,fgmd:0,fgcr:0.5,fgcg:0.5,fgcb:0.5,fgca:1,fgde:0.01,fgrn:0,fgrf:300,ofsf:0,ofsu:0,f2p0:False;n:type:ShaderForge.SFN_Final,id:3577,x:33007,y:32713,varname:node_3577,prsc:2|diff-1382-RGB,emission-1382-RGB,clip-1382-A;n:type:ShaderForge.SFN_Tex2d,id:1382,x:32730,y:32746,ptovrint:False,ptlb:node_1382,ptin:_node_1382,varname:node_1382,prsc:2,tex:255999c6da7b0e840b20bcdbd412011d,ntxv:0,isnm:False|UVIN-8846-UVOUT;n:type:ShaderForge.SFN_Panner,id:8846,x:32614,y:32876,varname:node_8846,prsc:2,spu:-0.4,spv:0;proporder:1382;pass:END;sub:END;*/
+/*SF_DATA;ver:1.04;sub:START;pass:START;ps:flbk:,lico:1,lgpr:1,nrmq:1,limd:2,uamb:False,mssp:True,lmpd:False,lprd:False,rprd:False,enco:False,frtr:True,vitr:True,dbil:True,rmgx:True,rpth:0,hqsc:True,hqlp:False,tesm:0,blpr:0,bsrc:0,bdst:1,culm:2,dpts:2,wrdp:True,dith:2,ufog:True,aust:True,igpj:False,qofs:0,qpre:2,rntp:3,fgom:False,fgoc:False,fgod:False,fgor:False,fgmd:0,fgcr:0.5,fgcg:0.5,fgcb:0.5,fgca:1,fgde:0.01,fgrn:0,fgrf:300,ofsf:0,ofsu:0,f2p0:False;n:type:ShaderForge.SFN_Final,id:3577,x:33007,y:32713,varname:node_3577,prsc:2|diff-1382-RGB,emission-1382-RGB,clip-1382-A;n:type:ShaderForge.SFN_Tex2d,id:1382,x:32730,y:32746,ptovrint:False,ptlb:node_1382,ptin:_node_1382,varname:node_1382,prsc:2,tex:255999c6da7b0e840b20bcdbd412011d,ntxv:0,isnm:False;proporder:1382;pass:END;sub:END;*/
 
 Shader "Shader Forge/Stars_Ring" {
     Properties {
@@ -47,7 +47,6 @@ Shader "Shader Forge/Stars_Ring" {
                 return round(value + dot(pxMult, xVec));
             }
             uniform float4 _LightColor0;
-            uniform float4 _TimeEditor;
             uniform sampler2D _node_1382; uniform float4 _node_1382_ST;
             struct VertexInput {
                 float4 vertex : POSITION;
@@ -91,9 +90,7 @@ Shader "Shader Forge/Stars_Ring" {
                 i.normalDir *= nSign;
                 normalDirection *= nSign;
                 
-                float4 node_7832 = _Time + _TimeEditor;
-                float2 node_8846 = (i.uv0+node_7832.g*float2(-0.4,0));
-                float4 _node_1382_var = tex2D(_node_1382,TRANSFORM_TEX(node_8846, _node_1382));
+                float4 _node_1382_var = tex2D(_node_1382,TRANSFORM_TEX(i.uv0, _node_1382));
                 clip( BinaryDither3x3(_node_1382_var.a - 1.5, sceneUVs) );
                 float3 lightDirection = normalize(_WorldSpaceLightPos0.xyz);
                 float3 lightColor = _LightColor0.rgb;
@@ -148,7 +145,6 @@ Shader "Shader Forge/Stars_Ring" {
                 return round(value + dot(pxMult, xVec));
             }
             uniform float4 _LightColor0;
-            uniform float4 _TimeEditor;
             uniform sampler2D _node_1382; uniform float4 _node_1382_ST;
             struct VertexInput {
                 float4 vertex : POSITION;
@@ -192,9 +188,7 @@ Shader "Shader Forge/Stars_Ring" {
                 i.normalDir *= nSign;
                 normalDirection *= nSign;
                 
-                float4 node_4558 = _Time + _TimeEditor;
-                float2 node_8846 = (i.uv0+node_4558.g*float2(-0.4,0));
-                float4 _node_1382_var = tex2D(_node_1382,TRANSFORM_TEX(node_8846, _node_1382));
+                float4 _node_1382_var = tex2D(_node_1382,TRANSFORM_TEX(i.uv0, _node_1382));
                 clip( BinaryDither3x3(_node_1382_var.a - 1.5, sceneUVs) );
                 float3 lightDirection = normalize(lerp(_WorldSpaceLightPos0.xyz, _WorldSpaceLightPos0.xyz - i.posWorld.xyz,_WorldSpaceLightPos0.w));
                 float3 lightColor = _LightColor0.rgb;
@@ -246,7 +240,6 @@ Shader "Shader Forge/Stars_Ring" {
                 float3 pxMult = float3( dot(mtx[0],yVec), dot(mtx[1],yVec), dot(mtx[2],yVec) );
                 return round(value + dot(pxMult, xVec));
             }
-            uniform float4 _TimeEditor;
             uniform sampler2D _node_1382; uniform float4 _node_1382_ST;
             struct VertexInput {
                 float4 vertex : POSITION;
@@ -275,9 +268,7 @@ Shader "Shader Forge/Stars_Ring" {
                 i.screenPos.y *= _ProjectionParams.x;
                 float2 sceneUVs = float2(1,grabSign)*i.screenPos.xy*0.5+0.5;
 /////// Vectors:
-                float4 node_8125 = _Time + _TimeEditor;
-                float2 node_8846 = (i.uv0+node_8125.g*float2(-0.4,0));
-                float4 _node_1382_var = tex2D(_node_1382,TRANSFORM_TEX(node_8846, _node_1382));
+                float4 _node_1382_var = tex2D(_node_1382,TRANSFORM_TEX(i.uv0, _node_1382));
                 clip( BinaryDither3x3(_node_1382_var.a - 1.5, sceneUVs) );
                 SHADOW_COLLECTOR_FRAGMENT(i)
             }
@@ -318,7 +309,6 @@ Shader "Shader Forge/Stars_Ring" {
                 float3 pxMult = float3( dot(mtx[0],yVec), dot(mtx[1],yVec), dot(mtx[2],yVec) );
                 return round(value + dot(pxMult, xVec));
             }
-            uniform float4 _TimeEditor;
             uniform sampler2D _node_1382; uniform float4 _node_1382_ST;
             struct VertexInput {
                 float4 vertex : POSITION;
@@ -347,9 +337,7 @@ Shader "Shader Forge/Stars_Ring" {
                 i.screenPos.y *= _ProjectionParams.x;
                 float2 sceneUVs = float2(1,grabSign)*i.screenPos.xy*0.5+0.5;
 /////// Vectors:
-                float4 node_9875 = _Time + _TimeEditor;
-                float2 node_8846 = (i.uv0+node_9875.g*float2(-0.4,0));
-                float4 _node_1382_var = tex2D(_node_1382,TRANSFORM_TEX(node_8846, _node_1382));
+                float4 _node_1382_var = tex2D(_node_1382,TRANSFORM_TEX(i.uv0, _node_1382));
                 clip( BinaryDither3x3(_node_1382_var.a - 1.5, sceneUVs) );
                 SHADOW_CASTER_FRAGMENT(i)
             }

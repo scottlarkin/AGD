@@ -1,17 +1,35 @@
 ﻿//Scott larkin
 
 //Sets the number of players on the podium, and colours players depending on scores so that the winner is on the highest podium, etc.
-
+using UnityEngine.UI;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
 public class PodiumPlayerSet : MonoBehaviour {
 
+	public GameObject text;
+
 	// Use this for initialization
 	void Start () {
 	
+
+		
+		Dictionary<int, string> d = new Dictionary<int, string>();
+		d.Add(1, "ONE");
+		d.Add(2, "TWO");
+		d.Add(3, "THREE");
+		d.Add(4, "FOUR");
+
+		Text t = text.GetComponent<Text>();
+
+		text.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
+		text.GetComponent<RectTransform>().anchorMax = new Vector2(0, 0);
+		text.GetComponent<RectTransform>().anchoredPosition = new Vector2(Screen.width/4.0f, 175.0f);
+
 		PersistantDataContainer dc = GameObject.Find("PersistantDataContainer").GetComponent<PersistantDataContainer>();
+
+		t.text = "PLAYER " +  d[dc.scores[0].playerNumber] + " WINS!";
 
 		List<List<Material>> materials = new List<List<Material>>();
 
@@ -64,7 +82,8 @@ public class PodiumPlayerSet : MonoBehaviour {
 		   Input.GetKey("joystick 2 button 7") ||
 		   Input.GetKey("joystick 3 button 7") || 
 		   Input.GetKey("joystick 4 button 7")){
-			
+
+			GameObject.Find("PersistantDataContainer").GetComponent<PersistantDataContainer>().clearAll();
 			Application.LoadLevel("Main_Menu");
 		}
 	}

@@ -15,20 +15,19 @@ public class SpawnPlayers : MonoBehaviour {
 
 		var spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
 
-		for(int i = 1; i < count + 1; i++){
+		var x = GameObject.Find("PersistantDataContainer").GetComponent<PersistantDataContainer>().players;
 
-			GameObject p = GameObject.Instantiate(Resources.Load("Player " + i.ToString())) as GameObject;
+		foreach(string player in x){
 
-			p.transform.position = spawnPoints[i-1].transform.position;
+			GameObject p = GameObject.Instantiate(Resources.Load("Player " + player ), spawnPoints[int.Parse(player) - 1].transform.position, spawnPoints[int.Parse(player) - 1].transform.rotation) as GameObject;
+			
+			//p.transform.position = spawnPoints[int.Parse(player) - 1].transform.position;
+			
+			p.GetComponent<PlayerInfo>().setNumber(player);
 
 			PlayerManager.addPlayer(p);
 
 		}
+	}
 
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }

@@ -118,16 +118,19 @@
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_Antialiasing\FXAAPreset3.shader" />
      <None Include="Assets\ShaderForge\Example Assets\Shaders\MaterialPlatform.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\FisheyeShader.shader" />
+     <None Include="Assets\Images\PlayerPins\Player4_Pin.shader" />
      <None Include="Assets\VFX\Attack\Cloud_Line.shader" />
      <None Include="Assets\ShaderForge\Example Assets\Shaders\Vegetation.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\Contrast Stretch\Apply.shader" />
      <None Include="Assets\Textures\Pizza_Shop\pizzas ivy.shader" />
      <None Include="Assets\Standard Assets\Water (Pro Only)\Water4\Sources\Shaders\FX-SimpleWater4.shader" />
+     <None Include="Assets\VFX\PizzaMan\PizzaMan.shader" />
      <None Include="Assets\ShaderForge\Example Assets\Shaders\VertexAnimation.shader" />
      <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\frag_ao.cginc" />
      <None Include="Assets\Textures\Character_Textures\Green_P2\Green_Body.shader" />
      <None Include="Assets\Textures\Seem_Protector\Seem_Protector_Mat.shader" />
+     <None Include="Assets\Images\PlayerPins\Player1_Pin.shader" />
      <None Include="Assets\VFX\Attack\Orange_Attack\Or_Cloud_1.shader" />
      <None Include="Assets\VFX\Attack\Green_Attack\Gr_Cloud_03.shader" />
      <None Include="Assets\Textures\Seperators\Seperator.shader" />
@@ -155,6 +158,7 @@
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\NoiseEffectShaderYUV.shader" />
      <None Include="Assets\VFX\Stunned\Birds.shader" />
      <None Include="Assets\Textures\Ornate_Large\Ornate_Blocker.shader" />
+     <None Include="Assets\Images\PlayerPins\Player2_Pin.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\GlowEffectDownsample.shader" />
      <None Include="Assets\ShaderForge\Example Assets\Shaders\LightWrapping.shader" />
      <None Include="Assets\VFX\Attack\Blue_Attack\Bl_Cloud_02.shader" />
@@ -169,6 +173,7 @@
      <None Include="Assets\Textures\Bin\Bin.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\GlobalFog.shader" />
      <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-LightedOutline.shader" />
+     <None Include="Assets\Images\PlayerPins\Player3_Pin.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\Contrast Stretch\Luminance.shader" />
      <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-Lighted.shader" />
      <None Include="Assets\Textures\Ornate_Large\Ornate_Large.shader" />

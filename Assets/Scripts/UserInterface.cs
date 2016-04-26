@@ -33,11 +33,12 @@ public class UserInterface : MonoBehaviour {
 	
 	void CreateUI()
 	{
-		
+
+		PersistantDataContainer pdc = GameObject.Find("PersistantDataContainer").GetComponent<PersistantDataContainer>();
 		players = PlayerManager.getPlayers (); //get a list of players
 		uiObjects  = new List<GameObject>(); //create a new list of gameobjects
 		playersInfo  = new List<PlayerInfo>(); //create a new list of playerinfos
-		noOfPlayers = players.Count;
+		noOfPlayers = pdc.PlayerCount;
 		
 		float screenDiv = Screen.width / noOfPlayers;
 		Debug.Log ("ScreenDiv = " + screenDiv);
@@ -45,6 +46,7 @@ public class UserInterface : MonoBehaviour {
 		uiObjects.Clear ();
 		for (int i = 0; i < noOfPlayers; i++) //for all players
 		{
+
 			PlayerInfo pInfo = players[i].GetComponent<PlayerInfo>();
 			playersInfo.Add(pInfo);
 			
@@ -59,7 +61,7 @@ public class UserInterface : MonoBehaviour {
 			uiPos.anchorMax = new Vector2(0, 0);
 			//uiPos.anchoredPosition = new Vector2((i * (screenDiv + uiPos.rect.width)), dmgYPos);
 			uiPos.anchoredPosition = new Vector2((float)((screenDiv * (i + 0.5)) - (uiPos.rect.width / 2)) + 160 , dmgYPos);
-			uiText.color = colors[i];
+			uiText.color = colors[int.Parse (GameObject.Find("PersistantDataContainer").GetComponent<PersistantDataContainer>().players[i])-1]; //The correct colour appears on the ui dependent on the selected players
 			Debug.Log ("P" + i + ": =" + ((i * (screenDiv))));
 			
 			uiObjects.Add(playerText);

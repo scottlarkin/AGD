@@ -24,6 +24,8 @@ public class LinearProjectile : MonoBehaviour {
 
 		transform.position += direction * speed * Time.deltaTime;
 
+		transform.position = new Vector3(transform.position.x, transform.position.y, -1.5f);
+
 		//destroy when the object goes out of range
 		if((startPos - transform.position).magnitude > range)
 			GameObject.Destroy(gameObject);

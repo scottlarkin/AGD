@@ -26,6 +26,7 @@ public class Attack : MonoBehaviour {
 
 
 	private ParticleSystem attackVFX;
+	private ParticleSystem blockVFX;
 	private AudioSource attackSound;
 
 	// Use this for initialization
@@ -36,13 +37,17 @@ public class Attack : MonoBehaviour {
 		attackSound.Stop();
 		attackVFX = gameObject.transform.Find("character/Attack_VFX").GetComponent<ParticleSystem>();
 		attackVFX.playOnAwake = false;
+		blockVFX = gameObject.transform.Find("character/Block").GetComponent<ParticleSystem>();
+		blockVFX.playOnAwake = false;
 
 		pi = gameObject.GetComponent<PlayerInfo>(); //Gets this players PlayerInfo script information.
 		cc = gameObject.GetComponent<CharacterController>(); //Gets this players CharacterController information
 		animator = transform.Find("character").GetComponent<Animator>();
 		attackCD = new CooldownTimer (attackCoolDown, true); //creates a cooldown for the attack.
-		counterCD = new CooldownTimer (counterCoolDown, false); //creates a cooldown for the counter 
-		counterDur = new CooldownTimer (3.0f, true);
+		counterCD = new CooldownTimer (counterCoolDown); //creates a cooldown for the counter 
+		counterDur = new CooldownTimer (counterDuration, true);
+
+		counterCD.forceCooldownOver();
 
 	}
 
@@ -57,7 +62,7 @@ public class Attack : MonoBehaviour {
 		//Debug.Log (pi.GetDirection ());
 		
 		//ATTACK
-		if (Input.GetKey ("joystick " + pi.playerNumber + " button 2") && pi.isBlocking == false) { //Checks whether 'X' has been pressed on the players controller.
+		if (Input.GetKey ("joystick " + pi.playerNumber + " button 2") && !pi.isBlocking && !pi.isStunned()) { //Checks whether 'X' has been pressed on the players controller.
 			if (attackCD.checkCooldownOver()) //Checks whether the attack is on cooldown or not.
 			{
 				animator.SetBool ("attack", true);
@@ -72,90 +77,19 @@ public class Attack : MonoBehaviour {
 		}
 		
 		//BLOCK
-		//Need to get block duration working.
-		/*if (Input.GetKey ("joystick " + pi.playerNumber + " button 1")) {
-
-			if (CanBlock ()) {
-
-				pi.isBlocking = true; //Sets the boolean in the playerinfo script to true.
-				animator.SetBool ("block", true);
-				
-				
-			}
-			
-		}
-
-		if (Input.GetKeyUp ("joystick " + pi.playerNumber + " button 1"))
-		{
-			lastBlockTime = Time.time;
-		}*/
-		//Debug.Log (counterDur.checkCooldownOver());
-		/*if (!counterDur.checkCooldownOver())
-			{
-				pi.isBlocking = true; //Sets the boolean in the playerinfo script to true.
-				animator.SetBool ("block", true);
-				//counterCD.startCooldown();
-				if (!counterCD.isTiming)
-					counterCD.startCooldown();
-
-				if(!counterDur.isTiming)
-					counterDur.startCooldown();
-			}
-			else
-			{
-				counterDur.stop ();
-				pi.isBlocking = false;//If B isn't being pressed then they are not blocking.
-				animator.SetBool("block", false);
-			}
-		*/
-		if (Input.GetButton ("P_" + pi.playerNumber + " block")) // Checks whether 'B' has been pressed on the players controller.
-		{
-
-			if(!counterDur.checkCooldownOver() && counterCD.checkCooldownOver())
-			{
-				pi.isBlocking = true;
-				animator.SetBool ("block", true);
-			
-				if(!counterDur.isTiming)
-					counterDur.startCooldown();
-			}
-			else 
-			{
-				pi.isBlocking = false;//If B isn't being pressed then they are not blocking.
-				animator.SetBool("block", false);
-				counterDur.stop ();
-				counterCD.startCooldown();
-				
-			}
+		if(!pi.isStunned())
+			Block();
 
 
-		} else 
-		{
-			pi.isBlocking = false;//If B isn't being pressed then they are not blocking.
-			animator.SetBool("block", false);
-			counterDur.stop ();
-			//counterCD.startCooldown();
-			
-		}
-		
-		
-		//Debug.Log (pi.isBlocking);
-	if (Input.GetButtonUp ("P_" + pi.playerNumber + " block"))
-	{
-			//if(!counterCD.isTiming)
-				counterCD.startCooldown();
 
-			pi.isBlocking = false;//If B isn't being pressed then they are not blocking.
-			animator.SetBool("block", false);
-	}
 	}
 	
 	void PushAttack() //The main attack
 	{
 		attackVec = attackRange.transform.position - rayOrigin.transform.position; //sets the positions of the attack transform objects to a Vector we can use.
 		//attackVec = new Vector3 ((pi.GetDirection() * attackVec.x), attackVec.y, attackVec.z); //modifies the vectore depending on which way you are facing.
-		Debug.DrawLine (rayOrigin.transform.position,rayOrigin.transform.position + attackVec, Color.green);
-		Debug.Log (attackVec.x + " " + attackVec.y + " " + attackVec.z);
+		//Debug.DrawLine (rayOrigin.transform.position,rayOrigin.transform.position + attackVec, Color.green);
+		//Debug.Log (attackVec.x + " " + attackVec.y + " " + attackVec.z);
 		
 		attackCD.startCooldown(); //Starts the attack cooldown
 		//Debug.Log ("You are attacking");
@@ -212,5 +146,51 @@ public class Attack : MonoBehaviour {
 		attackArr.Add (counterVec.normalized);
 		this.SendMessage ("ApplyForce", attackArr, SendMessageOptions.DontRequireReceiver); //Has this player knocked backwards.
 		this.SendMessage ("ApplyDamage", counterDamage, SendMessageOptions.DontRequireReceiver);
+	}
+
+	void Block()
+	{
+		animator.SetBool("block", pi.isBlocking);
+		
+		if (pi.isBlocking)
+		{
+			blockVFX.renderer.enabled = true;
+			blockVFX.Play ();
+		}
+		else
+		{
+			blockVFX.Clear();
+			blockVFX.renderer.enabled = false;
+			blockVFX.Stop();
+		}
+		
+		if (Input.GetButton ("P_" + pi.playerNumber + " block")) // Checks whether 'B' has been pressed on the players controller.
+		{
+			
+			if(!pi.isBlocking && counterCD.checkCooldownOver()){
+				
+				if(!counterDur.isTiming){
+					counterDur.startCooldown();
+				}
+				
+				pi.isBlocking = true;
+				
+			}
+			
+		}
+		else 
+		{
+			if(pi.isBlocking){
+				counterDur.stop();
+				pi.isBlocking = false;
+				counterCD.startCooldown();
+			}
+		}
+		
+		if(pi.isBlocking && counterDur.checkCooldownOver()){
+			counterDur.stop();
+			pi.isBlocking = false;
+			counterCD.startCooldown();
+		}
 	}
 }

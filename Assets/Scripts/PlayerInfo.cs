@@ -38,6 +38,8 @@ public class PlayerInfo : MonoBehaviour {
 	private float health;
 	public string playerNumber;
 
+	AudioSource stunSound;
+	GameObject halo;
 
 	public float GetDirection()
 	{
@@ -48,14 +50,22 @@ public class PlayerInfo : MonoBehaviour {
 	{
 		direction = d == -1.0f ? DIRECTION.LEFT : DIRECTION.RIGHT;
 	}
-	
+
+	public void setNumber(string number){
+		playerNumber = number;
+	}
+
 	// Use this for initialization
 	void Start () {
 
-
+		halo = transform.Find("character/Halo").gameObject;
+			
+		stunSound = gameObject.transform.Find("Center").GetComponent<AudioSource>();
+		stunSound.Stop();
 		animator = gameObject.transform.FindChild("character").GetComponent<Animator>();
 
-		playerNumber = gameObject.tag.Split('_')[1];
+		//playerNumber = gameObject.tag.Split('_')[1];
+
 		health = maxHealth;
 
 		foreach(GameObject p in PlayerManager.getPlayers()){
@@ -76,11 +86,27 @@ public class PlayerInfo : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if(stunned > 0){
+
+
+
+		if(isStunned ()){
+			halo.transform.Rotate(0, 0, 180.0f * Time.deltaTime);
+			halo.renderer.enabled = true;
+
+			if(!stunSound.isPlaying)
+				stunSound.Play();
+
+
 			stunned -= Time.deltaTime;
 			animator.SetFloat("stunned", stunned);
 		}
+		else{
+			stunSound.Stop();
+			halo.renderer.enabled = false;
+		}
+		//halo.transform.rotation = Quaternion.Euler(new Vector3(270, 90, 0));
+		gameObject.transform.Find("Player" + playerNumber + "Pin").transform.rotation = Quaternion.Euler(Vector3.forward); //Lock pins in forward facing position
 
-		//Debug.Log (playerNumber + ": = " + GetDirection()); 
+
 	}
 }
