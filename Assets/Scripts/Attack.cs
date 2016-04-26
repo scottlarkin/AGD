@@ -41,7 +41,7 @@ public class Attack : MonoBehaviour {
 		cc = gameObject.GetComponent<CharacterController>(); //Gets this players CharacterController information
 		animator = transform.Find("character").GetComponent<Animator>();
 		attackCD = new CooldownTimer (attackCoolDown, true); //creates a cooldown for the attack.
-		counterCD = new CooldownTimer (counterCoolDown, true); //creates a cooldown for the counter 
+		counterCD = new CooldownTimer (counterCoolDown, false); //creates a cooldown for the counter 
 		counterDur = new CooldownTimer (3.0f, true);
 
 	}
@@ -90,16 +90,14 @@ public class Attack : MonoBehaviour {
 			lastBlockTime = Time.time;
 		}*/
 		//Debug.Log (counterDur.checkCooldownOver());
-
-		if (Input.GetKey ("joystick " + pi.playerNumber + " button 1") && counterCD.checkCooldownOver()) // Checks whether 'B' has been pressed on the players controller.
-		{
-			
-			if (!counterDur.checkCooldownOver())
+		/*if (!counterDur.checkCooldownOver())
 			{
 				pi.isBlocking = true; //Sets the boolean in the playerinfo script to true.
 				animator.SetBool ("block", true);
-				counterCD.startCooldown();
-				
+				//counterCD.startCooldown();
+				if (!counterCD.isTiming)
+					counterCD.startCooldown();
+
 				if(!counterDur.isTiming)
 					counterDur.startCooldown();
 			}
@@ -109,24 +107,53 @@ public class Attack : MonoBehaviour {
 				pi.isBlocking = false;//If B isn't being pressed then they are not blocking.
 				animator.SetBool("block", false);
 			}
+		*/
+		if (Input.GetButton ("P_" + pi.playerNumber + " block")) // Checks whether 'B' has been pressed on the players controller.
+		{
+
+			if(!counterDur.checkCooldownOver() && counterCD.checkCooldownOver())
+			{
+				pi.isBlocking = true;
+				animator.SetBool ("block", true);
 			
+				if(!counterDur.isTiming)
+					counterDur.startCooldown();
+			}
+			else 
+			{
+				pi.isBlocking = false;//If B isn't being pressed then they are not blocking.
+				animator.SetBool("block", false);
+				counterDur.stop ();
+				counterCD.startCooldown();
+				
+			}
+
+
 		} else 
 		{
 			pi.isBlocking = false;//If B isn't being pressed then they are not blocking.
 			animator.SetBool("block", false);
 			counterDur.stop ();
+			//counterCD.startCooldown();
 			
 		}
 		
 		
 		//Debug.Log (pi.isBlocking);
+	if (Input.GetButtonUp ("P_" + pi.playerNumber + " block"))
+	{
+			//if(!counterCD.isTiming)
+				counterCD.startCooldown();
+
+			pi.isBlocking = false;//If B isn't being pressed then they are not blocking.
+			animator.SetBool("block", false);
+	}
 	}
 	
 	void PushAttack() //The main attack
 	{
 		attackVec = attackRange.transform.position - rayOrigin.transform.position; //sets the positions of the attack transform objects to a Vector we can use.
-		//SCOTT'S DONE SOMETHING SO THE BELOW ISN'T NEEDED BUT NOT TOLD ME WHAT!
-		attackVec = new Vector3 ((1 * attackVec.x), attackVec.y, attackVec.z); //modifies the vectore depending on which way you are facing.
+		//attackVec = new Vector3 ((pi.GetDirection() * attackVec.x), attackVec.y, attackVec.z); //modifies the vectore depending on which way you are facing.
 		Debug.DrawLine (rayOrigin.transform.position,rayOrigin.transform.position + attackVec, Color.green);
 		Debug.Log (attackVec.x + " " + attackVec.y + " " + attackVec.z);
 		
@@ -177,8 +204,10 @@ public class Attack : MonoBehaviour {
 	void GetCountered() //The block's counter move.
 	{
 		counterVec = attackRange.transform.position - rayOrigin.transform.position;// Gets the attackVec information
-		counterVec = new Vector3 ((-pi.GetDirection() * counterVec.x), counterVec.y, counterVec.z); //Modifies the vector to aim in the opposite direction to the player so you're always hit backwards.
+		counterVec = new Vector3 (-counterVec.x, counterVec.y, counterVec.z); //Modifies the vector to aim in the opposite direction to the player so you're always hit backwards.
+		Debug.Log(-pi.GetDirection());
 		//Debug.DrawLine (rayOrigin.transform.position, rayOrigin.transform.position + Vector3.Normalize (counterVec), Color.magenta);
+		attackArr.Clear ();
 		attackArr.Add (counterPower);
 		attackArr.Add (counterVec.normalized);
 		this.SendMessage ("ApplyForce", attackArr, SendMessageOptions.DontRequireReceiver); //Has this player knocked backwards.
